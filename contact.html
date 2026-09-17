@@ -1,197 +1,362 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact Us | GoGo Tyre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  body { margin: 0; background: #f5f2ed; }
-  * { box-sizing: border-box; }
-  a { text-decoration: none; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
+  a { text-decoration: none; color: inherit; }
   input, textarea { font-family: 'Figtree', sans-serif; }
+
+  /* ===== NAV (copied from index.html) ===== */
+  nav {
+    width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
+    padding: 0 64px; height: 88px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon {
+    width: 40px; height: 40px; border-radius: 8px; background: #3d5a47;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .logo-text { display: flex; flex-direction: column; gap: 2px; }
+  .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
+  .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
+  .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-phone { display: flex; align-items: center; gap: 8px; }
+  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
+  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
+  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .btn-book {
+    background: #3d5a47; border-radius: 6px; padding: 12px 20px;
+    font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .btn-book:hover { background: #4a6e57; }
+
+  /* ===== PAGE HEADER ===== */
+  .page-header {
+    background: #2a2d2e; padding: 64px 96px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 24px; text-align: center;
+  }
+  .page-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #3d4142; border-radius: 200px; padding: 8px 16px;
+  }
+  .page-badge span { font-weight: 700; font-size: 12px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
+  .page-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3d5a47; flex-shrink: 0; }
+  .page-header h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(28px, 4.5vw, 48px);
+    line-height: 1.1; color: #fff;
+  }
+  .page-header > p { font-size: clamp(15px, 1.8vw, 18px); line-height: 1.6; color: #d4cfc8; max-width: 700px; }
+
+  /* ===== MAIN CONTACT ===== */
+  .contact-main {
+    background: #f5f2ed; padding: 80px 96px;
+    display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+  }
+
+  .contact-form {
+    flex: 1 1 480px;
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px;
+    padding: 32px; display: flex; flex-direction: column; gap: 24px;
+  }
+  .form-heading { display: flex; flex-direction: column; gap: 6px; }
+  .form-heading strong { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 22px; color: #2a2d2e; }
+  .form-heading span { font-size: 14px; color: #888880; }
+  .form-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .form-field { flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; }
+  .form-field label {
+    font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13px;
+    color: #2a2d2e; text-transform: uppercase;
+  }
+  .form-field input, .form-field textarea {
+    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 6px;
+    padding: 0 16px; font-size: 15px; color: #2a2d2e; outline: none;
+  }
+  .form-field input { height: 50px; }
+  .form-field textarea { height: 120px; padding: 16px; line-height: 1.5; resize: none; }
+  .form-field input:focus, .form-field textarea:focus { border-color: #3d5a47; }
+  .btn-submit {
+    background: #3d5a47; border: none; border-radius: 6px; padding: 16px 32px;
+    font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 16px;
+    color: #fff; text-align: center; cursor: pointer;
+  }
+  .btn-submit:hover { background: #4a6e57; }
+
+  .contact-info { flex: 1 1 360px; display: flex; flex-direction: column; gap: 24px; max-width: 520px; }
+  .info-card {
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px;
+    padding: 32px; display: flex; flex-direction: column; gap: 24px;
+  }
+  .info-card > strong {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 18px;
+    color: #2a2d2e; text-transform: uppercase;
+  }
+  .info-row { display: flex; gap: 12px; align-items: flex-start; }
+  .info-row svg { flex-shrink: 0; margin-top: 2px; }
+  .info-text { display: flex; flex-direction: column; gap: 2px; }
+  .info-text small { font-weight: 600; font-size: 11px; color: #888880; text-transform: uppercase; }
+  .info-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #2a2d2e; }
+  .info-text span { font-weight: 400; font-size: 14px; color: #888880; }
+  .info-divider { width: 100%; height: 1px; background: #e1dbd2; }
+  .hours { display: flex; flex-direction: column; gap: 10px; }
+  .hours-heading { display: flex; align-items: center; gap: 8px; }
+  .hours-heading strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15px; color: #2a2d2e; }
+  .hours-row { display: flex; justify-content: space-between; gap: 12px; }
+  .hours-row span:first-child { font-weight: 600; font-size: 14px; color: #2a2d2e; }
+  .hours-row span:last-child { font-weight: 400; font-size: 14px; color: #888880; }
+
+  .map-card {
+    width: 100%; min-height: 200px; border-radius: 16px; background: #e8e2d9;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  }
+  .map-card span { font-weight: 700; font-size: 14px; color: #2a2d2e; }
+
+  /* ===== CTA BAR ===== */
+  .cta-bar {
+    background: #3d5a47; padding: 40px 96px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  }
+  .cta-bar span {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(18px, 2.5vw, 24px); color: #fff;
+  }
+  .btn-white {
+    background: #fff; color: #3d5a47; border-radius: 6px;
+    padding: 16px 32px; font-weight: 700; font-size: 16px; white-space: nowrap;
+  }
+  .btn-white:hover { background: #f0ede8; }
+
+  /* ===== FOOTER (copied from index.html) ===== */
+  footer { background: #2a2d2e; padding: 80px 96px 40px; }
+  .footer-top { display: flex; gap: 64px; justify-content: space-between; flex-wrap: wrap; }
+  .footer-brand { max-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+  .footer-brand p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
+  .payment-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    background: #3d4142; border-radius: 4px; padding: 6px 10px;
+    font-weight: 700; font-size: 10px; color: #d4cfc8;
+  }
+  .footer-col { display: flex; flex-direction: column; gap: 14px; }
+  .footer-col strong { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 13px; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .footer-col a, .footer-col span { font-size: 14px; color: #d4cfc8; display: block; }
+  .footer-col a:hover { color: #fff; }
+  .footer-divider { height: 1px; background: #3d4142; margin: 48px 0 32px; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-bottom span { font-size: 13px; color: #d4cfc8; }
+  .footer-bottom-links { display: flex; gap: 24px; }
+  .footer-bottom-links a { font-size: 13px; color: #d4cfc8; }
+  .footer-bottom-links a:hover { color: #fff; }
+  .stars { display: flex; gap: 2px; }
+  .social-row { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 18px; background: #3d4142;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    nav { padding: 0 32px; }
+    .page-header { padding: 48px 32px; }
+    .contact-main, .cta-bar, footer { padding: 56px 32px; }
+  }
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; height: 72px; }
+    .nav-links, .nav-phone { display: none; }
+    .page-header { padding: 40px 20px; }
+    .contact-main { padding: 40px 20px; flex-direction: column; }
+    .contact-form, .contact-info { flex: 1 1 auto; width: 100%; max-width: 100%; }
+    .cta-bar { padding: 32px 20px; flex-direction: column; text-align: center; }
+    footer { padding: 48px 20px; }
+    .footer-top { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
 </style>
 </head>
 <body>
-<div style="width:1440px;height:1860px;position:relative;background:#f5f2ed;font-family:'Figtree',sans-serif;">
 
-  <!-- NAVBAR -->
-  <div style="width:1440px;height:88px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;background:#2a2d2e;border-bottom:1px solid #3d4142;">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:40px;height:40px;border-radius:8px;background:#3d5a47;display:flex;align-items:center;justify-content:center;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="3" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="21"></line><line x1="3" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="21" y2="12"></line></svg>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></svg>
+    </div>
+    <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="mobile-fitting.html">Mobile Fitting</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-phone">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
+      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
+    </div>
+    <a href="contact.html" class="btn-book">Book Fitting</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-badge"><span>Get In Touch</span></div>
+  <h1>Contact GoGo Tyre Norwich</h1>
+  <p>Questions, quotes or bookings — our Norwich team is ready to help.</p>
+</section>
+
+<!-- MAIN CONTACT -->
+<section class="contact-main">
+
+  <!-- Note: form is static for now — no action/handler wired up -->
+  <form class="contact-form">
+    <div class="form-heading">
+      <strong>Send Us a Message</strong>
+      <span>We aim to reply to every enquiry within one working day.</span>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>Full Name</label>
+        <input type="text" placeholder="Edward Finchley">
       </div>
-      <div style="display:flex;flex-direction:column;gap:2px;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;color:#ffffff;line-height:1;">GOGO TYRE</span>
-        <span style="font-family:'Figtree',sans-serif;font-weight:700;font-size:9px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.6px;">Norwich Fitting</span>
+      <div class="form-field">
+        <label>Email Address</label>
+        <input type="email" placeholder="edward@finchley.co.uk">
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:32px;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">Tyres</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">Services</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">Mobile Fitting</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">About</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:700;font-size:15px;color:#ffffff;">Contact</span><div style="width:16px;height:2px;border-radius:1px;background:#3d5a47;"></div></div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="07700 900077">
+      </div>
+      <div class="form-field">
+        <label>Subject</label>
+        <input type="text" placeholder="Mobile fitting quote">
+      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:28px;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"></path></svg>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <span style="font-weight:600;font-size:11px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.4px;">Norwich Hotline</span>
-          <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;color:#ffffff;">01603 555888</span>
+    <div class="form-field">
+      <label>Message</label>
+      <textarea placeholder="Tell us about your vehicle, preferred tyres, or the best time for a mobile visit..."></textarea>
+    </div>
+    <button type="submit" class="btn-submit">Send Message</button>
+  </form>
+
+  <!-- INFO -->
+  <div class="contact-info">
+    <div class="info-card">
+      <strong>Contact Information</strong>
+      <div class="info-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
+        <div class="info-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
+      </div>
+      <div class="info-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <div class="info-text"><small>Email</small><strong style="font-size:15px;">bookings@gogotyre.co.uk</strong></div>
+      </div>
+      <div class="info-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="info-text">
+          <small>Workshop Address</small>
+          <strong style="font-size:15px;">Unit 4, Mile Cross Industrial Estate</strong>
+          <span>Norwich, NR6 6BY</span>
         </div>
       </div>
-      <a href="#" style="background:#3d5a47;border-radius:6px;padding:12px 20px;font-weight:700;font-size:14px;color:#ffffff;text-transform:uppercase;">Book Fitting</a>
+      <div class="info-divider"></div>
+      <div class="hours">
+        <div class="hours-heading">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <strong>Opening Hours</strong>
+        </div>
+        <div class="hours-row"><span>Monday – Friday</span><span>8:00am – 6:00pm</span></div>
+        <div class="hours-row"><span>Saturday</span><span>8:30am – 4:00pm</span></div>
+        <div class="hours-row"><span>Sunday</span><span>Closed — mobile only</span></div>
+      </div>
+    </div>
+    <div class="map-card">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <span>Find Us: Mile Cross, Norwich</span>
     </div>
   </div>
+</section>
 
-  <!-- PAGE HEADER -->
-  <div style="width:1440px;height:320px;padding:64px 96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:#2a2d2e;text-align:center;">
-    <div style="display:inline-flex;align-items:center;gap:8px;background:#3d4142;border-radius:200px;padding:8px 16px;">
-      <div style="width:8px;height:8px;border-radius:50%;background:#3d5a47;"></div>
-      <span style="font-weight:700;font-size:12px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.6px;">Get In Touch</span>
-    </div>
-    <h1 style="margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:48px;line-height:1.1;color:#ffffff;">Contact GoGo Tyre Norwich</h1>
-    <p style="margin:0;font-weight:400;font-size:18px;line-height:1.6;color:#d4cfc8;max-width:700px;">Questions, quotes or bookings — our Norwich team is ready to help.</p>
-  </div>
+<!-- CTA BAR -->
+<section class="cta-bar">
+  <span>Prefer to talk? Call 01603 555888</span>
+  <a href="tel:01603555888" class="btn-white">Book Fitting</a>
+</section>
 
-  <!-- MAIN CONTACT -->
-  <div style="width:1440px;padding:80px 96px;display:flex;gap:32px;background:#f5f2ed;align-items:flex-start;">
-
-    <!-- FORM -->
-    <form style="width:696px;background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:24px;margin:0;">
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;color:#2a2d2e;">Send Us a Message</span>
-        <span style="font-weight:400;font-size:14px;color:#888880;">We aim to reply to every enquiry within one working day.</span>
-      </div>
-      <div style="display:flex;gap:20px;">
-        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-          <label style="font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:#2a2d2e;text-transform:uppercase;">Full Name</label>
-          <input type="text" placeholder="Edward Finchley" style="background:#f5f2ed;border:1px solid #e1dbd2;border-radius:6px;height:50px;padding:0 16px;font-size:15px;color:#2a2d2e;outline:none;">
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></svg>
         </div>
-        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-          <label style="font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:#2a2d2e;text-transform:uppercase;">Email Address</label>
-          <input type="email" placeholder="edward@finchley.co.uk" style="background:#f5f2ed;border:1px solid #e1dbd2;border-radius:6px;height:50px;padding:0 16px;font-size:15px;color:#2a2d2e;outline:none;">
-        </div>
-      </div>
-      <div style="display:flex;gap:20px;">
-        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-          <label style="font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:#2a2d2e;text-transform:uppercase;">Phone Number</label>
-          <input type="tel" placeholder="07700 900077" style="background:#f5f2ed;border:1px solid #e1dbd2;border-radius:6px;height:50px;padding:0 16px;font-size:15px;color:#2a2d2e;outline:none;">
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-          <label style="font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:#2a2d2e;text-transform:uppercase;">Subject</label>
-          <input type="text" placeholder="Mobile fitting quote" style="background:#f5f2ed;border:1px solid #e1dbd2;border-radius:6px;height:50px;padding:0 16px;font-size:15px;color:#2a2d2e;outline:none;">
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <label style="font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:#2a2d2e;text-transform:uppercase;">Message</label>
-        <textarea placeholder="Tell us about your vehicle, preferred tyres, or the best time for a mobile visit..." style="background:#f5f2ed;border:1px solid #e1dbd2;border-radius:6px;height:120px;padding:16px;font-size:15px;line-height:1.5;color:#2a2d2e;outline:none;resize:none;"></textarea>
-      </div>
-      <button type="submit" style="background:#3d5a47;border:none;border-radius:6px;padding:16px 32px;font-family:'Figtree',sans-serif;font-weight:700;font-size:16px;color:#ffffff;text-align:center;cursor:pointer;">Send Message</button>
-    </form>
-
-    <!-- INFO -->
-    <div style="width:520px;display:flex;flex-direction:column;gap:24px;">
-      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:24px;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;color:#2a2d2e;text-transform:uppercase;">Contact Information</span>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"></path></svg>
-          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-weight:600;font-size:11px;color:#888880;text-transform:uppercase;">Norwich Hotline</span><span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;color:#2a2d2e;">01603 555888</span></div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
-          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-weight:600;font-size:11px;color:#888880;text-transform:uppercase;">Email</span><span style="font-weight:700;font-size:15px;color:#2a2d2e;">bookings@gogotyre.co.uk</span></div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
-          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-weight:600;font-size:11px;color:#888880;text-transform:uppercase;">Workshop Address</span><span style="font-weight:700;font-size:15px;color:#2a2d2e;">Unit 4, Mile Cross Industrial Estate</span><span style="font-weight:400;font-size:14px;color:#888880;">Norwich, NR6 6BY</span></div>
-        </div>
-        <div style="width:100%;height:1px;background:#e1dbd2;"></div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg><span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;color:#2a2d2e;">Opening Hours</span></div>
-          <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Monday – Friday</span><span style="font-weight:400;font-size:14px;color:#888880;">8:00am – 6:00pm</span></div>
-          <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Saturday</span><span style="font-weight:400;font-size:14px;color:#888880;">8:30am – 4:00pm</span></div>
-          <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Sunday</span><span style="font-weight:400;font-size:14px;color:#888880;">Closed — mobile only</span></div>
-        </div>
-      </div>
-      <div style="width:100%;height:220px;border-radius:16px;background:#e8e2d9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
-        <span style="font-weight:700;font-size:14px;color:#2a2d2e;">Find Us: Mile Cross, Norwich</span>
+        <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
+      </a>
+      <p>Premium independent tyre fitting business serving Norwich and Norfolk. Expert fitting, transparent pricing, and unparalleled local convenience.</p>
+      <div class="payment-badges">
+        <span class="badge">VISA</span>
+        <span class="badge">MC</span>
+        <span class="badge">AMEX</span>
+        <span class="badge">APPLE PAY</span>
       </div>
     </div>
-  </div>
-
-  <!-- CTA BAR -->
-  <div style="width:1440px;padding:40px 96px;display:flex;align-items:center;justify-content:space-between;background:#3d5a47;">
-    <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;color:#ffffff;">Prefer to talk? Call 01603 555888</span>
-    <a href="#" style="background:#ffffff;color:#3d5a47;border-radius:6px;padding:16px 32px;font-weight:700;font-size:16px;">Book Fitting</a>
-  </div>
-
-  <!-- FOOTER -->
-  <div style="width:1440px;padding:80px 96px 40px 96px;background:#2a2d2e;display:flex;flex-direction:column;gap:64px;">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;width:100%;">
-      <div style="width:320px;display:flex;flex-direction:column;gap:20px;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:40px;height:40px;border-radius:8px;background:#3d5a47;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="3" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="21"></line><line x1="3" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="21" y2="12"></line></svg></div>
-          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;color:#ffffff;">GOGO TYRE</span><span style="font-weight:700;font-size:9px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.6px;">Norwich Fitting</span></div>
-        </div>
-        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#d4cfc8;">Premium independent tyre fitting business serving Norwich and Norfolk. Expert fitting, transparent pricing, and unparalleled local convenience.</p>
-        <div style="display:flex;gap:8px;">
-          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">VISA</span></div>
-          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">MC</span></div>
-          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">AMEX</span></div>
-          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">APPLE PAY</span></div>
-        </div>
-      </div>
-      <div style="width:200px;display:flex;flex-direction:column;gap:16px;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#ffffff;text-transform:uppercase;">Services</span>
-        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Garage fitting</span>
-        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Mobile driveway fitting</span>
-        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Puncture repair</span>
-        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Wheel alignment</span>
-        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Fleet tyre care</span>
-      </div>
-      <div style="width:280px;display:flex;flex-direction:column;gap:16px;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#ffffff;text-transform:uppercase;">GoGo Tyre Norwich</span>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <span style="font-weight:700;font-size:14px;color:#ffffff;">HQ &amp; Diagnostic Workshop:</span>
-          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Unit 4, Mile Cross Industrial Estate</span>
-          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Norwich, NR6 6BY</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Hotline: 01603 555888</span>
-          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Email: bookings@gogotyre.co.uk</span>
-        </div>
-      </div>
-      <div style="width:240px;display:flex;flex-direction:column;gap:16px;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#ffffff;text-transform:uppercase;">Connect &amp; Trust</span>
-        <div style="display:flex;gap:2px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-        </div>
-        <p style="margin:0;font-weight:400;font-size:13px;color:#d4cfc8;line-height:1.4;">Rated Excellent on Trustpilot and Google Reviews by local Norfolk motorists.</p>
-        <div style="display:flex;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:18px;background:#3d4142;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#d4cfc8"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"></path></svg></div>
-          <div style="width:36px;height:36px;border-radius:18px;background:#3d4142;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></div>
-          <div style="width:36px;height:36px;border-radius:18px;background:#3d4142;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4L4 20"></path></svg></div>
-        </div>
-      </div>
+    <div class="footer-col">
+      <strong>Services</strong>
+      <a href="services.html">Garage fitting</a>
+      <a href="mobile-fitting.html">Mobile driveway fitting</a>
+      <a href="services.html">Puncture repair</a>
+      <a href="services.html">Wheel alignment</a>
+      <a href="services.html">Fleet tyre care</a>
     </div>
-    <div style="width:100%;height:1px;background:#3d4142;"></div>
-    <div style="width:100%;display:flex;align-items:center;justify-content:space-between;">
-      <span style="font-weight:400;font-size:13px;color:#d4cfc8;">© 2026 GoGo Tyre Norwich. Independent Premium Tyre Fitters. All rights reserved.</span>
-      <div style="display:flex;gap:24px;">
-        <span style="font-weight:400;font-size:13px;color:#d4cfc8;">Privacy Policy</span>
-        <span style="font-weight:400;font-size:13px;color:#d4cfc8;">Terms of Service</span>
-        <span style="font-weight:400;font-size:13px;color:#d4cfc8;">Cookie Settings</span>
+    <div class="footer-col">
+      <strong>GoGo Tyre Norwich</strong>
+      <span style="font-weight:700;color:#fff;">HQ &amp; Diagnostic Workshop:</span>
+      <span>Unit 4, Mile Cross Industrial Estate</span>
+      <span>Norwich, NR6 6BY</span>
+      <span>Hotline: 01603 555888</span>
+      <span>Email: bookings@gogotyre.co.uk</span>
+    </div>
+    <div class="footer-col">
+      <strong>Connect &amp; Trust</strong>
+      <div class="stars">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p style="font-size:13px;color:#d4cfc8;line-height:1.5;">Rated Excellent on Trustpilot and Google Reviews by local Norfolk motorists.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#d4cfc8"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#d4cfc8"/></svg></a>
       </div>
     </div>
   </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>© 2026 GoGo Tyre Norwich. Independent Premium Tyre Fitters. All rights reserved.</span>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
 
-</div>
 </body>
 </html>
