@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tyre Carousel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f2ed; font-family: sans-serif; }
+
+  .tyre-carousel-section {
+    background: #f5f2ed;
+    padding: 80px 0 140px;
+    overflow: visible;
+  }
+
+  .tyre-track-wrap {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow-x: auto;
+    overflow-y: visible;
+    cursor: grab;
+    /* hide scrollbar cross-browser, this is a custom interaction not a normal scroll list */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* snap is handled in JS for the "premium slow settle" feel; native snap fights that */
+  }
+  .tyre-track-wrap::-webkit-scrollbar { display: none; }
+  .tyre-track-wrap.dragging { cursor: grabbing; }
+
+  .tyre-track {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /* left/right padding = half viewport so first/last tyre can reach true center */
+    padding: 0 50vw;
+    will-change: transform;
+    /* negative margins on children can collapse out of scrollWidth in some engines —
+       force the track to lay out at its natural (uncollapsed) content width instead */
+    width: max-content;
+  }
+
+  .tyre-item {
+    flex: 0 0 220px;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 -20px; /* overlap purely as visual spacing, applied via negative margin
+                         on a flex-basis-fixed item so it no longer zeroes out scrollWidth */
+    /* transform-origin center so scale grows outward evenly, not toward one edge */
+    transform-origin: center center;
+    will-change: transform;
+    /* only transform/opacity animate — no width/height — per the no-layout-shift requirement */
+    transition: transform 0.05s linear;
+    pointer-events: none; /* the track handles drag; avoid image ghost-drag */
+    user-select: none;
+  }
+
+  .tyre-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    -webkit-user-drag: none;
+    user-select: none;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.18));
+  }
+
+  /* when JS applies a snap-settle transition (after release), swap to a slower easing */
+  .tyre-track.settling .tyre-item {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+</style>
+</head>
+<body>
+
+<section class="tyre-carousel-section">
+  <div class="tyre-track-wrap" id="tyreWrap">
+    <div class="tyre-track" id="tyreTrack">
+      <!-- tyre data is a plain array below — trivially swappable/extendable,
+           and structured so a future HTMX partial could replace this markup
+           without touching the animation logic -->
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // ---- Tyre data: easy to extend to 5-6 later, just add entries ----
+  const TYRES = [
+    { src: 'tyre1.jpeg', alt: 'Tyre 1' },
+    { src: 'tyre2.jpeg', alt: 'Tyre 2' },
+    { src: 'tyre3.jpeg', alt: 'Tyre 3' },
+    { src: 'tyre4.jpeg', alt: 'Tyre 4' },
+  ];
+
+  const wrap = document.getElementById('tyreWrap');
+  const track = document.getElementById('tyreTrack');
+
+  // Build DOM
+  TYRES.forEach((t) => {
+    const el = document.createElement('div');
+    el.className = 'tyre-item';
+    const img = document.createElement('img');
+    img.src = t.src;
+    img.alt = t.alt;
+    img.draggable = false;
+    el.appendChild(img);
+    track.appendChild(el);
+  });
+
+  const items = Array.from(track.querySelectorAll('.tyre-item'));
+
+  // ---- Config ----
+  const SCALE_CENTER = 1.3;
+  const SCALE_NEAR = 0.9;
+  const SCALE_FAR = 0.7;
+  const LIFT_CENTER = -28; // px, translateY at dead center
+  const FALLOFF = 260; // px distance at which scale bottoms out to SCALE_FAR
+
+  let ticking = false;
+  let isDown = false;
+  let startX = 0;
+  let startScroll = 0;
+  let velocityX = 0;
+  let lastX = 0;
+  let lastT = 0;
+  let snapTimeout = null;
+
+  // Continuous interpolation: distance from center -> scale + lift.
+  // No discrete "small/medium/large" states, just a smooth curve evaluated per-item per-frame.
+  function updateScales() {
+    const wrapRect = wrap.getBoundingClientRect();
+    const centerX = wrapRect.left + wrapRect.width / 2;
+
+    items.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const itemCenter = r.left + r.width / 2;
+      const dist = Math.abs(itemCenter - centerX);
+      const t = Math.min(dist / FALLOFF, 1); // 0 at center, 1 at/after falloff distance
+
+      let scale, lift;
+      if (t <= 0.5) {
+        // center -> near
+        const localT = t / 0.5;
+        scale = SCALE_CENTER + (SCALE_NEAR - SCALE_CENTER) * localT;
+      } else {
+        // near -> far
+        const localT = (t - 0.5) / 0.5;
+        scale = SCALE_NEAR + (SCALE_FAR - SCALE_NEAR) * localT;
+      }
+      lift = LIFT_CENTER * (1 - t);
+
+      el.style.transform = `translateY(${lift}px) scale(${scale})`;
+      el.style.zIndex = String(Math.round((1 - t) * 100));
+    });
+
+    ticking = false;
+  }
+
+  function requestScaleUpdate() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateScales);
+    }
+  }
+
+  // ---- Snap-to-center after scrolling settles ----
+  function findNearestItem() {
+    const wrapRect = wrap.getBoundingClientRect();
+    const centerX = wrapRect.left + wrapRect.width / 2;
+    let nearest = items[0];
+    let minDist = Infinity;
+    items.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const itemCenter = r.left + r.width / 2;
+      const dist = Math.abs(itemCenter - centerX);
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = el;
+      }
+    });
+    return nearest;
+  }
+
+  function snapToNearest() {
+    const nearest = findNearestItem();
+    const wrapRect = wrap.getBoundingClientRect();
+    const itemRect = nearest.getBoundingClientRect();
+    const currentCenterOffset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+
+    track.classList.add('settling');
+    wrap.scrollBy({ left: currentCenterOffset, behavior: 'smooth' });
+
+    // remove the slow-settle class once the smooth scroll has had time to finish
+    window.clearTimeout(snapTimeout);
+    snapTimeout = window.setTimeout(() => {
+      track.classList.remove('settling');
+    }, 650);
+  }
+
+  let scrollEndTimer = null;
+  function onScroll() {
+    requestScaleUpdate();
+    window.clearTimeout(scrollEndTimer);
+    // only auto-snap once the user has actually stopped (not mid-drag)
+    scrollEndTimer = window.setTimeout(() => {
+      if (!isDown) snapToNearest();
+    }, 120);
+  }
+
+  wrap.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---- Mouse drag ----
+  wrap.addEventListener('mousedown', (e) => {
+    isDown = true;
+    wrap.classList.add('dragging');
+    track.classList.remove('settling');
+    startX = e.pageX;
+    startScroll = wrap.scrollLeft;
+    lastX = e.pageX;
+    lastT = performance.now();
+    velocityX = 0;
+    window.clearTimeout(scrollEndTimer);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const dx = e.pageX - startX;
+    wrap.scrollLeft = startScroll - dx;
+
+    const now = performance.now();
+    const dt = now - lastT || 16;
+    velocityX = (e.pageX - lastX) / dt;
+    lastX = e.pageX;
+    lastT = now;
+
+    requestScaleUpdate();
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    wrap.classList.remove('dragging');
+    // small inertial coast based on release velocity, then snap
+    const coast = -velocityX * 120;
+    wrap.scrollBy({ left: coast, behavior: 'smooth' });
+    window.setTimeout(snapToNearest, 180);
+  });
+
+  // ---- Touch ----
+  wrap.addEventListener('touchstart', (e) => {
+    isDown = true;
+    track.classList.remove('settling');
+    startX = e.touches[0].pageX;
+    startScroll = wrap.scrollLeft;
+    window.clearTimeout(scrollEndTimer);
+  }, { passive: true });
+
+  wrap.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+    const dx = e.touches[0].pageX - startX;
+    wrap.scrollLeft = startScroll - dx;
+    requestScaleUpdate();
+  }, { passive: true });
+
+  wrap.addEventListener('touchend', () => {
+    isDown = false;
+    window.setTimeout(snapToNearest, 100);
+  });
+
+  // ---- Wheel / trackpad horizontal ----
+  wrap.addEventListener('wheel', (e) => {
+    // let native horizontal wheel/trackpad deltas drive scrollLeft directly;
+    // vertical wheel also nudges horizontal so a normal mouse wheel works too
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    wrap.scrollLeft += delta;
+    e.preventDefault();
+  }, { passive: false });
+
+  // ---- Init ----
+  function init() {
+    // center the middle tyre on load
+    requestAnimationFrame(() => {
+      const middle = items[Math.floor(items.length / 2)];
+      const wrapRect = wrap.getBoundingClientRect();
+      const itemRect = middle.getBoundingClientRect();
+      const offset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+      wrap.scrollLeft += offset;
+      updateScales();
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    updateScales();
+  });
+
+  init();
+})();
+</script>
+
+</body>
+</html>
