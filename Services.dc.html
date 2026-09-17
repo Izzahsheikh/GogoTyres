@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="./support.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; background: #f5f2ed; }
+  * { box-sizing: border-box; }
+  a { text-decoration: none; }
+</style>
+</helmet>
+<div style="width:1440px;height:2560px;position:relative;background:#f5f2ed;font-family:'Figtree',sans-serif;">
+
+  <!-- NAVBAR -->
+  <div style="width:1440px;height:88px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;background:#2a2d2e;border-bottom:1px solid #3d4142;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:40px;height:40px;border-radius:8px;background:#3d5a47;display:flex;align-items:center;justify-content:center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="3" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="21"></line><line x1="3" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="21" y2="12"></line></svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;color:#ffffff;line-height:1;">GOGO TYRE</span>
+        <span style="font-family:'Figtree',sans-serif;font-weight:700;font-size:9px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.6px;">Norwich Fitting</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:32px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">Tyres</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:700;font-size:15px;color:#ffffff;">Services</span><div style="width:16px;height:2px;border-radius:1px;background:#3d5a47;"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">Mobile Fitting</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">About</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-weight:500;font-size:15px;color:#d4cfc8;">Contact</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"></path></svg>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span style="font-weight:600;font-size:11px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.4px;">Norwich Hotline</span>
+          <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;color:#ffffff;">01603 555888</span>
+        </div>
+      </div>
+      <a href="#" style="background:#3d5a47;border-radius:6px;padding:12px 20px;font-weight:700;font-size:14px;color:#ffffff;text-transform:uppercase;">Book Fitting</a>
+    </div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div style="width:1440px;height:340px;padding:72px 96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:#2a2d2e;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#3d4142;border-radius:200px;padding:8px 16px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:#3d5a47;"></div>
+      <span style="font-weight:700;font-size:12px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.6px;">Transparent Local Pricing</span>
+    </div>
+    <h1 style="margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:52px;line-height:1.1;color:#ffffff;">Tyre Services in Norwich</h1>
+    <p style="margin:0;font-weight:400;font-size:18px;line-height:1.6;color:#d4cfc8;max-width:700px;">From fitting to full wheel alignment — professional service, honest pricing, no hidden extras.</p>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <div style="width:1440px;padding:80px 96px;display:flex;flex-direction:column;align-items:center;gap:48px;background:#f5f2ed;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+      <span style="font-weight:700;font-size:12px;color:#3d5a47;text-transform:uppercase;letter-spacing:0.6px;">What We Offer</span>
+      <h2 style="margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:36px;color:#2a2d2e;">Our Professional Services</h2>
+      <p style="margin:0;font-weight:400;font-size:16px;color:#888880;">Select the service you need — every job backed by our best price guarantee.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:24px;width:100%;">
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"></path></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Tyre Fitting</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">Precision fitting on any car, van or 4x4, while you wait.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £15 per tyre</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="3" x2="12" y2="7"></line><line x1="12" y1="17" x2="12" y2="21"></line><line x1="3" y1="12" x2="7" y2="12"></line><line x1="17" y1="12" x2="21" y2="12"></line></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Wheel Balancing</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">Digital balancing to eliminate vibration at speed.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £10 per wheel</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="#3d5a47"></circle></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Wheel Alignment (2-Wheel)</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">Hunter laser alignment to stop uneven tyre wear.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £45</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="#3d5a47"></circle></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Wheel Alignment (4-Wheel)</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">Full four-wheel geometry check and correction.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £65</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Puncture Repair</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">Safe, BS-compliant plug-and-patch repairs.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £20</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M9 11h6"></path></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Valve Replacement</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">New rubber or metal valves fitted on the spot.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £5</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h11a3 3 0 1 0-3-3"></path><path d="M4 16h13a3 3 0 1 1-3 3"></path></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">Nitrogen Inflation</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">More stable pressures in all weather conditions.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £8 per tyre</span>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #e1dbd2;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+        <div style="width:48px;height:48px;border-radius:8px;background:#f5f2ed;display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round"><path d="M5 19v-3M9 19v-7M13 19v-11M17 19V4"></path></svg></div>
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;color:#2a2d2e;">TPMS Sensor Reset</span>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#888880;">Tyre pressure sensor diagnostics and reset.</p>
+        <span style="font-weight:700;font-size:14px;color:#d97706;">From £25</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PRICING COMPARISON -->
+  <div style="width:1440px;padding:80px 96px;display:flex;flex-direction:column;align-items:center;gap:48px;background:#ffffff;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+      <h2 style="margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:36px;color:#2a2d2e;">Workshop vs Mobile Pricing</h2>
+      <p style="margin:0;font-weight:400;font-size:16px;color:#888880;">Same honest prices, wherever you choose to be fitted.</p>
+    </div>
+    <div style="background:#f5f2ed;border:1px solid #e1dbd2;border-radius:16px;padding:40px;display:flex;width:100%;gap:40px;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:16px;">
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;color:#2a2d2e;">Norwich Workshop Fitting</span>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Tyre fitting</span><span style="font-weight:400;font-size:14px;color:#888880;">£15 / tyre</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Balancing included</span><span style="font-weight:400;font-size:14px;color:#888880;">Yes</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Typical wait time</span><span style="font-weight:400;font-size:14px;color:#888880;">20–30 minutes</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Refreshments &amp; Wi-Fi</span><span style="font-weight:400;font-size:14px;color:#888880;">Included</span></div>
+      </div>
+      <div style="width:1px;background:#e1dbd2;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:16px;">
+        <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;color:#2a2d2e;">24/7 Mobile Fitting</span>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Tyre fitting</span><span style="font-weight:400;font-size:14px;color:#888880;">£15 / tyre — no surcharge</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Balancing included</span><span style="font-weight:400;font-size:14px;color:#888880;">Yes</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Typical wait time</span><span style="font-weight:400;font-size:14px;color:#888880;">At your convenience</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:14px;color:#2a2d2e;">Coverage</span><span style="font-weight:400;font-size:14px;color:#888880;">Norwich &amp; Norfolk</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div style="width:1440px;padding:64px 96px;display:flex;flex-direction:column;align-items:center;gap:16px;background:#3d5a47;text-align:center;">
+    <h2 style="margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:32px;color:#ffffff;">Ready to Book Your Service?</h2>
+    <p style="margin:0;font-weight:400;font-size:16px;color:#ffffff;opacity:0.9;">Same-day slots available at our Norwich workshop or at your door.</p>
+    <a href="#" style="margin-top:12px;background:#ffffff;color:#3d5a47;border-radius:6px;padding:16px 32px;font-weight:700;font-size:16px;">Book Your Fitting</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="width:1440px;padding:80px 96px 40px 96px;background:#2a2d2e;display:flex;flex-direction:column;gap:64px;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;width:100%;">
+      <div style="width:320px;display:flex;flex-direction:column;gap:20px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:8px;background:#3d5a47;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="3" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="21"></line><line x1="3" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="21" y2="12"></line></svg></div>
+          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;color:#ffffff;">GOGO TYRE</span><span style="font-weight:700;font-size:9px;color:#d4cfc8;text-transform:uppercase;letter-spacing:0.6px;">Norwich Fitting</span></div>
+        </div>
+        <p style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#d4cfc8;">Premium independent tyre fitting business serving Norwich and Norfolk. Expert fitting, transparent pricing, and unparalleled local convenience.</p>
+        <div style="display:flex;gap:8px;">
+          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">VISA</span></div>
+          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">MC</span></div>
+          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">AMEX</span></div>
+          <div style="background:#3d4142;border-radius:4px;padding:6px 10px;"><span style="font-weight:700;font-size:10px;color:#d4cfc8;">APPLE PAY</span></div>
+        </div>
+      </div>
+      <div style="width:200px;display:flex;flex-direction:column;gap:16px;">
+        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#ffffff;text-transform:uppercase;">Services</span>
+        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Garage fitting</span>
+        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Mobile driveway fitting</span>
+        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Puncture repair</span>
+        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Wheel alignment</span>
+        <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Fleet tyre care</span>
+      </div>
+      <div style="width:280px;display:flex;flex-direction:column;gap:16px;">
+        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#ffffff;text-transform:uppercase;">GoGo Tyre Norwich</span>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-weight:700;font-size:14px;color:#ffffff;">HQ &amp; Diagnostic Workshop:</span>
+          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Unit 4, Mile Cross Industrial Estate</span>
+          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Norwich, NR6 6BY</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Hotline: 01603 555888</span>
+          <span style="font-weight:400;font-size:14px;color:#d4cfc8;">Email: bookings@gogotyre.co.uk</span>
+        </div>
+      </div>
+      <div style="width:240px;display:flex;flex-direction:column;gap:16px;">
+        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#ffffff;text-transform:uppercase;">Connect &amp; Trust</span>
+        <div style="display:flex;gap:2px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+        </div>
+        <p style="margin:0;font-weight:400;font-size:13px;color:#d4cfc8;line-height:1.4;">Rated Excellent on Trustpilot and Google Reviews by local Norfolk motorists.</p>
+        <div style="display:flex;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:18px;background:#3d4142;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#d4cfc8"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"></path></svg></div>
+          <div style="width:36px;height:36px;border-radius:18px;background:#3d4142;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></div>
+          <div style="width:36px;height:36px;border-radius:18px;background:#3d4142;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4L4 20"></path></svg></div>
+        </div>
+      </div>
+    </div>
+    <div style="width:100%;height:1px;background:#3d4142;"></div>
+    <div style="width:100%;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-weight:400;font-size:13px;color:#d4cfc8;">© 2026 GoGo Tyre Norwich. Independent Premium Tyre Fitters. All rights reserved.</span>
+      <div style="display:flex;gap:24px;">
+        <span style="font-weight:400;font-size:13px;color:#d4cfc8;">Privacy Policy</span>
+        <span style="font-weight:400;font-size:13px;color:#d4cfc8;">Terms of Service</span>
+        <span style="font-weight:400;font-size:13px;color:#d4cfc8;">Cookie Settings</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":2560}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

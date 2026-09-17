@@ -1,0 +1,17 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-09-18T00:00:00Z"},
+  "title": "GoGo Tyre — New Pages",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Services.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 2560, "title": "Services"},
+    "MobileFitting.dc.html": {"x": 1520, "y": 0, "w": 1440, "h": 3160, "title": "Mobile Fitting"},
+    "AboutUs.dc.html": {"x": 3040, "y": 0, "w": 1440, "h": 3400, "title": "About Us"},
+    "Contact.dc.html": {"x": 4560, "y": 0, "w": 1440, "h": 1860, "title": "Contact"}
+  },
+  "order": ["Services.dc.html", "MobileFitting.dc.html", "AboutUs.dc.html", "Contact.dc.html"],
+  "notes": {
+    "n1": {"x": 0, "y": -300, "text": "GoGo Tyre — New Pages", "kind": "title1"}
+  }
+}

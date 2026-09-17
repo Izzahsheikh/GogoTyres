@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tyre Services in Norwich — GoGo Tyre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; overflow-x: hidden; }
+  body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav {
+    width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
+    padding: 0 64px; height: 88px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon {
+    width: 40px; height: 40px; border-radius: 8px; background: #3d5a47;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .logo-text { display: flex; flex-direction: column; gap: 2px; }
+  .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
+  .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
+  .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-phone { display: flex; align-items: center; gap: 8px; }
+  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
+  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
+  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .btn-book {
+    background: #3d5a47; border-radius: 6px; padding: 12px 20px;
+    font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .btn-book:hover { background: #4a6e57; }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: #2a2d2e; padding: 80px 96px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #3d4142; border-radius: 200px; padding: 8px 16px;
+  }
+  .hero-badge span { font-weight: 700; font-size: 12px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
+  .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3d5a47; flex-shrink: 0; }
+  .page-hero h1 { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 48px; color: #fff; }
+  .page-hero p { font-size: 17px; line-height: 1.6; color: #d4cfc8; max-width: 560px; }
+
+  /* SERVICES */
+  .services-preview { background: #fff; padding: 80px 96px; }
+  .section-label { font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px; text-align: center; }
+  .section-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 36px; color: #2a2d2e; text-align: center; margin-top: 12px; }
+  .section-sub { font-size: 15px; color: #888880; text-align: center; margin-top: 12px; }
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+  .service-card {
+    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 12px;
+    padding: 28px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .icon-box {
+    width: 48px; height: 48px; border-radius: 8px; background: #fff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .service-card h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e; }
+  .service-card p { font-size: 14px; line-height: 1.5; color: #888880; }
+  .price { font-weight: 700; font-size: 14px; color: #d97706; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: #3d5a47; padding: 80px 96px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;
+  }
+  .cta-banner h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 40px; color: #fff; }
+  .cta-banner p { font-size: 18px; color: rgba(255,255,255,0.85); max-width: 560px; line-height: 1.6; }
+  .btn-white {
+    background: #fff; color: #3d5a47; border-radius: 6px;
+    padding: 18px 40px; font-weight: 700; font-size: 16px; margin-top: 8px;
+  }
+  .btn-white:hover { background: #f0ede8; }
+
+  /* FOOTER */
+  footer { background: #2a2d2e; padding: 80px 96px 40px; }
+  .footer-top { display: flex; gap: 64px; justify-content: space-between; }
+  .footer-brand { max-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+  .footer-brand p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
+  .payment-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { background: #3d4142; border-radius: 4px; padding: 6px 10px; font-weight: 700; font-size: 10px; color: #d4cfc8; }
+  .footer-col { display: flex; flex-direction: column; gap: 14px; }
+  .footer-col strong { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 13px; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .footer-col a, .footer-col span { font-size: 14px; color: #d4cfc8; display: block; }
+  .footer-col a:hover { color: #fff; }
+  .footer-divider { height: 1px; background: #3d4142; margin: 48px 0 32px; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom span { font-size: 13px; color: #d4cfc8; }
+  .footer-bottom-links { display: flex; gap: 24px; }
+  .footer-bottom-links a { font-size: 13px; color: #d4cfc8; }
+  .footer-bottom-links a:hover { color: #fff; }
+  .social-row { display: flex; gap: 10px; }
+  .social-btn { width: 36px; height: 36px; border-radius: 18px; background: #3d4142; display: flex; align-items: center; justify-content: center; }
+
+  @media (max-width: 1100px) {
+    nav { padding: 0 32px; }
+    .page-hero, .services-preview, .cta-banner, footer { padding: 60px 32px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { flex-wrap: wrap; gap: 40px; }
+  }
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; height: 72px; }
+    .nav-links, .nav-phone { display: none; }
+    .page-hero h1 { font-size: 32px; }
+    .page-hero, .services-preview, .cta-banner, footer { padding: 48px 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .cta-banner h2 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></svg>
+    </div>
+    <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="mobile-fitting.html">Mobile Fitting</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-phone">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
+      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
+    </div>
+    <a href="contact.html" class="btn-book">Book Fitting</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-badge"><span>Transparent Local Pricing</span></div>
+  <h1>Tyre Services in Norwich</h1>
+  <p>From fitting to full wheel alignment — professional service, honest pricing, no hidden extras.</p>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services-preview">
+  <p class="section-label">What We Offer</p>
+  <h2 class="section-title">Our Professional Services</h2>
+  <p class="section-sub">Select the service you need — every job backed by our best price guarantee.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
+      </div>
+      <h3>Tyre Fitting</h3>
+      <p>Precision fitting on any car, van or 4x4, while you wait.</p>
+      <span class="price">From £15 per tyre</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/></svg>
+      </div>
+      <h3>Wheel Balancing</h3>
+      <p>Digital balancing to eliminate vibration at speed.</p>
+      <span class="price">From £10 per wheel</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg>
+      </div>
+      <h3>Wheel Alignment (2-Wheel)</h3>
+      <p>Hunter laser alignment to stop uneven tyre wear.</p>
+      <span class="price">From £45</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.5" fill="#3d5a47"/></svg>
+      </div>
+      <h3>Wheel Alignment (4-Wheel)</h3>
+      <p>Full four-wheel geometry check and correction.</p>
+      <span class="price">From £65</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <h3>Puncture Repair</h3>
+      <p>Safe, BS-compliant plug-and-patch repairs.</p>
+      <span class="price">From £20</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+      </div>
+      <h3>Valve Replacement</h3>
+      <p>Fresh valve fitted with every repair or new tyre.</p>
+      <span class="price">From £5 per valve</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="2"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></svg>
+      </div>
+      <h3>Seasonal Tyre Swap</h3>
+      <p>Swap and store your summer or winter set.</p>
+      <span class="price">From £25</span>
+    </div>
+    <div class="service-card">
+      <div class="icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+      </div>
+      <h3>Free Tyre Health Check</h3>
+      <p>Tread depth, pressure, and wear inspection.</p>
+      <span class="price">Free</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready to Book Your Fitting?</h2>
+  <p>Same-day slots available at our Norwich workshop or at your door. No hidden fees, ever.</p>
+  <a href="contact.html" class="btn-white">Book Your Fitting</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
+      </a>
+      <p>Premium independent tyre fitting business serving Norwich and Norfolk. Expert fitting, transparent pricing, and unparalleled local convenience.</p>
+      <div class="payment-badges">
+        <span class="badge">VISA</span>
+        <span class="badge">MC</span>
+        <span class="badge">AMEX</span>
+        <span class="badge">APPLE PAY</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <strong>Services</strong>
+      <a href="services.html">Garage fitting</a>
+      <a href="mobile-fitting.html">Mobile driveway fitting</a>
+      <a href="services.html">Puncture repair</a>
+      <a href="services.html">Wheel alignment</a>
+      <a href="services.html">Fleet tyre care</a>
+    </div>
+    <div class="footer-col">
+      <strong>GoGo Tyre Norwich</strong>
+      <span style="font-weight:700;color:#fff;">HQ & Diagnostic Workshop:</span>
+      <span>Unit 4, Mile Cross Industrial Estate</span>
+      <span>Norwich, NR6 6BY</span>
+      <span>Hotline: 01603 555888</span>
+      <span>Email: bookings@gogotyre.co.uk</span>
+    </div>
+    <div class="footer-col">
+      <strong>Connect & Trust</strong>
+      <p style="font-size:13px;color:#d4cfc8;line-height:1.5;">Rated Excellent on Trustpilot and Google Reviews by local Norfolk motorists.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#d4cfc8"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#d4cfc8"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>© 2026 GoGo Tyre Norwich. Independent Premium Tyre Fitters. All rights reserved.</span>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
