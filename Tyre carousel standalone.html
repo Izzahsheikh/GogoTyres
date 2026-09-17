@@ -3,60 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tyre Carousel</title>
+<title>Tyre Carousel v2</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #f5f2ed; font-family: sans-serif; }
 
   .tyre-carousel-section {
     background: #f5f2ed;
-    padding: 80px 0 140px;
+    padding: 80px 0 120px;
     overflow: visible;
   }
 
+  /* Container is deliberately narrow (not full-bleed) so only ~3 items are
+     visible at once, matching the reference: side tyres are cropped near
+     the container edge, center tyre dominates. */
   .tyre-track-wrap {
     position: relative;
     width: 100%;
-    height: 420px;
+    max-width: 560px;
+    margin: 0 auto;
+    height: 380px;
     overflow-x: auto;
     overflow-y: visible;
     cursor: grab;
-    /* hide scrollbar cross-browser, this is a custom interaction not a normal scroll list */
     scrollbar-width: none;
     -ms-overflow-style: none;
-    /* snap is handled in JS for the "premium slow settle" feel; native snap fights that */
   }
   .tyre-track-wrap::-webkit-scrollbar { display: none; }
   .tyre-track-wrap.dragging { cursor: grabbing; }
+  /* while we silently reposition scrollLeft for the infinite-loop wrap,
+     scroll-behavior must be off or the browser will animate the jump */
+  .tyre-track-wrap.no-smooth { scroll-behavior: auto; }
 
   .tyre-track {
     display: flex;
     align-items: center;
     height: 100%;
-    /* left/right padding = half viewport so first/last tyre can reach true center */
-    padding: 0 50vw;
-    will-change: transform;
-    /* negative margins on children can collapse out of scrollWidth in some engines —
-       force the track to lay out at its natural (uncollapsed) content width instead */
     width: max-content;
   }
 
   .tyre-item {
-    flex: 0 0 220px;
-    width: 220px;
-    height: 220px;
+    flex: 0 0 200px;
+    width: 200px;
+    height: 200px;
+    margin: 0 -10px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 0 -20px; /* overlap purely as visual spacing, applied via negative margin
-                         on a flex-basis-fixed item so it no longer zeroes out scrollWidth */
-    /* transform-origin center so scale grows outward evenly, not toward one edge */
     transform-origin: center center;
     will-change: transform;
-    /* only transform/opacity animate — no width/height — per the no-layout-shift requirement */
     transition: transform 0.05s linear;
-    pointer-events: none; /* the track handles drag; avoid image ghost-drag */
+    pointer-events: none;
     user-select: none;
   }
 
@@ -67,12 +65,26 @@
     display: block;
     -webkit-user-drag: none;
     user-select: none;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.18));
+    filter: drop-shadow(0 18px 26px rgba(0,0,0,0.16));
   }
 
-  /* when JS applies a snap-settle transition (after release), swap to a slower easing */
+  /* the gray bar under the center tyre — always rendered per item, opacity
+     driven by distance-from-center so only the true center one is visible */
+  .tyre-bar {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 4px;
+    border-radius: 2px;
+    background: #9c968c;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+
   .tyre-track.settling .tyre-item {
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 </style>
 </head>
@@ -80,47 +92,57 @@
 
 <section class="tyre-carousel-section">
   <div class="tyre-track-wrap" id="tyreWrap">
-    <div class="tyre-track" id="tyreTrack">
-      <!-- tyre data is a plain array below — trivially swappable/extendable,
-           and structured so a future HTMX partial could replace this markup
-           without touching the animation logic -->
-    </div>
+    <div class="tyre-track" id="tyreTrack"></div>
   </div>
 </section>
 
 <script>
 (function () {
-  // ---- Tyre data: easy to extend to 5-6 later, just add entries ----
-  const TYRES = [
+  // Base sequence — only 4 real images exist, so the infinite loop repeats
+  // this sequence. Add more entries here later; nothing else needs to change.
+  const BASE_TYRES = [
     { src: 'tyre1.jpeg', alt: 'Tyre 1' },
     { src: 'tyre2.jpeg', alt: 'Tyre 2' },
     { src: 'tyre3.jpeg', alt: 'Tyre 3' },
     { src: 'tyre4.jpeg', alt: 'Tyre 4' },
   ];
 
+  // How many times to repeat the base sequence for the infinite-scroll illusion.
+  // Must be enough that at any scroll position, at least one full sequence's
+  // worth of buffer exists on both sides before a silent jump is needed.
+  const REPEATS = 6;
+  const N = BASE_TYRES.length;
+
   const wrap = document.getElementById('tyreWrap');
   const track = document.getElementById('tyreTrack');
+  if (!wrap || !track) return;
 
-  // Build DOM
-  TYRES.forEach((t) => {
-    const el = document.createElement('div');
-    el.className = 'tyre-item';
-    const img = document.createElement('img');
-    img.src = t.src;
-    img.alt = t.alt;
-    img.draggable = false;
-    el.appendChild(img);
-    track.appendChild(el);
-  });
+  const allItems = [];
+  for (let r = 0; r < REPEATS; r++) {
+    BASE_TYRES.forEach((t) => {
+      const el = document.createElement('div');
+      el.className = 'tyre-item';
+      const img = document.createElement('img');
+      img.src = t.src;
+      img.alt = t.alt;
+      img.draggable = false;
+      el.appendChild(img);
+      const bar = document.createElement('div');
+      bar.className = 'tyre-bar';
+      el.appendChild(bar);
+      track.appendChild(el);
+      allItems.push(el);
+    });
+  }
 
-  const items = Array.from(track.querySelectorAll('.tyre-item'));
+  const ITEM_OUTER_WIDTH = 200 - 20; // 200 width + (-10*2) margin collapse
+  const SEQUENCE_WIDTH = ITEM_OUTER_WIDTH * N;
 
-  // ---- Config ----
-  const SCALE_CENTER = 1.3;
-  const SCALE_NEAR = 0.9;
-  const SCALE_FAR = 0.7;
-  const LIFT_CENTER = -28; // px, translateY at dead center
-  const FALLOFF = 260; // px distance at which scale bottoms out to SCALE_FAR
+  const SCALE_CENTER = 1.55;
+  const SCALE_NEAR = 0.82;
+  const SCALE_FAR = 0.6;
+  const LIFT_CENTER = -24;
+  const FALLOFF = 210; // tuned to the narrower 200px items / 760px viewport
 
   let ticking = false;
   let isDown = false;
@@ -130,26 +152,25 @@
   let lastX = 0;
   let lastT = 0;
   let snapTimeout = null;
+  let scrollEndTimer = null;
 
-  // Continuous interpolation: distance from center -> scale + lift.
-  // No discrete "small/medium/large" states, just a smooth curve evaluated per-item per-frame.
   function updateScales() {
     const wrapRect = wrap.getBoundingClientRect();
     const centerX = wrapRect.left + wrapRect.width / 2;
+    let nearestEl = null;
+    let nearestDist = Infinity;
 
-    items.forEach((el) => {
+    allItems.forEach((el) => {
       const r = el.getBoundingClientRect();
       const itemCenter = r.left + r.width / 2;
       const dist = Math.abs(itemCenter - centerX);
-      const t = Math.min(dist / FALLOFF, 1); // 0 at center, 1 at/after falloff distance
+      const t = Math.min(dist / FALLOFF, 1);
 
       let scale, lift;
       if (t <= 0.5) {
-        // center -> near
         const localT = t / 0.5;
         scale = SCALE_CENTER + (SCALE_NEAR - SCALE_CENTER) * localT;
       } else {
-        // near -> far
         const localT = (t - 0.5) / 0.5;
         scale = SCALE_NEAR + (SCALE_FAR - SCALE_NEAR) * localT;
       }
@@ -157,9 +178,19 @@
 
       el.style.transform = `translateY(${lift}px) scale(${scale})`;
       el.style.zIndex = String(Math.round((1 - t) * 100));
+
+      const bar = el.querySelector('.tyre-bar');
+      // bar only visible very near dead-center, fades fast so only one shows at a time
+      bar.style.opacity = String(Math.max(0, 1 - dist / 40));
+
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearestEl = el;
+      }
     });
 
     ticking = false;
+    return nearestEl;
   }
 
   function requestScaleUpdate() {
@@ -169,13 +200,31 @@
     }
   }
 
-  // ---- Snap-to-center after scrolling settles ----
-  function findNearestItem() {
+  // ---- Infinite loop: silently re-center scrollLeft into the middle
+  // repeat block whenever it drifts into the first or last block ----
+  function maintainLoop() {
+    const min = SEQUENCE_WIDTH * 1;       // guard band: don't let it reach block 0
+    const max = SEQUENCE_WIDTH * (REPEATS - 2); // guard band: don't let it reach last block
+    if (wrap.scrollLeft < min) {
+      wrap.classList.add('no-smooth');
+      wrap.scrollLeft += SEQUENCE_WIDTH * (REPEATS - 3);
+      // force reflow so the jump is applied before re-enabling smooth scroll
+      void wrap.offsetHeight;
+      wrap.classList.remove('no-smooth');
+    } else if (wrap.scrollLeft > max) {
+      wrap.classList.add('no-smooth');
+      wrap.scrollLeft -= SEQUENCE_WIDTH * (REPEATS - 3);
+      void wrap.offsetHeight;
+      wrap.classList.remove('no-smooth');
+    }
+  }
+
+  function snapToNearest() {
     const wrapRect = wrap.getBoundingClientRect();
     const centerX = wrapRect.left + wrapRect.width / 2;
-    let nearest = items[0];
+    let nearest = allItems[0];
     let minDist = Infinity;
-    items.forEach((el) => {
+    allItems.forEach((el) => {
       const r = el.getBoundingClientRect();
       const itemCenter = r.left + r.width / 2;
       const dist = Math.abs(itemCenter - centerX);
@@ -184,30 +233,23 @@
         nearest = el;
       }
     });
-    return nearest;
-  }
-
-  function snapToNearest() {
-    const nearest = findNearestItem();
-    const wrapRect = wrap.getBoundingClientRect();
     const itemRect = nearest.getBoundingClientRect();
-    const currentCenterOffset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+    const offset = (itemRect.left + itemRect.width / 2) - centerX;
 
     track.classList.add('settling');
-    wrap.scrollBy({ left: currentCenterOffset, behavior: 'smooth' });
+    wrap.scrollBy({ left: offset, behavior: 'smooth' });
 
-    // remove the slow-settle class once the smooth scroll has had time to finish
     window.clearTimeout(snapTimeout);
     snapTimeout = window.setTimeout(() => {
       track.classList.remove('settling');
-    }, 650);
+      maintainLoop();
+    }, 600);
   }
 
-  let scrollEndTimer = null;
   function onScroll() {
     requestScaleUpdate();
+    maintainLoop();
     window.clearTimeout(scrollEndTimer);
-    // only auto-snap once the user has actually stopped (not mid-drag)
     scrollEndTimer = window.setTimeout(() => {
       if (!isDown) snapToNearest();
     }, 120);
@@ -215,7 +257,6 @@
 
   wrap.addEventListener('scroll', onScroll, { passive: true });
 
-  // ---- Mouse drag ----
   wrap.addEventListener('mousedown', (e) => {
     isDown = true;
     wrap.classList.add('dragging');
@@ -233,13 +274,11 @@
     e.preventDefault();
     const dx = e.pageX - startX;
     wrap.scrollLeft = startScroll - dx;
-
     const now = performance.now();
     const dt = now - lastT || 16;
     velocityX = (e.pageX - lastX) / dt;
     lastX = e.pageX;
     lastT = now;
-
     requestScaleUpdate();
   });
 
@@ -247,13 +286,11 @@
     if (!isDown) return;
     isDown = false;
     wrap.classList.remove('dragging');
-    // small inertial coast based on release velocity, then snap
-    const coast = -velocityX * 120;
+    const coast = -velocityX * 110;
     wrap.scrollBy({ left: coast, behavior: 'smooth' });
-    window.setTimeout(snapToNearest, 180);
+    window.setTimeout(snapToNearest, 170);
   });
 
-  // ---- Touch ----
   wrap.addEventListener('touchstart', (e) => {
     isDown = true;
     track.classList.remove('settling');
@@ -274,22 +311,19 @@
     window.setTimeout(snapToNearest, 100);
   });
 
-  // ---- Wheel / trackpad horizontal ----
   wrap.addEventListener('wheel', (e) => {
-    // let native horizontal wheel/trackpad deltas drive scrollLeft directly;
-    // vertical wheel also nudges horizontal so a normal mouse wheel works too
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     wrap.scrollLeft += delta;
     e.preventDefault();
   }, { passive: false });
 
-  // ---- Init ----
   function init() {
-    // center the middle tyre on load
     requestAnimationFrame(() => {
-      const middle = items[Math.floor(items.length / 2)];
+      // start in the middle repeat block, centered on its first item
+      const startIndex = Math.floor(REPEATS / 2) * N;
+      const startEl = allItems[startIndex];
       const wrapRect = wrap.getBoundingClientRect();
-      const itemRect = middle.getBoundingClientRect();
+      const itemRect = startEl.getBoundingClientRect();
       const offset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
       wrap.scrollLeft += offset;
       updateScales();

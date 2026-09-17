@@ -16,7 +16,7 @@
     width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
     padding: 0 64px; height: 88px;
     display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 100;
+    position: sticky; top: 0; z-index: 300;
   }
   .logo { display: flex; align-items: center; gap: 12px; }
   .logo-icon {
@@ -84,21 +84,19 @@
   }
   .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* ================= TYRE CAROUSEL (replaces trust-grid) ================= */
+  /* ================= TYRE CAROUSEL v2 (3-visible, infinite loop) ================= */
   .tyre-carousel-section {
     background: #f5f2ed;
-    padding: 80px 0 140px;
+    padding: 120px 0 120px;
     overflow: visible;
-  }
-  .tyre-carousel-heading {
-    text-align: center;
-    margin-bottom: 8px;
   }
 
   .tyre-track-wrap {
     position: relative;
     width: 100%;
-    height: 420px;
+    max-width: 560px;
+    margin: 0 auto;
+    height: 380px;
     overflow-x: auto;
     overflow-y: visible;
     cursor: grab;
@@ -107,24 +105,20 @@
   }
   .tyre-track-wrap::-webkit-scrollbar { display: none; }
   .tyre-track-wrap.dragging { cursor: grabbing; }
+  .tyre-track-wrap.no-smooth { scroll-behavior: auto; }
 
   .tyre-track {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 50vw;
-    will-change: transform;
-    /* negative margins on children can collapse out of scrollWidth in some engines —
-       force the track to lay out at its natural (uncollapsed) content width instead */
     width: max-content;
   }
 
   .tyre-item {
-    flex: 0 0 220px;
-    width: 220px;
-    height: 220px;
-    margin: 0 -20px; /* overlap as visual spacing only — no longer zeroes out scrollWidth
-                         because the track's width is forced to max-content above */
+    flex: 0 0 200px;
+    width: 200px;
+    height: 200px;
+    margin: 0 -10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,16 +137,29 @@
     display: block;
     -webkit-user-drag: none;
     user-select: none;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.18));
+    filter: drop-shadow(0 18px 26px rgba(0,0,0,0.16));
+  }
+
+  .tyre-bar {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 4px;
+    border-radius: 2px;
+    background: #9c968c;
+    opacity: 0;
+    transition: opacity 0.15s linear;
   }
 
   .tyre-track.settling .tyre-item {
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   @media (max-width: 700px) {
-    .tyre-track-wrap { height: 300px; }
-    .tyre-item { width: 150px; height: 150px; margin: 0 -18px; }
+    .tyre-track-wrap { height: 300px; max-width: 100%; }
+    .tyre-item { flex-basis: 150px; width: 150px; height: 150px; margin: 0 -8px; }
   }
   /* ================= END TYRE CAROUSEL ================= */
 
@@ -312,12 +319,10 @@
   </div>
 </section>
 
-<!-- TYRE CAROUSEL (replaces the old Why-Trust-Us trust-grid section) -->
+<!-- TYRE CAROUSEL (v2 — 3 visible, infinite loop, larger center + gray bar) -->
 <section class="tyre-carousel-section">
   <div class="tyre-track-wrap" id="tyreWrap">
-    <div class="tyre-track" id="tyreTrack">
-      <!-- populated by JS below from the TYRES array -->
-    </div>
+    <div class="tyre-track" id="tyreTrack"></div>
   </div>
 </section>
 
@@ -501,39 +506,50 @@
   </div>
 </footer>
 
-<!-- TYRE CAROUSEL SCRIPT (no HTMX — pure client-side transform math, no server round-trips needed) -->
+<!-- TYRE CAROUSEL SCRIPT v2 (no HTMX — infinite loop via repeated sequence + silent scroll reset) -->
 <script>
 (function () {
-  // Easy to extend: just add {src, alt} entries here (or later, populate from an HTMX-fetched partial)
-  const TYRES = [
+  // Real filenames per the uploaded file: tyre1.png..tyre4.png
+  const BASE_TYRES = [
     { src: 'tyre1.png', alt: 'Tyre 1' },
     { src: 'tyre2.png', alt: 'Tyre 2' },
     { src: 'tyre3.png', alt: 'Tyre 3' },
     { src: 'tyre4.png', alt: 'Tyre 4' },
   ];
 
+  const REPEATS = 6;
+  const N = BASE_TYRES.length;
+
   const wrap = document.getElementById('tyreWrap');
   const track = document.getElementById('tyreTrack');
   if (!wrap || !track) return;
 
-  TYRES.forEach((t) => {
-    const el = document.createElement('div');
-    el.className = 'tyre-item';
-    const img = document.createElement('img');
-    img.src = t.src;
-    img.alt = t.alt;
-    img.draggable = false;
-    el.appendChild(img);
-    track.appendChild(el);
-  });
+  const allItems = [];
+  for (let r = 0; r < REPEATS; r++) {
+    BASE_TYRES.forEach((t) => {
+      const el = document.createElement('div');
+      el.className = 'tyre-item';
+      const img = document.createElement('img');
+      img.src = t.src;
+      img.alt = t.alt;
+      img.draggable = false;
+      el.appendChild(img);
+      const bar = document.createElement('div');
+      bar.className = 'tyre-bar';
+      el.appendChild(bar);
+      track.appendChild(el);
+      allItems.push(el);
+    });
+  }
 
-  const items = Array.from(track.querySelectorAll('.tyre-item'));
+  const ITEM_OUTER_WIDTH = 200 - 20;
+  const SEQUENCE_WIDTH = ITEM_OUTER_WIDTH * N;
 
-  const SCALE_CENTER = 1.3;
-  const SCALE_NEAR = 0.9;
-  const SCALE_FAR = 0.7;
-  const LIFT_CENTER = -28;
-  const FALLOFF = 260;
+  const SCALE_CENTER = 1.55;
+  const SCALE_NEAR = 0.82;
+  const SCALE_FAR = 0.6;
+  const LIFT_CENTER = -24;
+  const FALLOFF = 210;
 
   let ticking = false;
   let isDown = false;
@@ -543,12 +559,13 @@
   let lastX = 0;
   let lastT = 0;
   let snapTimeout = null;
+  let scrollEndTimer = null;
 
   function updateScales() {
     const wrapRect = wrap.getBoundingClientRect();
     const centerX = wrapRect.left + wrapRect.width / 2;
 
-    items.forEach((el) => {
+    allItems.forEach((el) => {
       const r = el.getBoundingClientRect();
       const itemCenter = r.left + r.width / 2;
       const dist = Math.abs(itemCenter - centerX);
@@ -566,6 +583,9 @@
 
       el.style.transform = `translateY(${lift}px) scale(${scale})`;
       el.style.zIndex = String(Math.round((1 - t) * 100));
+
+      const bar = el.querySelector('.tyre-bar');
+      bar.style.opacity = String(Math.max(0, 1 - dist / 40));
     });
 
     ticking = false;
@@ -578,12 +598,28 @@
     }
   }
 
-  function findNearestItem() {
+  function maintainLoop() {
+    const min = SEQUENCE_WIDTH * 1;
+    const max = SEQUENCE_WIDTH * (REPEATS - 2);
+    if (wrap.scrollLeft < min) {
+      wrap.classList.add('no-smooth');
+      wrap.scrollLeft += SEQUENCE_WIDTH * (REPEATS - 3);
+      void wrap.offsetHeight;
+      wrap.classList.remove('no-smooth');
+    } else if (wrap.scrollLeft > max) {
+      wrap.classList.add('no-smooth');
+      wrap.scrollLeft -= SEQUENCE_WIDTH * (REPEATS - 3);
+      void wrap.offsetHeight;
+      wrap.classList.remove('no-smooth');
+    }
+  }
+
+  function snapToNearest() {
     const wrapRect = wrap.getBoundingClientRect();
     const centerX = wrapRect.left + wrapRect.width / 2;
-    let nearest = items[0];
+    let nearest = allItems[0];
     let minDist = Infinity;
-    items.forEach((el) => {
+    allItems.forEach((el) => {
       const r = el.getBoundingClientRect();
       const itemCenter = r.left + r.width / 2;
       const dist = Math.abs(itemCenter - centerX);
@@ -592,27 +628,22 @@
         nearest = el;
       }
     });
-    return nearest;
-  }
-
-  function snapToNearest() {
-    const nearest = findNearestItem();
-    const wrapRect = wrap.getBoundingClientRect();
     const itemRect = nearest.getBoundingClientRect();
-    const currentCenterOffset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+    const offset = (itemRect.left + itemRect.width / 2) - centerX;
 
     track.classList.add('settling');
-    wrap.scrollBy({ left: currentCenterOffset, behavior: 'smooth' });
+    wrap.scrollBy({ left: offset, behavior: 'smooth' });
 
     window.clearTimeout(snapTimeout);
     snapTimeout = window.setTimeout(() => {
       track.classList.remove('settling');
-    }, 650);
+      maintainLoop();
+    }, 600);
   }
 
-  let scrollEndTimer = null;
   function onScroll() {
     requestScaleUpdate();
+    maintainLoop();
     window.clearTimeout(scrollEndTimer);
     scrollEndTimer = window.setTimeout(() => {
       if (!isDown) snapToNearest();
@@ -638,13 +669,11 @@
     e.preventDefault();
     const dx = e.pageX - startX;
     wrap.scrollLeft = startScroll - dx;
-
     const now = performance.now();
     const dt = now - lastT || 16;
     velocityX = (e.pageX - lastX) / dt;
     lastX = e.pageX;
     lastT = now;
-
     requestScaleUpdate();
   });
 
@@ -652,9 +681,9 @@
     if (!isDown) return;
     isDown = false;
     wrap.classList.remove('dragging');
-    const coast = -velocityX * 120;
+    const coast = -velocityX * 110;
     wrap.scrollBy({ left: coast, behavior: 'smooth' });
-    window.setTimeout(snapToNearest, 180);
+    window.setTimeout(snapToNearest, 170);
   });
 
   wrap.addEventListener('touchstart', (e) => {
@@ -685,9 +714,10 @@
 
   function init() {
     requestAnimationFrame(() => {
-      const middle = items[Math.floor(items.length / 2)];
+      const startIndex = Math.floor(REPEATS / 2) * N;
+      const startEl = allItems[startIndex];
       const wrapRect = wrap.getBoundingClientRect();
-      const itemRect = middle.getBoundingClientRect();
+      const itemRect = startEl.getBoundingClientRect();
       const offset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
       wrap.scrollLeft += offset;
       updateScales();
