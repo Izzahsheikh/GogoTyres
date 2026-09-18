@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find Tyres | GoGo Tyre Norwich</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; }
+
+  /* ===== NAV (matches index.html; Tyres active) ===== */
+  nav {
+    width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
+    padding: 0 64px; height: 88px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 300;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon {
+    width: 40px; height: 40px; border-radius: 8px; background: #3d5a47;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .logo-text { display: flex; flex-direction: column; gap: 2px; }
+  .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
+  .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
+  .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-phone { display: flex; align-items: center; gap: 8px; }
+  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
+  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
+  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .btn-book {
+    background: #3d5a47; border-radius: 6px; padding: 12px 20px;
+    font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
+    white-space: nowrap; display: inline-block;
+  }
+  .btn-book:hover { background: #4a6e57; }
+
+  /* ===== HERO SEARCH ===== */
+  .hero-search {
+    background: #f5f2ed;
+    padding: 88px 96px 104px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    text-align: center;
+  }
+  .hero-search h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 44px);
+    color: #2a2d2e;
+  }
+  .hero-search > p {
+    font-size: 16px; color: #888880; max-width: 520px; margin-bottom: 32px;
+  }
+
+  .search-card {
+    width: 100%; max-width: 1060px;
+    background: #fff; border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(42,45,46,0.08);
+    display: flex; flex-wrap: wrap;
+    overflow: hidden;
+  }
+  .search-option {
+    flex: 1 1 400px;
+    padding: 48px 56px;
+    display: flex; flex-direction: column; gap: 20px;
+    text-align: left;
+  }
+  .search-option + .search-option { border-left: 1px solid #e1dbd2; }
+  .search-option h3 {
+    font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e;
+  }
+  .reg-row { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid #e1dbd2; height: 54px; }
+  .reg-uk {
+    background: #1e40af; color: #fff; font-weight: 800; font-size: 13px;
+    display: flex; align-items: center; justify-content: center; padding: 0 16px;
+  }
+  .reg-input {
+    flex: 1; background: #fbbf24; border: none; text-align: center;
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px;
+    letter-spacing: 1px; color: #2a2d2e; padding: 0 8px; outline: none;
+    text-transform: uppercase;
+  }
+  .reg-input::placeholder { color: rgba(42,45,46,0.4); }
+  .btn-search {
+    background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px;
+    padding: 0 24px; white-space: nowrap;
+  }
+  .btn-search:hover { background: #4a6e57; }
+  .search-option .hint { font-size: 13px; color: #888880; line-height: 1.5; }
+
+  .dims-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .dim-select {
+    flex: 1 1 100px;
+    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 8px;
+    padding: 14px 12px; font-size: 14px; color: #2a2d2e; font-family: inherit;
+    outline: none;
+  }
+  .btn-find-manual {
+    background: #3d5a47; color: #fff; font-weight: 700; font-size: 15px;
+    padding: 16px; border-radius: 8px; text-align: center; margin-top: 4px;
+  }
+  .btn-find-manual:hover { background: #4a6e57; }
+
+  /* ===== RESULTS + FILTERS (merged from tyre-results.html) ===== */
+  .results-header {
+    padding: 0 96px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    padding-bottom: 24px; border-bottom: 1px solid #e1dbd2; margin: 0 0 32px;
+  }
+  .results-header h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(20px, 2.6vw, 26px); color: #2a2d2e;
+  }
+  .results-header p { font-size: 14px; color: #888880; margin-top: 6px; }
+
+  .results-main { padding: 0 96px 96px; display: flex; gap: 32px; align-items: flex-start; }
+
+  .filters {
+    flex: 0 0 260px;
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px;
+    padding: 28px; position: sticky; top: 108px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .filters h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 18px; color: #2a2d2e; }
+  .filter-group { border-top: 1px solid #e1dbd2; padding-top: 20px; }
+  .filter-group:first-of-type { border-top: none; padding-top: 0; }
+  .filter-group h3 {
+    font-weight: 700; font-size: 12px; color: #2a2d2e; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .filter-row {
+    display: flex; align-items: center; gap: 10px; font-size: 14px; color: #2a2d2e;
+    margin-bottom: 10px; cursor: pointer;
+  }
+  .filter-row input { accent-color: #3d5a47; width: 16px; height: 16px; cursor: pointer; }
+  .filter-row .count { color: #888880; margin-left: auto; }
+  .price-inputs { display: flex; justify-content: space-between; font-size: 13px; color: #888880; margin-top: 8px; }
+  input[type="range"] { width: 100%; accent-color: #3d5a47; }
+  .btn-clear {
+    font-size: 13px; font-weight: 700; color: #3d5a47; text-align: left; padding-top: 4px;
+  }
+  .btn-clear:hover { text-decoration: underline; }
+
+  .results-list { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .results-toolbar {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .results-toolbar span { font-size: 14px; color: #2a2d2e; }
+  .sort-select {
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 6px;
+    padding: 10px 14px; font-size: 14px; color: #2a2d2e; font-family: inherit;
+  }
+
+  .compare-bar {
+    display: none;
+    background: #2a2d2e; border-radius: 10px; padding: 14px 20px;
+    align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .compare-bar.active { display: flex; }
+  .compare-bar span { color: #fff; font-size: 14px; }
+  .compare-bar span strong { color: #f0a35e; }
+  .btn-compare {
+    background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px;
+    padding: 10px 20px; border-radius: 6px;
+  }
+  .btn-compare:hover { background: #4a6e57; }
+
+  .tyre-card {
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 24px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .tyre-card.hidden-by-filter { display: none; }
+  .card-check { flex: 0 0 auto; display: flex; align-items: center; align-self: stretch; }
+  .card-check input { width: 18px; height: 18px; accent-color: #3d5a47; cursor: pointer; }
+  .card-img {
+    flex: 0 0 120px; width: 120px; height: 120px; background: #f5f2ed; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .card-img img { max-width: 92%; max-height: 92%; object-fit: contain; }
+  .card-body { flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px; }
+  .card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 18px; color: #2a2d2e; }
+  .card-body h3 span { font-weight: 500; color: #888880; }
+  .card-size { font-size: 13px; color: #888880; }
+  .card-desc { font-size: 14px; color: #888880; margin-top: 6px; max-width: 480px; }
+  .card-tags { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .card-tag { background: #f5f2ed; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: #2a2d2e; }
+  .card-tag .letter { color: #3d5a47; }
+  .card-price { flex: 0 0 200px; text-align: right; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+  .card-price .label { font-size: 12px; color: #888880; }
+  .card-price .amount { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #2a2d2e; }
+  .btn-select { background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px; padding: 12px 22px; border-radius: 6px; display: inline-block; }
+  .btn-select:hover { background: #4a6e57; }
+  .card-avail { font-size: 12px; color: #888880; }
+
+  .no-results {
+    display: none; text-align: center; padding: 64px 24px; color: #888880;
+    background: #fff; border: 1px dashed #e1dbd2; border-radius: 12px;
+  }
+  .no-results.active { display: block; }
+  /* ===== END RESULTS + FILTERS ===== */
+
+  /* ===== HOW IT WORKS (3 steps) ===== */
+  .how {
+    background: #e8e2d9; padding: 72px 96px;
+  }
+  .how-header { text-align: center; margin-bottom: 40px; }
+  .how-header h2 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(24px, 3.5vw, 34px); color: #2a2d2e;
+  }
+  .how-header p { font-size: 15px; color: #888880; margin-top: 8px; }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .how-card {
+    background: #fff; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .how-num {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 34px; color: #cfc8ba;
+  }
+  .how-card h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e; }
+  .how-card p { font-size: 14px; line-height: 1.5; color: #888880; }
+
+  /* ===== SERVICE OPTIONS ===== */
+  .service-options { background: #2a2d2e; padding: 72px 96px; }
+  .service-header { text-align: center; margin-bottom: 40px; }
+  .service-header h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(24px, 3.5vw, 34px); color: #fff; }
+  .service-header p { font-size: 15px; color: #d4cfc8; margin-top: 8px; }
+  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .service-card { border-radius: 14px; overflow: hidden; background: #33373a; display: flex; flex-direction: column; }
+  .service-card-img {
+    height: 220px; background: #3d4142;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .service-card-img svg { opacity: 0.35; }
+  .service-card-body { padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .service-card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 20px; color: #fff; }
+  .service-card-body p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
+  .service-meta { font-size: 13px; color: #d4cfc8; margin-top: 4px; }
+  .service-meta strong { color: #f0a35e; }
+  .btn-service {
+    margin-top: 12px; background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px;
+    padding: 12px 20px; border-radius: 6px; align-self: flex-start;
+  }
+  .btn-service:hover { background: #4a6e57; }
+
+  /* ===== BRAND STRIP ===== */
+  .brands { background: #f5f2ed; padding: 56px 96px; text-align: center; }
+  .brands .label {
+    font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px;
+    margin-bottom: 24px;
+  }
+  .brand-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .brand-chip {
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 8px;
+    padding: 14px 28px; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px;
+    color: #2a2d2e; letter-spacing: 0.4px;
+  }
+
+  /* ===== CTA ===== */
+  .cta-banner {
+    background: #2a2d2e; padding: 80px 96px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;
+  }
+  .cta-banner h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(26px, 4vw, 38px); color: #fff; }
+  .cta-banner p { font-size: 16px; color: #d4cfc8; max-width: 560px; line-height: 1.6; }
+  .cta-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .btn-white {
+    background: #fff; color: #3d5a47; border-radius: 6px;
+    padding: 16px 32px; font-weight: 700; font-size: 16px; display: inline-block;
+  }
+  .btn-outline-light {
+    background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 6px; padding: 16px 32px; font-weight: 700; font-size: 16px; display: inline-block;
+  }
+
+  /* ===== FOOTER (matches index.html) ===== */
+  footer { background: #2a2d2e; padding: 80px 96px 40px; }
+  .footer-top { display: flex; gap: 64px; justify-content: space-between; flex-wrap: wrap; }
+  .footer-brand { max-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+  .footer-brand p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
+  .payment-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    background: #3d4142; border-radius: 4px; padding: 6px 10px;
+    font-weight: 700; font-size: 10px; color: #d4cfc8;
+  }
+  .footer-col { display: flex; flex-direction: column; gap: 14px; }
+  .footer-col strong { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 13px; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .footer-col a, .footer-col span { font-size: 14px; color: #d4cfc8; display: block; }
+  .footer-col a:hover { color: #fff; }
+  .footer-divider { height: 1px; background: #3d4142; margin: 48px 0 32px; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-bottom span { font-size: 13px; color: #d4cfc8; }
+  .footer-bottom-links { display: flex; gap: 24px; }
+  .footer-bottom-links a { font-size: 13px; color: #d4cfc8; }
+  .footer-bottom-links a:hover { color: #fff; }
+  .stars { display: flex; gap: 2px; }
+  .social-row { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 18px; background: #3d4142;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    nav { padding: 0 32px; }
+    .hero-search, .how, .service-options, .brands, .cta-banner, footer { padding-left: 32px; padding-right: 32px; }
+    .results-header, .results-main { padding-left: 32px; padding-right: 32px; }
+    .results-main { flex-direction: column; }
+    .filters { position: static; width: 100%; flex: 1 1 auto; }
+    .service-grid { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; height: 72px; }
+    .nav-links, .nav-phone { display: none; }
+    .hero-search, .how, .service-options, .brands, .cta-banner, footer { padding-left: 20px; padding-right: 20px; }
+    .results-header, .results-main { padding-left: 20px; padding-right: 20px; }
+    .search-option { padding: 24px; }
+    .search-option + .search-option { border-left: none; border-top: 1px solid #e1dbd2; }
+    .tyre-card { flex-direction: column; align-items: flex-start; }
+    .card-price { align-items: flex-start; width: 100%; }
+    .footer-top { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></svg>
+    </div>
+    <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="tyres.html" class="active">Tyres</a>
+    <a href="services.html">Services</a>
+    <a href="mobile-fitting.html">Mobile Fitting</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-phone">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
+      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
+    </div>
+    <a href="contact.html" class="btn-book">Book Fitting</a>
+  </div>
+</nav>
+
+<!-- HERO SEARCH -->
+<section class="hero-search">
+  <h1>Find the Perfect Tyres for Your Vehicle</h1>
+  <p>Enter your registration number or search manually by your tyre dimensions.</p>
+
+  <div class="search-card">
+    <div class="search-option">
+      <h3>Option A: Search by Registration</h3>
+      <form class="reg-row" id="regForm">
+        <div class="reg-uk">UK</div>
+        <input class="reg-input" type="text" name="reg" placeholder="e.g. LN66 XRG" maxlength="8">
+        <button type="submit" class="btn-search">Search Reg</button>
+      </form>
+      <span class="hint">Enter your registration plate. We'll automatically identify your required tyre sizes.</span>
+    </div>
+    <div class="search-option">
+      <h3>Option B: Search by Tyre Size</h3>
+      <div class="dims-row">
+        <select class="dim-select" aria-label="Width">
+          <option>Width: 195</option>
+          <option selected>Width: 205</option>
+          <option>Width: 215</option>
+          <option>Width: 225</option>
+        </select>
+        <select class="dim-select" aria-label="Profile">
+          <option>Profile: 45</option>
+          <option selected>Profile: 55</option>
+          <option>Profile: 60</option>
+        </select>
+        <select class="dim-select" aria-label="Rim">
+          <option>Rim: R15</option>
+          <option selected>Rim: R16</option>
+          <option>Rim: R17</option>
+        </select>
+        <select class="dim-select" aria-label="Speed rating">
+          <option>Speed: H</option>
+          <option selected>Speed: V</option>
+          <option>Speed: W</option>
+        </select>
+      </div>
+      <button type="button" class="btn-find-manual" id="findManualBtn">Find Manual Sizes</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS + FILTERS (merged from what was tyre-results.html) -->
+<div id="resultsSection">
+  <div class="results-header">
+    <div>
+      <h1>Tyres Matching: 225/45 R17</h1>
+      <p id="resultCount">Showing 4 premium tyres found for your vehicle</p>
+    </div>
+  </div>
+
+  <div class="results-main">
+
+    <!-- FILTERS -->
+    <aside class="filters">
+      <h2>Filter Results</h2>
+
+      <div class="filter-group">
+        <h3>Tyre Brand</h3>
+        <label class="filter-row">
+          <input type="checkbox" class="f-brand" value="Michelin" checked>
+          Michelin <span class="count">(1)</span>
+        </label>
+        <label class="filter-row">
+          <input type="checkbox" class="f-brand" value="Continental" checked>
+          Continental <span class="count">(1)</span>
+        </label>
+        <label class="filter-row">
+          <input type="checkbox" class="f-brand" value="Pirelli" checked>
+          Pirelli <span class="count">(1)</span>
+        </label>
+        <label class="filter-row">
+          <input type="checkbox" class="f-brand" value="Bridgestone" checked>
+          Bridgestone <span class="count">(1)</span>
+        </label>
+      </div>
+
+      <div class="filter-group">
+        <h3>Season</h3>
+        <label class="filter-row">
+          <input type="radio" name="season" class="f-season" value="all" checked>
+          All Seasons
+        </label>
+        <label class="filter-row">
+          <input type="radio" name="season" class="f-season" value="Summer">
+          Summer Tyres
+        </label>
+        <label class="filter-row">
+          <input type="radio" name="season" class="f-season" value="Winter">
+          Winter Tyres
+        </label>
+      </div>
+
+      <div class="filter-group">
+        <h3>Price Range</h3>
+        <input type="range" id="priceMax" min="60" max="200" value="200" step="1">
+        <div class="price-inputs">
+          <span>£60</span>
+          <span id="priceMaxLabel">£200+</span>
+        </div>
+      </div>
+
+      <button class="btn-clear" id="clearFilters">Clear all filters</button>
+    </aside>
+
+    <!-- RESULTS -->
+    <div class="results-list">
+      <div class="results-toolbar">
+        <span id="toolbarCount">We found <strong>4 results</strong> matching your criteria</span>
+        <select class="sort-select" id="sortSelect">
+          <option value="premium">Sort by: Premium Choice</option>
+          <option value="low">Sort by: Price (Low to High)</option>
+          <option value="high">Sort by: Price (High to Low)</option>
+        </select>
+      </div>
+
+      <div class="compare-bar" id="compareBar">
+        <span><strong id="compareCount">0</strong> of 2 tyres selected for comparison</span>
+        <a href="#" class="btn-compare" id="compareBtn">Compare Selected</a>
+      </div>
+
+      <!-- Tyre 1: Michelin -->
+      <div class="tyre-card" data-brand="Michelin" data-season="Summer" data-price="104" data-id="1">
+        <div class="card-check"><input type="checkbox" class="compare-check" value="1"></div>
+        <div class="card-img"><img src="tyre1.png" alt="Michelin Pilot Sport 5"></div>
+        <div class="card-body">
+          <h3>Michelin <span>Pilot Sport 5</span></h3>
+          <span class="card-size">225/45 R17 94Y</span>
+          <p class="card-desc">Ultra-high performance sports tyre with outstanding wet and dry handling.</p>
+          <div class="card-tags">
+            <span class="card-tag">FUEL <span class="letter">C</span></span>
+            <span class="card-tag">WET <span class="letter">A</span></span>
+            <span class="card-tag">NOISE 72dB</span>
+          </div>
+        </div>
+        <div class="card-price">
+          <span class="label">Fully Fitted Price</span>
+          <span class="amount">£104.00</span>
+          <a href="tyre-detail.html?id=1" class="btn-select">Select Tyre</a>
+          <span class="card-avail">Available for Workshop &amp; Mobile Fitting</span>
+        </div>
+      </div>
+
+      <!-- Tyre 2: Continental -->
+      <div class="tyre-card" data-brand="Continental" data-season="Summer" data-price="96" data-id="2">
+        <div class="card-check"><input type="checkbox" class="compare-check" value="2"></div>
+        <div class="card-img"><img src="tyre2.png" alt="Continental PremiumContact 6"></div>
+        <div class="card-body">
+          <h3>Continental <span>PremiumContact 6</span></h3>
+          <span class="card-size">205/55 R16 91V</span>
+          <p class="card-desc">Maximum comfort and premium safety characteristics for all passenger cars.</p>
+          <div class="card-tags">
+            <span class="card-tag">FUEL <span class="letter">B</span></span>
+            <span class="card-tag">WET <span class="letter">A</span></span>
+            <span class="card-tag">NOISE 71dB</span>
+          </div>
+        </div>
+        <div class="card-price">
+          <span class="label">Fully Fitted Price</span>
+          <span class="amount">£96.00</span>
+          <a href="tyre-detail.html?id=2" class="btn-select">Select Tyre</a>
+          <span class="card-avail">Available for Workshop &amp; Mobile Fitting</span>
+        </div>
+      </div>
+
+      <!-- Tyre 3: Pirelli -->
+      <div class="tyre-card" data-brand="Pirelli" data-season="Summer" data-price="112" data-id="3">
+        <div class="card-check"><input type="checkbox" class="compare-check" value="3"></div>
+        <div class="card-img"><img src="tyre3.png" alt="Pirelli P Zero PZ4"></div>
+        <div class="card-body">
+          <h3>Pirelli <span>P Zero (PZ4)</span></h3>
+          <span class="card-size">225/45 R17 94Y</span>
+          <p class="card-desc">The legendary luxury tyre combining motorsport performance with road comfort.</p>
+          <div class="card-tags">
+            <span class="card-tag">FUEL <span class="letter">C</span></span>
+            <span class="card-tag">WET <span class="letter">A</span></span>
+            <span class="card-tag">NOISE 70dB</span>
+          </div>
+        </div>
+        <div class="card-price">
+          <span class="label">Fully Fitted Price</span>
+          <span class="amount">£112.00</span>
+          <a href="tyre-detail.html?id=3" class="btn-select">Select Tyre</a>
+          <span class="card-avail">Available for Workshop &amp; Mobile Fitting</span>
+        </div>
+      </div>
+
+      <!-- Tyre 4: Bridgestone -->
+      <div class="tyre-card" data-brand="Bridgestone" data-season="Summer" data-price="92" data-id="4">
+        <div class="card-check"><input type="checkbox" class="compare-check" value="4"></div>
+        <div class="card-img"><img src="tyre4.png" alt="Bridgestone Turanza T005"></div>
+        <div class="card-body">
+          <h3>Bridgestone <span>Turanza T005</span></h3>
+          <span class="card-size">205/55 R16 91V</span>
+          <p class="card-desc">Class-leading wet grip and low rolling resistance for everyday driving.</p>
+          <div class="card-tags">
+            <span class="card-tag">FUEL <span class="letter">B</span></span>
+            <span class="card-tag">WET <span class="letter">B</span></span>
+            <span class="card-tag">NOISE 71dB</span>
+          </div>
+        </div>
+        <div class="card-price">
+          <span class="label">Fully Fitted Price</span>
+          <span class="amount">£92.00</span>
+          <a href="tyre-detail.html?id=4" class="btn-select">Select Tyre</a>
+          <span class="card-avail">Available for Workshop &amp; Mobile Fitting</span>
+        </div>
+      </div>
+
+      <div class="no-results" id="noResults">
+        No tyres match your current filters. Try widening your price range or selecting more brands.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-header">
+    <h2>Order Tyres in 3 Simple Steps</h2>
+    <p>Fast and straightforward online booking. Zero friction.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <span class="how-num">01</span>
+      <h3>Search Your Dimensions</h3>
+      <p>Use your registration number or tyre sizes to find exactly matching performance tyres.</p>
+    </div>
+    <div class="how-card">
+      <span class="how-num">02</span>
+      <h3>Choose Fitting Option</h3>
+      <p>Select premium fitting at our modern Norwich workshop, or request mobile fitting at your address.</p>
+    </div>
+    <div class="how-card">
+      <span class="how-num">03</span>
+      <h3>Confirm &amp; Book</h3>
+      <p>Pick a secure time slot that works best for you. No upfront payment required online.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE OPTIONS -->
+<section class="service-options">
+  <div class="service-header">
+    <h2>Our Professional Services</h2>
+    <p>Select the fitting option that fits your schedule best.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="service-card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>
+      </div>
+      <div class="service-card-body">
+        <h3>Norwich Workshop Fitting</h3>
+        <p>Visit our state-of-the-art diagnostic workshop in central Norwich. Enjoy warm refreshments, premium high-speed Wi-Fi, and precise digital wheel balancing.</p>
+        <span class="service-meta"><strong>From £45 per tyre</strong> &nbsp;•&nbsp; While-you-wait service</span>
+        <a href="#resultsSection" class="btn-service">Book at Workshop</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V8a1 1 0 0 1 1-1h9l4 4v5"/><path d="M17 16H3"/><circle cx="6.5" cy="17.5" r="1.7"/><circle cx="16.5" cy="17.5" r="1.7"/></svg>
+      </div>
+      <div class="service-card-body">
+        <h3>24/7 Mobile Fitting Service</h3>
+        <p>We bring the garage to you. Serving driveways, offices, and roadside emergencies across Norwich and Norfolk. Never sacrifice your valuable time.</p>
+        <span class="service-meta"><strong>No mobile surcharge</strong> &nbsp;•&nbsp; At home or work</span>
+        <a href="mobile-fitting.html" class="btn-service">Book Mobile Unit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands">
+  <div class="label">We Fit All Major Brands</div>
+  <div class="brand-row">
+    <span class="brand-chip">MICHELIN</span>
+    <span class="brand-chip">CONTINENTAL</span>
+    <span class="brand-chip">PIRELLI</span>
+    <span class="brand-chip">BRIDGESTONE</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>Ready to Get Rolling?</h2>
+  <p>Don't leave your tyre safety to chance. Book online today or consult one of our independent local Norwich tyre fitting specialists.</p>
+  <div class="cta-btns">
+    <a href="#resultsSection" class="btn-white">Find Your Tyres</a>
+    <a href="tel:01603555888" class="btn-outline-light">Call Hotline: 01603 555888</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
+      </a>
+      <p>Premium independent tyre fitting business serving Norwich and Norfolk. Expert fitting, transparent pricing, and unparalleled local convenience.</p>
+      <div class="payment-badges">
+        <span class="badge">VISA</span>
+        <span class="badge">MC</span>
+        <span class="badge">AMEX</span>
+        <span class="badge">APPLE PAY</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <strong>Services</strong>
+      <a href="services.html">Garage fitting</a>
+      <a href="mobile-fitting.html">Mobile driveway fitting</a>
+      <a href="services.html">Puncture repair</a>
+      <a href="services.html">Wheel alignment</a>
+      <a href="services.html">Fleet tyre care</a>
+    </div>
+    <div class="footer-col">
+      <strong>GoGo Tyre Norwich</strong>
+      <span style="font-weight:700;color:#fff;">HQ &amp; Diagnostic Workshop:</span>
+      <span>Unit 4, Mile Cross Industrial Estate</span>
+      <span>Norwich, NR6 6BY</span>
+      <span>Hotline: 01603 555888</span>
+      <span>Email: bookings@gogotyre.co.uk</span>
+    </div>
+    <div class="footer-col">
+      <strong>Connect &amp; Trust</strong>
+      <div class="stars">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p style="font-size:13px;color:#d4cfc8;line-height:1.5;">Rated Excellent on Trustpilot and Google Reviews by local Norfolk motorists.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#d4cfc8"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#d4cfc8"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>© 2026 GoGo Tyre Norwich. Independent Premium Tyre Fitters. All rights reserved.</span>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Hero search actions now scroll to the in-page results instead of navigating away
+  document.getElementById('regForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+  });
+  document.getElementById('findManualBtn').addEventListener('click', () => {
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // ===== Filters + compare (same logic as the former tyre-results.html) =====
+  const cards = Array.from(document.querySelectorAll('.tyre-card'));
+  const brandChecks = Array.from(document.querySelectorAll('.f-brand'));
+  const seasonRadios = Array.from(document.querySelectorAll('.f-season'));
+  const priceMax = document.getElementById('priceMax');
+  const priceMaxLabel = document.getElementById('priceMaxLabel');
+  const toolbarCount = document.getElementById('toolbarCount');
+  const resultCount = document.getElementById('resultCount');
+  const noResults = document.getElementById('noResults');
+  const sortSelect = document.getElementById('sortSelect');
+  const resultsList = document.querySelector('.results-list');
+  const clearBtn = document.getElementById('clearFilters');
+
+  function applyFilters() {
+    const activeBrands = brandChecks.filter(c => c.checked).map(c => c.value);
+    const activeSeason = seasonRadios.find(r => r.checked).value;
+    const maxPrice = parseInt(priceMax.value, 10);
+
+    priceMaxLabel.textContent = maxPrice >= 200 ? '£200+' : `£${maxPrice}`;
+
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const brand = card.dataset.brand;
+      const season = card.dataset.season;
+      const price = parseInt(card.dataset.price, 10);
+
+      const brandOk = activeBrands.includes(brand);
+      const seasonOk = activeSeason === 'all' || activeSeason === season;
+      const priceOk = price <= maxPrice;
+
+      const visible = brandOk && seasonOk && priceOk;
+      card.classList.toggle('hidden-by-filter', !visible);
+      if (visible) visibleCount++;
+    });
+
+    toolbarCount.innerHTML = `We found <strong>${visibleCount} result${visibleCount === 1 ? '' : 's'}</strong> matching your criteria`;
+    resultCount.textContent = `Showing ${visibleCount} premium tyre${visibleCount === 1 ? '' : 's'} found for your vehicle`;
+    noResults.classList.toggle('active', visibleCount === 0);
+  }
+
+  brandChecks.forEach(c => c.addEventListener('change', applyFilters));
+  seasonRadios.forEach(r => r.addEventListener('change', applyFilters));
+  priceMax.addEventListener('input', applyFilters);
+
+  clearBtn.addEventListener('click', () => {
+    brandChecks.forEach(c => c.checked = true);
+    seasonRadios.forEach(r => r.checked = r.value === 'all');
+    priceMax.value = 200;
+    applyFilters();
+  });
+
+  sortSelect.addEventListener('change', () => {
+    const mode = sortSelect.value;
+    const sorted = cards.slice().sort((a, b) => {
+      const pa = parseInt(a.dataset.price, 10);
+      const pb = parseInt(b.dataset.price, 10);
+      if (mode === 'low') return pa - pb;
+      if (mode === 'high') return pb - pa;
+      return 0;
+    });
+    sorted.forEach(card => resultsList.insertBefore(card, document.getElementById('noResults')));
+  });
+
+  // ---- Compare selection ----
+  const compareChecks = Array.from(document.querySelectorAll('.compare-check'));
+  const compareBar = document.getElementById('compareBar');
+  const compareCount = document.getElementById('compareCount');
+  const compareBtn = document.getElementById('compareBtn');
+
+  function updateCompareBar() {
+    const selected = compareChecks.filter(c => c.checked);
+    compareCount.textContent = selected.length;
+    compareBar.classList.toggle('active', selected.length > 0);
+
+    if (selected.length >= 2) {
+      compareChecks.forEach(c => { if (!c.checked) c.disabled = true; });
+    } else {
+      compareChecks.forEach(c => { c.disabled = false; });
+    }
+
+    if (selected.length === 2) {
+      compareBtn.href = `tyre-compare.html?a=${selected[0].value}&b=${selected[1].value}`;
+      compareBtn.style.pointerEvents = 'auto';
+      compareBtn.style.opacity = '1';
+    } else {
+      compareBtn.href = '#';
+      compareBtn.style.pointerEvents = 'none';
+      compareBtn.style.opacity = '0.5';
+    }
+  }
+
+  compareChecks.forEach(c => c.addEventListener('change', updateCompareBar));
+  updateCompareBar();
+
+  applyFilters();
+})();
+</script>
+
+</body>
+</html>

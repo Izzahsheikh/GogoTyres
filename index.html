@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GoGo Tyre Norwich — Premium Tyre Fitting</title>
+<title>Tyres | GoGo Tyre Norwich</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -11,7 +11,7 @@
   body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
   a { text-decoration: none; color: inherit; }
 
-  /* NAV */
+  /* NAV (copied verbatim from index.html, Tyres set active) */
   nav {
     width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
     padding: 0 64px; height: 88px;
@@ -42,192 +42,42 @@
   }
   .btn-book:hover { background: #4a6e57; }
 
-  /* HERO */
-  .hero {
-    background: #2a2d2e; min-height: 480px;
-    display: flex; align-items: center; justify-content: center;
-    gap: 64px;
-    padding: 80px 96px;
-    position: relative; overflow: hidden;
-  }
-  .hero-content { max-width: 620px; display: flex; flex-direction: column; gap: 28px; align-items: flex-start; text-align: left; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #3d4142; border-radius: 200px; padding: 8px 16px;
-    width: fit-content;
-  }
-  .hero-badge span { font-weight: 700; font-size: 12px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3d5a47; flex-shrink: 0; }
-  .hero h1 {
-    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 56px;
-    line-height: 1.1; color: #fff;
-  }
-  .hero p { font-size: 18px; line-height: 1.6; color: #d4cfc8; max-width: 480px; }
-  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-  .btn-primary {
-    background: #3d5a47; color: #fff; border-radius: 6px;
-    padding: 16px 28px; font-weight: 700; font-size: 15px;
-  }
-  .btn-primary:hover { background: #4a6e57; }
-  .btn-outline {
-    background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 6px; padding: 16px 28px; font-weight: 700; font-size: 15px;
-  }
-  .btn-outline:hover { border-color: rgba(255,255,255,0.6); }
-
-  /* HERO TYRE IMAGE */
-  .hero-image {
-    width: 470px; height: 470px; border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0; position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-  .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* ================= TYRE CAROUSEL v2 (3-visible, infinite loop) ================= */
-  .tyre-carousel-section {
-    background: #f5f2ed;
-    padding: 120px 0 120px;
-    overflow: visible;
-  }
-
-  .tyre-track-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 560px;
-    margin: 0 auto;
-    height: 380px;
-    overflow-x: auto;
-    overflow-y: visible;
-    cursor: grab;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .tyre-track-wrap::-webkit-scrollbar { display: none; }
-  .tyre-track-wrap.dragging { cursor: grabbing; }
-  .tyre-track-wrap.no-smooth { scroll-behavior: auto; }
-
-  .tyre-track {
+  /* PLACEHOLDER BODY */
+  .placeholder {
+    min-height: 60vh;
     display: flex;
-    align-items: center;
-    height: 100%;
-    width: max-content;
-  }
-
-  .tyre-item {
-    flex: 0 0 200px;
-    width: 200px;
-    height: 200px;
-    margin: 0 -10px;
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
-    transform-origin: center center;
-    will-change: transform;
-    transition: transform 0.05s linear;
-    pointer-events: none;
-    user-select: none;
+    text-align: center;
+    padding: 96px 32px;
+    gap: 20px;
   }
+  .placeholder-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #e8e2d9; border-radius: 200px; padding: 8px 16px;
+  }
+  .placeholder-badge span {
+    font-weight: 700; font-size: 12px; color: #3d5a47;
+    text-transform: uppercase; letter-spacing: 0.6px;
+  }
+  .placeholder h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 44px);
+    color: #2a2d2e;
+  }
+  .placeholder p {
+    font-size: 16px; line-height: 1.6; color: #888880; max-width: 480px;
+  }
+  .btn-primary {
+    background: #3d5a47; color: #fff; border-radius: 6px;
+    padding: 14px 28px; font-weight: 700; font-size: 15px;
+    margin-top: 8px;
+  }
+  .btn-primary:hover { background: #4a6e57; }
 
-  .tyre-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    -webkit-user-drag: none;
-    user-select: none;
-    filter: drop-shadow(0 18px 26px rgba(0,0,0,0.16));
-  }
-
-  .tyre-bar {
-    position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 64px;
-    height: 4px;
-    border-radius: 2px;
-    background: #9c968c;
-    opacity: 0;
-    transition: opacity 0.15s linear;
-  }
-
-  .tyre-track.settling .tyre-item {
-    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  @media (max-width: 700px) {
-    .tyre-track-wrap { height: 300px; max-width: 100%; }
-    .tyre-item { flex-basis: 150px; width: 150px; height: 150px; margin: 0 -8px; }
-  }
-  /* ================= END TYRE CAROUSEL ================= */
-
-  /* SERVICES PREVIEW */
-  .services-preview { background: #fff; padding: 80px 96px; }
-  .section-label { font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px; text-align: center; }
-  .section-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 36px; color: #2a2d2e; text-align: center; margin-top: 12px; }
-  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
-  .service-card {
-    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 12px;
-    padding: 28px; display: flex; flex-direction: column; gap: 16px;
-  }
-  .icon-box {
-    width: 48px; height: 48px; border-radius: 8px; background: #f5f2ed;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
-  .service-card h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e; }
-  .service-card p { font-size: 14px; line-height: 1.5; color: #888880; }
-  .price { font-weight: 700; font-size: 14px; color: #d97706; }
-  .section-cta { text-align: center; margin-top: 40px; }
-
-  /* HOW IT WORKS */
-  .how { background: #2a2d2e; padding: 80px 96px; }
-  .how .section-label { color: #3d5a47; }
-  .how .section-title { color: #fff; }
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 56px; position: relative; }
-  .steps::before {
-    content: ''; position: absolute; top: 28px; left: calc(12.5% + 16px); right: calc(12.5% + 16px);
-    height: 1px; background: #3d4142;
-  }
-  .step { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
-  .step-num {
-    width: 56px; height: 56px; border-radius: 50%; background: #3d5a47;
-    display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
-    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
-  }
-  .step h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #fff; }
-  .step p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
-
-  /* REVIEWS */
-  .reviews { background: #f5f2ed; padding: 80px 96px; }
-  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-  .review-card {
-    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 32px;
-    display: flex; flex-direction: column; gap: 16px;
-  }
-  .stars { display: flex; gap: 2px; }
-  .review-card p { font-size: 15px; line-height: 1.6; color: #2a2d2e; flex: 1; }
-  .reviewer { display: flex; flex-direction: column; gap: 4px; }
-  .reviewer strong { font-weight: 700; font-size: 14px; color: #2a2d2e; }
-  .reviewer span { font-size: 13px; color: #888880; }
-
-  /* CTA BANNER */
-  .cta-banner {
-    background: #3d5a47; padding: 80px 96px;
-    display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;
-  }
-  .cta-banner h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 40px; color: #fff; }
-  .cta-banner p { font-size: 18px; color: rgba(255,255,255,0.85); max-width: 560px; line-height: 1.6; }
-  .btn-white {
-    background: #fff; color: #3d5a47; border-radius: 6px;
-    padding: 18px 40px; font-weight: 700; font-size: 16px; margin-top: 8px;
-  }
-  .btn-white:hover { background: #f0ede8; }
-
-  /* FOOTER */
+  /* FOOTER (copied verbatim from index.html) */
   footer { background: #2a2d2e; padding: 80px 96px 40px; }
-  .footer-top { display: flex; gap: 64px; justify-content: space-between; }
+  .footer-top { display: flex; gap: 64px; justify-content: space-between; flex-wrap: wrap; }
   .footer-brand { max-width: 300px; display: flex; flex-direction: column; gap: 20px; }
   .footer-brand p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
   .payment-badges { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -240,11 +90,12 @@
   .footer-col a, .footer-col span { font-size: 14px; color: #d4cfc8; display: block; }
   .footer-col a:hover { color: #fff; }
   .footer-divider { height: 1px; background: #3d4142; margin: 48px 0 32px; }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .footer-bottom span { font-size: 13px; color: #d4cfc8; }
   .footer-bottom-links { display: flex; gap: 24px; }
   .footer-bottom-links a { font-size: 13px; color: #d4cfc8; }
   .footer-bottom-links a:hover { color: #fff; }
+  .stars { display: flex; gap: 2px; }
   .social-row { display: flex; gap: 10px; }
   .social-btn {
     width: 36px; height: 36px; border-radius: 18px; background: #3d4142;
@@ -253,27 +104,15 @@
 
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
-    .hero { padding: 60px 32px; flex-wrap: wrap; }
-    .hero h1 { font-size: 44px; }
-    .hero-image { width: 280px; height: 280px; }
-    .services-preview, .how, .reviews, .cta-banner, footer { padding: 60px 32px; }
-    .services-grid, .steps { grid-template-columns: repeat(2, 1fr); }
-    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-top { flex-wrap: wrap; gap: 40px; }
+    footer { padding: 60px 32px; }
   }
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
     .nav-links, .nav-phone { display: none; }
-    .hero { padding: 48px 20px; flex-direction: column; }
-    .hero-content { align-items: flex-start; text-align: left; }
-    .hero h1 { font-size: 34px; }
-    .hero-image { width: 220px; height: 220px; }
-    .services-preview, .how, .reviews, .cta-banner, footer { padding: 48px 20px; }
-    .services-grid, .steps, .reviews-grid { grid-template-columns: 1fr; }
-    .steps::before { display: none; }
+    .placeholder { padding: 64px 20px; }
+    footer { padding: 48px 20px; }
     .footer-top { flex-direction: column; gap: 32px; }
-    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-    .cta-banner h2 { font-size: 28px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
   }
 </style>
 </head>
@@ -288,7 +127,8 @@
     <div class="logo-text"><strong>GOGO TYRE</strong><span>Norwich Fitting</span></div>
   </a>
   <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
+    <a href="index.html">Home</a>
+    <a href="tyres.html" class="active">Tyres</a>
     <a href="services.html">Services</a>
     <a href="mobile-fitting.html">Mobile Fitting</a>
     <a href="about.html">About</a>
@@ -303,146 +143,12 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Premium Tyre Fitting in Norwich</h1>
-    <p>At our fully-equipped modern Norwich workshop or right at your home or workplace. Professional local mechanics delivering premium British automotive service.</p>
-    <div class="hero-btns">
-      <a href="services.html" class="btn-primary">Find Your Tyres</a>
-      <a href="mobile-fitting.html" class="btn-outline">Book Mobile Fitting</a>
-    </div>
-  </div>
-
-  <div class="hero-image">
-    <img src="heroSection.jpeg" alt="Premium tyre">
-  </div>
-</section>
-
-<!-- TYRE CAROUSEL (v2 — 3 visible, infinite loop, larger center + gray bar) -->
-<section class="tyre-carousel-section">
-  <div class="tyre-track-wrap" id="tyreWrap">
-    <div class="tyre-track" id="tyreTrack"></div>
-  </div>
-</section>
-
-<!-- SERVICES PREVIEW -->
-<section class="services-preview">
-  <p class="section-label">What We Offer</p>
-  <h2 class="section-title">Our Professional Services</h2>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
-      </div>
-      <h3>Tyre Fitting</h3>
-      <p>Precision fitting on any car, van or 4x4, while you wait.</p>
-      <span class="price">From £15 per tyre</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/></svg>
-      </div>
-      <h3>Wheel Balancing</h3>
-      <p>Digital balancing to eliminate vibration at speed.</p>
-      <span class="price">From £10 per wheel</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg>
-      </div>
-      <h3>Wheel Alignment</h3>
-      <p>Hunter laser alignment to stop uneven tyre wear.</p>
-      <span class="price">From £45</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-      </div>
-      <h3>Puncture Repair</h3>
-      <p>Safe, BS-compliant plug-and-patch repairs.</p>
-      <span class="price">From £20</span>
-    </div>
-  </div>
-  <div class="section-cta">
-    <a href="services.html" class="btn-primary">View All Services</a>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how">
-  <p class="section-label">Simple Process</p>
-  <h2 class="section-title" style="color:#fff;">How It Works</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Choose Your Tyres</h3>
-      <p>Browse our range of premium brands or tell us your vehicle and we'll recommend the best fit.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Pick a Slot</h3>
-      <p>Book online or call us. Same-day slots available at our workshop or we come to you.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>We Fit & Balance</h3>
-      <p>Our expert technicians fit, balance, and align your tyres using Hunter equipment.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h3>Drive Away</h3>
-      <p>Fully inspected and road-ready. We issue a digital report for your records.</p>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section class="reviews">
-  <p class="section-label">Customer Reviews</p>
-  <h2 class="section-title">What Norwich Drivers Say</h2>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="stars">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      </div>
-      <p>"Booked online at 8am and they were at my driveway by 10. Two tyres fitted and balanced in under 30 minutes. Absolute legends."</p>
-      <div class="reviewer"><strong>James T.</strong><span>Norwich, verified customer</span></div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      </div>
-      <p>"Best price I found in Norfolk and the alignment was spot on. Car drives like new. Will not go anywhere else for tyres again."</p>
-      <div class="reviewer"><strong>Sarah M.</strong><span>Wymondham, verified customer</span></div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      </div>
-      <p>"Had a flat at 11pm and they were out within the hour. Couldn't believe it. Sorted me out completely, no fuss. Brilliant service."</p>
-      <div class="reviewer"><strong>David R.</strong><span>Thorpe St Andrew, verified customer</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BANNER -->
-<section class="cta-banner">
-  <h2>Ready to Book Your Fitting?</h2>
-  <p>Same-day slots available at our Norwich workshop or at your door. No hidden fees, ever.</p>
-  <a href="contact.html" class="btn-white">Book Your Fitting</a>
+<!-- PLACEHOLDER -->
+<section class="placeholder">
+  <div class="placeholder-badge"><span>Coming Soon</span></div>
+  <h1>Tyre Range — Under Construction</h1>
+  <p>We're building our full tyre catalogue so you can browse and compare by size, brand and vehicle type. In the meantime, get in touch and our team will help you find the right fit.</p>
+  <a href="contact.html" class="btn-primary">Contact Us</a>
 </section>
 
 <!-- FOOTER -->
@@ -473,15 +179,15 @@
     </div>
     <div class="footer-col">
       <strong>GoGo Tyre Norwich</strong>
-      <span style="font-weight:700;color:#fff;">HQ & Diagnostic Workshop:</span>
+      <span style="font-weight:700;color:#fff;">HQ &amp; Diagnostic Workshop:</span>
       <span>Unit 4, Mile Cross Industrial Estate</span>
       <span>Norwich, NR6 6BY</span>
       <span>Hotline: 01603 555888</span>
       <span>Email: bookings@gogotyre.co.uk</span>
     </div>
     <div class="footer-col">
-      <strong>Connect & Trust</strong>
-      <div class="stars" style="gap:2px;">
+      <strong>Connect &amp; Trust</strong>
+      <div class="stars">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -505,232 +211,6 @@
     </div>
   </div>
 </footer>
-
-<!-- TYRE CAROUSEL SCRIPT v2 (no HTMX — infinite loop via repeated sequence + silent scroll reset) -->
-<script>
-(function () {
-  // Real filenames per the uploaded file: tyre1.png..tyre4.png
-  const BASE_TYRES = [
-    { src: 'tyre1.png', alt: 'Tyre 1' },
-    { src: 'tyre2.png', alt: 'Tyre 2' },
-    { src: 'tyre3.png', alt: 'Tyre 3' },
-    { src: 'tyre4.png', alt: 'Tyre 4' },
-  ];
-
-  const REPEATS = 6;
-  const N = BASE_TYRES.length;
-
-  const wrap = document.getElementById('tyreWrap');
-  const track = document.getElementById('tyreTrack');
-  if (!wrap || !track) return;
-
-  const allItems = [];
-  for (let r = 0; r < REPEATS; r++) {
-    BASE_TYRES.forEach((t) => {
-      const el = document.createElement('div');
-      el.className = 'tyre-item';
-      const img = document.createElement('img');
-      img.src = t.src;
-      img.alt = t.alt;
-      img.draggable = false;
-      el.appendChild(img);
-      const bar = document.createElement('div');
-      bar.className = 'tyre-bar';
-      el.appendChild(bar);
-      track.appendChild(el);
-      allItems.push(el);
-    });
-  }
-
-  const ITEM_OUTER_WIDTH = 200 - 20;
-  const SEQUENCE_WIDTH = ITEM_OUTER_WIDTH * N;
-
-  const SCALE_CENTER = 1.55;
-  const SCALE_NEAR = 0.82;
-  const SCALE_FAR = 0.6;
-  const LIFT_CENTER = -24;
-  const FALLOFF = 210;
-
-  let ticking = false;
-  let isDown = false;
-  let startX = 0;
-  let startScroll = 0;
-  let velocityX = 0;
-  let lastX = 0;
-  let lastT = 0;
-  let snapTimeout = null;
-  let scrollEndTimer = null;
-
-  function updateScales() {
-    const wrapRect = wrap.getBoundingClientRect();
-    const centerX = wrapRect.left + wrapRect.width / 2;
-
-    allItems.forEach((el) => {
-      const r = el.getBoundingClientRect();
-      const itemCenter = r.left + r.width / 2;
-      const dist = Math.abs(itemCenter - centerX);
-      const t = Math.min(dist / FALLOFF, 1);
-
-      let scale, lift;
-      if (t <= 0.5) {
-        const localT = t / 0.5;
-        scale = SCALE_CENTER + (SCALE_NEAR - SCALE_CENTER) * localT;
-      } else {
-        const localT = (t - 0.5) / 0.5;
-        scale = SCALE_NEAR + (SCALE_FAR - SCALE_NEAR) * localT;
-      }
-      lift = LIFT_CENTER * (1 - t);
-
-      el.style.transform = `translateY(${lift}px) scale(${scale})`;
-      el.style.zIndex = String(Math.round((1 - t) * 100));
-
-      const bar = el.querySelector('.tyre-bar');
-      bar.style.opacity = String(Math.max(0, 1 - dist / 40));
-    });
-
-    ticking = false;
-  }
-
-  function requestScaleUpdate() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateScales);
-    }
-  }
-
-  function maintainLoop() {
-    const min = SEQUENCE_WIDTH * 1;
-    const max = SEQUENCE_WIDTH * (REPEATS - 2);
-    if (wrap.scrollLeft < min) {
-      wrap.classList.add('no-smooth');
-      wrap.scrollLeft += SEQUENCE_WIDTH * (REPEATS - 3);
-      void wrap.offsetHeight;
-      wrap.classList.remove('no-smooth');
-    } else if (wrap.scrollLeft > max) {
-      wrap.classList.add('no-smooth');
-      wrap.scrollLeft -= SEQUENCE_WIDTH * (REPEATS - 3);
-      void wrap.offsetHeight;
-      wrap.classList.remove('no-smooth');
-    }
-  }
-
-  function snapToNearest() {
-    const wrapRect = wrap.getBoundingClientRect();
-    const centerX = wrapRect.left + wrapRect.width / 2;
-    let nearest = allItems[0];
-    let minDist = Infinity;
-    allItems.forEach((el) => {
-      const r = el.getBoundingClientRect();
-      const itemCenter = r.left + r.width / 2;
-      const dist = Math.abs(itemCenter - centerX);
-      if (dist < minDist) {
-        minDist = dist;
-        nearest = el;
-      }
-    });
-    const itemRect = nearest.getBoundingClientRect();
-    const offset = (itemRect.left + itemRect.width / 2) - centerX;
-
-    track.classList.add('settling');
-    wrap.scrollBy({ left: offset, behavior: 'smooth' });
-
-    window.clearTimeout(snapTimeout);
-    snapTimeout = window.setTimeout(() => {
-      track.classList.remove('settling');
-      maintainLoop();
-    }, 600);
-  }
-
-  function onScroll() {
-    requestScaleUpdate();
-    maintainLoop();
-    window.clearTimeout(scrollEndTimer);
-    scrollEndTimer = window.setTimeout(() => {
-      if (!isDown) snapToNearest();
-    }, 120);
-  }
-
-  wrap.addEventListener('scroll', onScroll, { passive: true });
-
-  wrap.addEventListener('mousedown', (e) => {
-    isDown = true;
-    wrap.classList.add('dragging');
-    track.classList.remove('settling');
-    startX = e.pageX;
-    startScroll = wrap.scrollLeft;
-    lastX = e.pageX;
-    lastT = performance.now();
-    velocityX = 0;
-    window.clearTimeout(scrollEndTimer);
-  });
-
-  window.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const dx = e.pageX - startX;
-    wrap.scrollLeft = startScroll - dx;
-    const now = performance.now();
-    const dt = now - lastT || 16;
-    velocityX = (e.pageX - lastX) / dt;
-    lastX = e.pageX;
-    lastT = now;
-    requestScaleUpdate();
-  });
-
-  window.addEventListener('mouseup', () => {
-    if (!isDown) return;
-    isDown = false;
-    wrap.classList.remove('dragging');
-    const coast = -velocityX * 110;
-    wrap.scrollBy({ left: coast, behavior: 'smooth' });
-    window.setTimeout(snapToNearest, 170);
-  });
-
-  wrap.addEventListener('touchstart', (e) => {
-    isDown = true;
-    track.classList.remove('settling');
-    startX = e.touches[0].pageX;
-    startScroll = wrap.scrollLeft;
-    window.clearTimeout(scrollEndTimer);
-  }, { passive: true });
-
-  wrap.addEventListener('touchmove', (e) => {
-    if (!isDown) return;
-    const dx = e.touches[0].pageX - startX;
-    wrap.scrollLeft = startScroll - dx;
-    requestScaleUpdate();
-  }, { passive: true });
-
-  wrap.addEventListener('touchend', () => {
-    isDown = false;
-    window.setTimeout(snapToNearest, 100);
-  });
-
-  wrap.addEventListener('wheel', (e) => {
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    wrap.scrollLeft += delta;
-    e.preventDefault();
-  }, { passive: false });
-
-  function init() {
-    requestAnimationFrame(() => {
-      const startIndex = Math.floor(REPEATS / 2) * N;
-      const startEl = allItems[startIndex];
-      const wrapRect = wrap.getBoundingClientRect();
-      const itemRect = startEl.getBoundingClientRect();
-      const offset = (itemRect.left + itemRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
-      wrap.scrollLeft += offset;
-      updateScales();
-    });
-  }
-
-  window.addEventListener('resize', () => {
-    updateScales();
-  });
-
-  init();
-})();
-</script>
 
 </body>
 </html>
