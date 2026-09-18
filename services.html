@@ -59,22 +59,29 @@
   .page-hero p { font-size: 17px; line-height: 1.6; color: #d4cfc8; max-width: 560px; }
 
   /* SERVICES */
-  .services-preview { background: #fff; padding: 80px 96px; }
+  .services-preview { background: #2a2d2e; padding: 80px 96px; }
   .section-label { font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px; text-align: center; }
-  .section-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 36px; color: #2a2d2e; text-align: center; margin-top: 12px; }
-  .section-sub { font-size: 15px; color: #888880; text-align: center; margin-top: 12px; }
-  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+  .section-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 36px; color: #fff; text-align: center; margin-top: 12px; }
+  .section-sub { font-size: 15px; color: #d4cfc8; text-align: center; margin-top: 12px; }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
   .service-card {
-    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 12px;
-    padding: 28px; display: flex; flex-direction: column; gap: 16px;
+    border-radius: 14px; overflow: hidden; background: #33373a; display: flex; flex-direction: column;
   }
-  .icon-box {
-    width: 48px; height: 48px; border-radius: 8px; background: #fff;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  .service-card-img {
+    height: 280px; background: #3d4142;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
-  .service-card h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e; }
-  .service-card p { font-size: 14px; line-height: 1.5; color: #888880; }
-  .price { font-weight: 700; font-size: 14px; color: #d97706; }
+  .service-card-img svg { opacity: 0.35; }
+  .service-card-body { padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .service-card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 20px; color: #fff; }
+  .service-card-body p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
+  .service-meta { font-size: 13px; color: #d4cfc8; margin-top: 4px; }
+  .service-meta strong { color: #f0a35e; }
+  .btn-service {
+    margin-top: 12px; background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px;
+    padding: 12px 20px; border-radius: 6px; align-self: flex-start; display: inline-block;
+  }
+  .btn-service:hover { background: #4a6e57; }
 
   /* CTA BANNER */
   .cta-banner {
@@ -112,7 +119,6 @@
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
     .page-hero, .services-preview, .cta-banner, footer { padding: 60px 32px; }
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-top { flex-wrap: wrap; gap: 40px; }
   }
   @media (max-width: 700px) {
@@ -139,6 +145,7 @@
   </a>
   <div class="nav-links">
     <a href="index.html">Home</a>
+    <a href="tyres.html">Tyres</a>
     <a href="services.html" class="active">Services</a>
     <a href="mobile-fitting.html">Mobile Fitting</a>
     <a href="about.html">About</a>
@@ -168,68 +175,26 @@
 
   <div class="services-grid">
     <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
+      <div class="service-card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>
       </div>
-      <h3>Tyre Fitting</h3>
-      <p>Precision fitting on any car, van or 4x4, while you wait.</p>
-      <span class="price">From £15 per tyre</span>
+      <div class="service-card-body">
+        <h3>Norwich Workshop Fitting</h3>
+        <p>Visit our state-of-the-art diagnostic workshop in central Norwich. Enjoy warm refreshments, premium high-speed Wi-Fi, and precise digital wheel balancing.</p>
+        <span class="service-meta"><strong>From £45 per tyre</strong> &nbsp;•&nbsp; While-you-wait service</span>
+        <a href="tyres.html" class="btn-service">Book at Workshop</a>
+      </div>
     </div>
     <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/></svg>
+      <div class="service-card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V8a1 1 0 0 1 1-1h9l4 4v5"/><path d="M17 16H3"/><circle cx="6.5" cy="17.5" r="1.7"/><circle cx="16.5" cy="17.5" r="1.7"/></svg>
       </div>
-      <h3>Wheel Balancing</h3>
-      <p>Digital balancing to eliminate vibration at speed.</p>
-      <span class="price">From £10 per wheel</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg>
+      <div class="service-card-body">
+        <h3>24/7 Mobile Fitting Service</h3>
+        <p>We bring the garage to you. Serving driveways, offices, and roadside emergencies across Norwich and Norfolk. Never sacrifice your valuable time.</p>
+        <span class="service-meta"><strong>No mobile surcharge</strong> &nbsp;•&nbsp; At home or work</span>
+        <a href="mobile-fitting.html" class="btn-service">Book Mobile Unit</a>
       </div>
-      <h3>Wheel Alignment (2-Wheel)</h3>
-      <p>Hunter laser alignment to stop uneven tyre wear.</p>
-      <span class="price">From £45</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.5" fill="#3d5a47"/></svg>
-      </div>
-      <h3>Wheel Alignment (4-Wheel)</h3>
-      <p>Full four-wheel geometry check and correction.</p>
-      <span class="price">From £65</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-      </div>
-      <h3>Puncture Repair</h3>
-      <p>Safe, BS-compliant plug-and-patch repairs.</p>
-      <span class="price">From £20</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
-      </div>
-      <h3>Valve Replacement</h3>
-      <p>Fresh valve fitted with every repair or new tyre.</p>
-      <span class="price">From £5 per valve</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="2"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></svg>
-      </div>
-      <h3>Seasonal Tyre Swap</h3>
-      <p>Swap and store your summer or winter set.</p>
-      <span class="price">From £25</span>
-    </div>
-    <div class="service-card">
-      <div class="icon-box">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
-      </div>
-      <h3>Free Tyre Health Check</h3>
-      <p>Tread depth, pressure, and wear inspection.</p>
-      <span class="price">Free</span>
     </div>
   </div>
 </section>
@@ -269,14 +234,14 @@
     </div>
     <div class="footer-col">
       <strong>GoGo Tyre Norwich</strong>
-      <span style="font-weight:700;color:#fff;">HQ & Diagnostic Workshop:</span>
+      <span style="font-weight:700;color:#fff;">HQ &amp; Diagnostic Workshop:</span>
       <span>Unit 4, Mile Cross Industrial Estate</span>
       <span>Norwich, NR6 6BY</span>
       <span>Hotline: 01603 555888</span>
       <span>Email: bookings@gogotyre.co.uk</span>
     </div>
     <div class="footer-col">
-      <strong>Connect & Trust</strong>
+      <strong>Connect &amp; Trust</strong>
       <p style="font-size:13px;color:#d4cfc8;line-height:1.5;">Rated Excellent on Trustpilot and Google Reviews by local Norfolk motorists.</p>
       <div class="social-row">
         <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#d4cfc8"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
