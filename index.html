@@ -16,7 +16,7 @@
     width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
     padding: 0 64px; height: 88px;
     display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 300;
+    position: sticky; top: 0; z-index: 100;
   }
   .logo { display: flex; align-items: center; gap: 12px; }
   .logo-icon {
@@ -62,14 +62,8 @@
     font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 56px;
     line-height: 1.1; color: #fff;
   }
-  .hero p { font-size: 18px; line-height: 1.6; color: #fff; max-width: 480px; }
+  .hero p { font-size: 18px; line-height: 1.6; color: #d4cfc8; max-width: 480px; }
   .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-  .hero-checklist { list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 4px 0 8px; }
-  .hero-checklist li { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; color: #fff; text-align: left; }
-  .hero-check-icon {
-    width: 22px; height: 22px; border-radius: 50%; background: #3d5a47;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
   .btn-primary {
     background: #3d5a47; color: #fff; border-radius: 6px;
     padding: 16px 28px; font-weight: 700; font-size: 15px;
@@ -93,16 +87,65 @@
   /* ================= TYRE CAROUSEL v2 (3-visible, infinite loop) ================= */
   .tyre-carousel-section {
     background: #f5f2ed;
-    padding: 120px 0 120px;
-    overflow: visible;
+    padding: 100px 40px 60px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tyre-section-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+  }
+
+  .tyre-pills {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: nowrap;
+    margin-top: 30px;
+  }
+  .tyre-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border-radius: 50px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    white-space: nowrap;
+  }
+  .tyre-pill-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4a7c4e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .tyre-pill-label {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
   }
 
   .tyre-track-wrap {
     position: relative;
     width: 100%;
-    max-width: 560px;
+    max-width: 720px;
     margin: 0 auto;
     height: 380px;
+    padding: 0 80px;
     overflow-x: auto;
     overflow-y: visible;
     cursor: grab;
@@ -121,9 +164,9 @@
   }
 
   .tyre-item {
-    flex: 0 0 200px;
-    width: 200px;
-    height: 200px;
+    flex: 0 0 300px;
+    width: 300px;
+    height: 300px;
     margin: 0 -10px;
     display: flex;
     align-items: center;
@@ -141,6 +184,7 @@
     height: 100%;
     object-fit: contain;
     display: block;
+    margin-top: 40px;
     -webkit-user-drag: none;
     user-select: none;
     filter: drop-shadow(0 18px 26px rgba(0,0,0,0.16));
@@ -157,6 +201,8 @@
     background: #9c968c;
     opacity: 0;
     transition: opacity 0.15s linear;
+    margin: 0 auto;
+    display: block;
   }
 
   .tyre-track.settling .tyre-item {
@@ -314,27 +360,10 @@
 <section class="hero">
   <div class="hero-content">
     <h1>Premium Tyre Fitting in Norwich</h1>
-    <p>Fast, reliable and affordable tyre services — fitted at our garage or at your door with our mobile fitting service.</p>
-    <ul class="hero-checklist">
-      <li>
-        <span class="hero-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-        Same-day fitting available
-      </li>
-      <li>
-        <span class="hero-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-        All major tyre brands
-      </li>
-      <li>
-        <span class="hero-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-        Expert technicians
-      </li>
-      <li>
-        <span class="hero-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-        Mobile fitting service
-      </li>
-    </ul>
+    <p>At our fully-equipped modern Norwich workshop or right at your home or workplace. Professional local mechanics delivering premium British automotive service.</p>
     <div class="hero-btns">
-      <a href="tyres.html" class="btn-primary">Book Your Fitting</a>
+      <a href="services.html" class="btn-primary">Find Your Tyres</a>
+      <a href="mobile-fitting.html" class="btn-outline">Book Mobile Fitting</a>
     </div>
   </div>
 
@@ -345,8 +374,15 @@
 
 <!-- TYRE CAROUSEL (v2 — 3 visible, infinite loop, larger center + gray bar) -->
 <section class="tyre-carousel-section">
+  <h2 class="tyre-section-heading">Norwich's Most Trusted Tyre Specialists</h2>
   <div class="tyre-track-wrap" id="tyreWrap">
     <div class="tyre-track" id="tyreTrack"></div>
+  </div>
+  <div class="tyre-pills">
+    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Same-day fitting available</span></div>
+    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">All major tyre brands</span></div>
+    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Expert technicians</span></div>
+    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Mobile fitting service</span></div>
   </div>
 </section>
 
@@ -566,7 +602,7 @@
     });
   }
 
-  const ITEM_OUTER_WIDTH = 200 - 20;
+  const ITEM_OUTER_WIDTH = 300 - 20;
   const SEQUENCE_WIDTH = ITEM_OUTER_WIDTH * N;
 
   const SCALE_CENTER = 1.55;
