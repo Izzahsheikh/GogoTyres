@@ -226,40 +226,40 @@
   .how-card h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e; }
   .how-card p { font-size: 14px; line-height: 1.5; color: #888880; }
 
-  /* ===== SERVICE OPTIONS ===== */
-  .service-options { background: #2a2d2e; padding: 72px 96px; }
-  .service-header { text-align: center; margin-bottom: 40px; }
-  .service-header h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(24px, 3.5vw, 34px); color: #fff; }
-  .service-header p { font-size: 15px; color: #d4cfc8; margin-top: 8px; }
-  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .service-card { border-radius: 14px; overflow: hidden; background: #33373a; display: flex; flex-direction: column; }
-  .service-card-img {
-    height: 220px; background: #3d4142;
-    display: flex; align-items: center; justify-content: center;
+  /* ===== BRAND MARQUEE ===== */
+  .brand-marquee {
+    background: #f8f8f8; padding: 60px 0; text-align: center;
+    border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0;
   }
-  .service-card-img svg { opacity: 0.35; }
-  .service-card-body { padding: 28px; display: flex; flex-direction: column; gap: 10px; }
-  .service-card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 20px; color: #fff; }
-  .service-card-body p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
-  .service-meta { font-size: 13px; color: #d4cfc8; margin-top: 4px; }
-  .service-meta strong { color: #f0a35e; }
-  .btn-service {
-    margin-top: 12px; background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px;
-    padding: 12px 20px; border-radius: 6px; align-self: flex-start;
+  .brand-marquee .label {
+    font-weight: 700; color: #3d5a47; text-transform: uppercase;
+    font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 24px; text-align: center;
   }
-  .btn-service:hover { background: #4a6e57; }
-
-  /* ===== BRAND STRIP ===== */
-  .brands { background: #f5f2ed; padding: 56px 96px; text-align: center; }
-  .brands .label {
-    font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px;
-    margin-bottom: 24px;
+  .marquee-wrapper { overflow: hidden; width: 100%; }
+  .marquee-track { display: flex; align-items: center; width: max-content; animation: scroll 40s linear infinite; }
+  .marquee-logo {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
   }
-  .brand-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-  .brand-chip {
-    background: #fff; border: 1px solid #e1dbd2; border-radius: 8px;
-    padding: 14px 28px; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 14px;
-    color: #2a2d2e; letter-spacing: 0.4px;
+  .marquee-logo:hover {
+    transform: scale(1.15) translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+  .marquee-track img {
+    height: 65px; object-fit: contain;
+    filter: none;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
   /* ===== CTA ===== */
@@ -309,17 +309,16 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
-    .hero-search, .how, .service-options, .brands, .cta-banner, footer { padding-left: 32px; padding-right: 32px; }
+    .hero-search, .how, .brand-marquee, .cta-banner, footer { padding-left: 32px; padding-right: 32px; }
     .results-header, .results-main { padding-left: 32px; padding-right: 32px; }
     .results-main { flex-direction: column; }
     .filters { position: static; width: 100%; flex: 1 1 auto; }
-    .service-grid { grid-template-columns: 1fr; }
     .how-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
     .nav-links, .nav-phone { display: none; }
-    .hero-search, .how, .service-options, .brands, .cta-banner, footer { padding-left: 20px; padding-right: 20px; }
+    .hero-search, .how, .brand-marquee, .cta-banner, footer { padding-left: 20px; padding-right: 20px; }
     .results-header, .results-main { padding-left: 20px; padding-right: 20px; }
     .search-option { padding: 24px; }
     .search-option + .search-option { border-left: none; border-top: 1px solid #e1dbd2; }
@@ -576,6 +575,45 @@
   </div>
 </div>
 
+<!-- BRAND MARQUEE -->
+<section class="brand-marquee">
+  <div class="label">We Fit All Major Brands</div>
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <div class="marquee-logo"><img src="logosForBrands/michelin.png" alt="Michelin"></div>
+      <div class="marquee-logo"><img src="logosForBrands/continental.png" alt="Continental"></div>
+      <div class="marquee-logo"><img src="logosForBrands/pirelli.png" alt="Pirelli"></div>
+      <div class="marquee-logo"><img src="logosForBrands/bridgestone.png" alt="Bridgestone"></div>
+      <div class="marquee-logo"><img src="logosForBrands/dunlop.png" alt="Dunlop"></div>
+      <div class="marquee-logo"><img src="logosForBrands/goodyear.png" alt="Goodyear"></div>
+      <div class="marquee-logo"><img src="logosForBrands/falken.png" alt="Falken"></div>
+      <div class="marquee-logo"><img src="logosForBrands/hankook.png" alt="Hankook"></div>
+      <div class="marquee-logo"><img src="logosForBrands/Kumho.png" alt="Kumho"></div>
+      <div class="marquee-logo"><img src="logosForBrands/nexen.png" alt="Nexen"></div>
+      <div class="marquee-logo"><img src="logosForBrands/yokohama.png" alt="Yokohama"></div>
+      <div class="marquee-logo"><img src="logosForBrands/toyotires.png" alt="Toyo Tires"></div>
+      <div class="marquee-logo"><img src="logosForBrands/firestone.png" alt="Firestone"></div>
+      <div class="marquee-logo"><img src="logosForBrands/uniroyal.webp" alt="Uniroyal"></div>
+      <div class="marquee-logo"><img src="logosForBrands/avon.png" alt="Avon"></div>
+      <div class="marquee-logo"><img src="logosForBrands/michelin.png" alt="Michelin"></div>
+      <div class="marquee-logo"><img src="logosForBrands/continental.png" alt="Continental"></div>
+      <div class="marquee-logo"><img src="logosForBrands/pirelli.png" alt="Pirelli"></div>
+      <div class="marquee-logo"><img src="logosForBrands/bridgestone.png" alt="Bridgestone"></div>
+      <div class="marquee-logo"><img src="logosForBrands/dunlop.png" alt="Dunlop"></div>
+      <div class="marquee-logo"><img src="logosForBrands/goodyear.png" alt="Goodyear"></div>
+      <div class="marquee-logo"><img src="logosForBrands/falken.png" alt="Falken"></div>
+      <div class="marquee-logo"><img src="logosForBrands/hankook.png" alt="Hankook"></div>
+      <div class="marquee-logo"><img src="logosForBrands/Kumho.png" alt="Kumho"></div>
+      <div class="marquee-logo"><img src="logosForBrands/nexen.png" alt="Nexen"></div>
+      <div class="marquee-logo"><img src="logosForBrands/yokohama.png" alt="Yokohama"></div>
+      <div class="marquee-logo"><img src="logosForBrands/toyotires.png" alt="Toyo Tires"></div>
+      <div class="marquee-logo"><img src="logosForBrands/firestone.png" alt="Firestone"></div>
+      <div class="marquee-logo"><img src="logosForBrands/uniroyal.webp" alt="Uniroyal"></div>
+      <div class="marquee-logo"><img src="logosForBrands/avon.png" alt="Avon"></div>
+    </div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
 <section class="how">
   <div class="how-header">
@@ -598,49 +636,6 @@
       <h3>Confirm &amp; Book</h3>
       <p>Pick a secure time slot that works best for you. No upfront payment required online.</p>
     </div>
-  </div>
-</section>
-
-<!-- SERVICE OPTIONS -->
-<section class="service-options">
-  <div class="service-header">
-    <h2>Our Professional Services</h2>
-    <p>Select the fitting option that fits your schedule best.</p>
-  </div>
-  <div class="service-grid">
-    <div class="service-card">
-      <div class="service-card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>
-      </div>
-      <div class="service-card-body">
-        <h3>Norwich Workshop Fitting</h3>
-        <p>Visit our state-of-the-art diagnostic workshop in central Norwich. Enjoy warm refreshments, premium high-speed Wi-Fi, and precise digital wheel balancing.</p>
-        <span class="service-meta"><strong>From £45 per tyre</strong> &nbsp;•&nbsp; While-you-wait service</span>
-        <a href="#resultsSection" class="btn-service">Book at Workshop</a>
-      </div>
-    </div>
-    <div class="service-card">
-      <div class="service-card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V8a1 1 0 0 1 1-1h9l4 4v5"/><path d="M17 16H3"/><circle cx="6.5" cy="17.5" r="1.7"/><circle cx="16.5" cy="17.5" r="1.7"/></svg>
-      </div>
-      <div class="service-card-body">
-        <h3>24/7 Mobile Fitting Service</h3>
-        <p>We bring the garage to you. Serving driveways, offices, and roadside emergencies across Norwich and Norfolk. Never sacrifice your valuable time.</p>
-        <span class="service-meta"><strong>No mobile surcharge</strong> &nbsp;•&nbsp; At home or work</span>
-        <a href="mobile-fitting.html" class="btn-service">Book Mobile Unit</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BRANDS -->
-<section class="brands">
-  <div class="label">We Fit All Major Brands</div>
-  <div class="brand-row">
-    <span class="brand-chip">MICHELIN</span>
-    <span class="brand-chip">CONTINENTAL</span>
-    <span class="brand-chip">PIRELLI</span>
-    <span class="brand-chip">BRIDGESTONE</span>
   </div>
 </section>
 
