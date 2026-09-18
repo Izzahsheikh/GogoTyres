@@ -180,7 +180,11 @@
     flex: 0 0 120px; width: 120px; height: 120px; background: #f5f2ed; border-radius: 8px;
     display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
-  .card-img img { max-width: 92%; max-height: 92%; object-fit: contain; }
+  .card-img img {
+    max-width: 92%; max-height: 92%; object-fit: contain;
+    transition: transform 0.2s ease;
+  }
+  .tyre-card:hover .card-img img { transform: scale(1.12); }
   .card-body { flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px; }
   .card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 18px; color: #2a2d2e; }
   .card-body h3 span { font-weight: 500; color: #888880; }
