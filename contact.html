@@ -27,100 +27,104 @@
   .logo-text { display: flex; flex-direction: column; gap: 2px; }
   .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
   .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
   .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
   .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
-  .nav-right { display: flex; align-items: center; gap: 28px; }
-  .nav-phone { display: flex; align-items: center; gap: 8px; }
-  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
-  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
-  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 0; margin-left: 28px; }
   .btn-book {
     background: #3d5a47; border-radius: 6px; padding: 12px 20px;
     font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
     white-space: nowrap;
   }
   .btn-book:hover { background: #4a6e57; }
-
-  /* ===== PAGE HEADER ===== */
-  .page-header {
-    background: #2a2d2e; padding: 64px 96px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 24px; text-align: center;
+  .section-label {
+    font-weight: 700; font-size: 12px; color: #3d5a47;
+    text-transform: uppercase; letter-spacing: 0.6px;
   }
-  .page-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #3d4142; border-radius: 200px; padding: 8px 16px;
-  }
-  .page-badge span { font-weight: 700; font-size: 12px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .page-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3d5a47; flex-shrink: 0; }
-  .page-header h1 {
-    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(28px, 4.5vw, 48px);
-    line-height: 1.1; color: #fff;
-  }
-  .page-header > p { font-size: clamp(15px, 1.8vw, 18px); line-height: 1.6; color: #d4cfc8; max-width: 700px; }
 
   /* ===== MAIN CONTACT ===== */
   .contact-main {
-    background: #f5f2ed; padding: 80px 96px;
-    display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+    background: #f5f2ed; padding: 96px 96px 88px;
+    display: flex; gap: 72px; align-items: center; justify-content: center;
   }
 
   .contact-form {
-    flex: 1 1 480px;
+    flex: 1 1 720px; max-width: 850px;
     background: #fff; border: 1px solid #e1dbd2; border-radius: 12px;
-    padding: 32px; display: flex; flex-direction: column; gap: 24px;
+    padding: 70px; display: flex; flex-direction: column; gap: 20px;
+    box-shadow: 0 24px 70px rgba(42,45,46,0.08);
   }
-  .form-heading { display: flex; flex-direction: column; gap: 6px; }
+  .form-heading { display: none; }
   .form-heading strong { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 22px; color: #2a2d2e; }
   .form-heading span { font-size: 14px; color: #888880; }
   .form-row { display: flex; gap: 20px; flex-wrap: wrap; }
-  .form-field { flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; }
+  .form-field { flex: 1 1 240px; display: flex; flex-direction: column; gap: 8px; }
+  .form-field.full { flex-basis: 100%; }
   .form-field label {
-    font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13px;
-    color: #2a2d2e; text-transform: uppercase;
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
   }
   .form-field input, .form-field textarea {
     background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 6px;
-    padding: 0 16px; font-size: 15px; color: #2a2d2e; outline: none;
+    padding: 0 20px; font-size: 15px; color: #2a2d2e; outline: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
   }
   .form-field input { height: 50px; }
-  .form-field textarea { height: 120px; padding: 16px; line-height: 1.5; resize: none; }
-  .form-field input:focus, .form-field textarea:focus { border-color: #3d5a47; }
+  .form-field textarea { height: 120px; padding: 16px 20px; line-height: 1.5; resize: vertical; min-height: 112px; }
+  .form-field input:focus, .form-field textarea:focus {
+    background: #fff; border-color: #3d5a47; box-shadow: 0 0 0 3px rgba(61,90,71,0.12);
+  }
   .btn-submit {
     background: #3d5a47; border: none; border-radius: 6px; padding: 16px 32px;
     font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 16px;
-    color: #fff; text-align: center; cursor: pointer;
+    color: #fff; text-align: center; cursor: pointer; align-self: center; min-width: 180px;
+    transition: background 0.18s ease, transform 0.18s ease;
   }
-  .btn-submit:hover { background: #4a6e57; }
+  .btn-submit:hover { background: #4a6e57; transform: translateY(-1px); }
+  .form-status {
+    display: none; background: #edf5ef; border: 1px solid rgba(61,90,71,0.25);
+    border-radius: 6px; color: #3d5a47; font-weight: 700; font-size: 14px;
+    padding: 12px 14px;
+  }
+  .form-status.active { display: block; }
 
-  .contact-info { flex: 1 1 360px; display: flex; flex-direction: column; gap: 24px; max-width: 520px; }
+  .contact-info { flex: 0 1 360px; display: flex; flex-direction: column; gap: 36px; max-width: 420px; }
+  .contact-intro { display: flex; flex-direction: column; gap: 20px; }
+  .contact-intro .section-label { text-align: left; }
+  .contact-intro h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(36px, 4vw, 54px);
+    line-height: 1.05; color: #2a2d2e;
+  }
+  .contact-intro p { font-size: 16px; line-height: 1.7; color: #2a2d2e; }
   .info-card {
-    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px;
-    padding: 32px; display: flex; flex-direction: column; gap: 24px;
+    display: flex; flex-direction: column; gap: 26px;
   }
-  .info-card > strong {
-    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 18px;
-    color: #2a2d2e; text-transform: uppercase;
-  }
-  .info-row { display: flex; gap: 12px; align-items: flex-start; }
+  .info-card > strong { display: none; }
+  .info-row { display: flex; gap: 16px; align-items: flex-start; }
   .info-row svg { flex-shrink: 0; margin-top: 2px; }
-  .info-text { display: flex; flex-direction: column; gap: 2px; }
-  .info-text small { font-weight: 600; font-size: 11px; color: #888880; text-transform: uppercase; }
-  .info-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #2a2d2e; }
-  .info-text span { font-weight: 400; font-size: 14px; color: #888880; }
-  .info-divider { width: 100%; height: 1px; background: #e1dbd2; }
-  .hours { display: flex; flex-direction: column; gap: 10px; }
+  .info-text { display: flex; flex-direction: column; gap: 8px; }
+  .info-text small {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 19px;
+    color: #2a2d2e; text-transform: none;
+  }
+  .info-text strong { font-family: 'Figtree', sans-serif; font-weight: 500; font-size: 16px; color: #2a2d2e; }
+  .info-text span { font-weight: 400; font-size: 16px; color: #2a2d2e; }
+  .info-divider { display: none; }
+  .hours { display: none; }
   .hours-heading { display: flex; align-items: center; gap: 8px; }
   .hours-heading strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15px; color: #2a2d2e; }
   .hours-row { display: flex; justify-content: space-between; gap: 12px; }
   .hours-row span:first-child { font-weight: 600; font-size: 14px; color: #2a2d2e; }
   .hours-row span:last-child { font-weight: 400; font-size: 14px; color: #888880; }
 
+  .map-section {
+    background: #f5f2ed; padding: 0 96px 80px;
+  }
   .map-card {
-    width: 100%; min-height: 200px; border-radius: 16px; background: #e8e2d9;
+    width: 100%; min-height: 320px; border-radius: 16px; background: #e8e2d9;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    border: 1px solid #e1dbd2;
   }
   .map-card span { font-weight: 700; font-size: 14px; color: #2a2d2e; }
 
@@ -168,15 +172,20 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
-    .page-header { padding: 48px 32px; }
     .contact-main, .cta-bar, footer { padding: 56px 32px; }
+    .map-section { padding: 0 32px 56px; }
+    .contact-main { flex-direction: column; }
+    .contact-form, .contact-info { width: 100%; max-width: 100%; }
+    .contact-form { padding: 44px; }
   }
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
-    .nav-links, .nav-phone { display: none; }
-    .page-header { padding: 40px 20px; }
+    .nav-links { display: none; }
     .contact-main { padding: 40px 20px; flex-direction: column; }
     .contact-form, .contact-info { flex: 1 1 auto; width: 100%; max-width: 100%; }
+    .contact-form { padding: 24px; }
+    .map-section { padding: 0 20px 40px; }
+    .map-card { min-height: 260px; }
     .cta-bar { padding: 32px 20px; flex-direction: column; text-align: center; }
     footer { padding: 48px 20px; }
     .footer-top { flex-direction: column; gap: 32px; }
@@ -203,76 +212,36 @@
     <a href="contact.html" class="active">Contact</a>
   </div>
   <div class="nav-right">
-    <div class="nav-phone">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
-      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
-    </div>
     <a href="contact.html" class="btn-book">Book Fitting</a>
   </div>
 </nav>
 
-<!-- PAGE HEADER -->
-<section class="page-header">
-  <div class="page-badge"><span>Get In Touch</span></div>
-  <h1>Contact GoGo Tyre Norwich</h1>
-  <p>Questions, quotes or bookings — our Norwich team is ready to help.</p>
-</section>
-
 <!-- MAIN CONTACT -->
 <section class="contact-main">
-
-  <!-- Note: form is static for now — no action/handler wired up -->
-  <form class="contact-form">
-    <div class="form-heading">
-      <strong>Send Us a Message</strong>
-      <span>We aim to reply to every enquiry within one working day.</span>
-    </div>
-    <div class="form-row">
-      <div class="form-field">
-        <label>Full Name</label>
-        <input type="text" placeholder="Edward Finchley">
-      </div>
-      <div class="form-field">
-        <label>Email Address</label>
-        <input type="email" placeholder="edward@finchley.co.uk">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-field">
-        <label>Phone Number</label>
-        <input type="tel" placeholder="07700 900077">
-      </div>
-      <div class="form-field">
-        <label>Subject</label>
-        <input type="text" placeholder="Mobile fitting quote">
-      </div>
-    </div>
-    <div class="form-field">
-      <label>Message</label>
-      <textarea placeholder="Tell us about your vehicle, preferred tyres, or the best time for a mobile visit..."></textarea>
-    </div>
-    <button type="submit" class="btn-submit">Send Message</button>
-  </form>
-
-  <!-- INFO -->
   <div class="contact-info">
+    <div class="contact-intro">
+      <p class="section-label">Get In Touch</p>
+      <h1>Contact with the team</h1>
+      <p>Questions, quotes or bookings. Send us your details and our Norwich team will help.</p>
+    </div>
+
     <div class="info-card">
       <strong>Contact Information</strong>
       <div class="info-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="info-text">
+          <small>Location</small>
+          <strong>Unit 4, Mile Cross Industrial Estate</strong>
+          <span>Norwich, NR6 6BY</span>
+        </div>
+      </div>
+      <div class="info-row">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
-        <div class="info-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
+        <div class="info-text"><small>Phone no</small><strong>01603 555888</strong></div>
       </div>
       <div class="info-row">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        <div class="info-text"><small>Email</small><strong style="font-size:15px;">bookings@gogotyre.co.uk</strong></div>
-      </div>
-      <div class="info-row">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <div class="info-text">
-          <small>Workshop Address</small>
-          <strong style="font-size:15px;">Unit 4, Mile Cross Industrial Estate</strong>
-          <span>Norwich, NR6 6BY</span>
-        </div>
+        <div class="info-text"><small>Email</small><strong>bookings@gogotyre.co.uk</strong></div>
       </div>
       <div class="info-divider"></div>
       <div class="hours">
@@ -285,10 +254,50 @@
         <div class="hours-row"><span>Sunday</span><span>Closed — mobile only</span></div>
       </div>
     </div>
-    <div class="map-card">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      <span>Find Us: Mile Cross, Norwich</span>
+  </div>
+
+  <!-- Note: form is static for now — no action/handler wired up -->
+  <form class="contact-form">
+    <div class="form-heading">
+      <strong>Send Us a Message</strong>
+      <span>We aim to reply to every enquiry within one working day.</span>
     </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label for="contactName">Full Name</label>
+        <input id="contactName" type="text" placeholder="Edward Finchley" autocomplete="name">
+      </div>
+      <div class="form-field">
+        <label for="contactEmail">Email Address</label>
+        <input id="contactEmail" type="email" placeholder="edward@finchley.co.uk" autocomplete="email">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field full">
+        <label for="contactPhone">Phone Number</label>
+        <input id="contactPhone" type="tel" placeholder="07700 900077" autocomplete="tel">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field full">
+        <label for="contactSubject">Subject</label>
+        <input id="contactSubject" type="text" placeholder="Mobile fitting quote">
+      </div>
+    </div>
+    <div class="form-field full">
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessage" placeholder="Tell us about your vehicle, tyre size, or preferred fitting time..."></textarea>
+    </div>
+    <div class="form-status" id="contactStatus">Thanks. Your enquiry is ready for the team to review.</div>
+    <button type="submit" class="btn-submit">Send Message</button>
+  </form>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-card">
+    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+    <span>Find Us: Mile Cross, Norwich</span>
   </div>
 </section>
 
@@ -358,6 +367,20 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  const form = document.querySelector('.contact-form');
+  const status = document.getElementById('contactStatus');
+
+  if (!form || !status) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    status.classList.add('active');
+  });
+})();
+</script>
 
 </body>
 </html>

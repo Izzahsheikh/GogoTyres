@@ -26,15 +26,11 @@
   .logo-text { display: flex; flex-direction: column; gap: 2px; }
   .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
   .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
   .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
   .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
-  .nav-right { display: flex; align-items: center; gap: 28px; }
-  .nav-phone { display: flex; align-items: center; gap: 8px; }
-  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
-  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
-  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 0; margin-left: 28px; }
   .btn-book {
     background: #3d5a47; border-radius: 6px; padding: 12px 20px;
     font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
@@ -215,6 +211,71 @@
   }
   /* ================= END TYRE CAROUSEL ================= */
 
+  /* BEST SELLERS */
+  .best-sellers {
+    background: #fff; padding: 80px 96px;
+  }
+  .best-sellers-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; margin-bottom: 36px;
+  }
+  .best-sellers-copy { max-width: 560px; }
+  .best-sellers-copy .section-label,
+  .best-sellers-copy .section-title { text-align: left; }
+  .best-sellers-copy p {
+    font-size: 15px; line-height: 1.6; color: #888880; margin-top: 12px;
+  }
+  .best-seller-grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .best-tyre-card {
+    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 8px;
+    padding: 18px; display: flex; flex-direction: column; gap: 16px;
+    min-height: 100%; position: relative; overflow: hidden;
+  }
+  .best-tyre-card.featured { border-color: rgba(61,90,71,0.45); box-shadow: 0 12px 28px rgba(42,45,46,0.08); }
+  .best-badge {
+    position: absolute; top: 14px; left: 14px; z-index: 1;
+    background: #3d5a47; color: #fff; border-radius: 4px;
+    padding: 6px 9px; font-weight: 800; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .best-img {
+    width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; background: #fff;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .best-img img {
+    width: 86%; height: 86%; object-fit: contain;
+    filter: drop-shadow(0 12px 18px rgba(42,45,46,0.15));
+    transition: transform 0.24s ease;
+  }
+  .best-tyre-card:hover .best-img img { transform: scale(1.08) rotate(-4deg); }
+  .best-info { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .best-info h3 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 17px; color: #2a2d2e;
+  }
+  .best-info h3 span { display: block; font-weight: 500; color: #888880; margin-top: 2px; }
+  .best-size { font-size: 13px; color: #888880; }
+  .best-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .best-tag {
+    background: #fff; border-radius: 4px; padding: 5px 8px;
+    font-size: 11px; font-weight: 800; color: #2a2d2e;
+  }
+  .best-price {
+    border-top: 1px solid #e1dbd2; padding-top: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .best-price span { font-size: 12px; color: #888880; }
+  .best-price strong {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 22px; color: #2a2d2e;
+  }
+  .btn-card {
+    background: #3d5a47; color: #fff; border-radius: 6px;
+    padding: 12px 14px; font-weight: 800; font-size: 13px; text-align: center;
+  }
+  .btn-card:hover { background: #4a6e57; }
+
   /* SERVICES PREVIEW */
   .services-preview { background: #fff; padding: 80px 96px; }
   .section-label { font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px; text-align: center; }
@@ -308,20 +369,21 @@
     .hero { padding: 60px 32px; flex-wrap: wrap; }
     .hero h1 { font-size: 44px; }
     .hero-image { width: 280px; height: 280px; }
-    .services-preview, .how, .reviews, .cta-banner, footer { padding: 60px 32px; }
-    .services-grid, .steps { grid-template-columns: repeat(2, 1fr); }
+    .best-sellers, .services-preview, .how, .reviews, .cta-banner, footer { padding: 60px 32px; }
+    .best-seller-grid, .services-grid, .steps { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-top { flex-wrap: wrap; gap: 40px; }
   }
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
-    .nav-links, .nav-phone { display: none; }
+    .nav-links { display: none; }
     .hero { padding: 48px 20px; flex-direction: column; }
     .hero-content { align-items: flex-start; text-align: left; }
     .hero h1 { font-size: 34px; }
     .hero-image { width: 220px; height: 220px; }
-    .services-preview, .how, .reviews, .cta-banner, footer { padding: 48px 20px; }
-    .services-grid, .steps, .reviews-grid { grid-template-columns: 1fr; }
+    .best-sellers, .services-preview, .how, .reviews, .cta-banner, footer { padding: 48px 20px; }
+    .best-sellers-head { align-items: flex-start; flex-direction: column; }
+    .best-seller-grid, .services-grid, .steps, .reviews-grid { grid-template-columns: 1fr; }
     .steps::before { display: none; }
     .footer-top { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
@@ -348,10 +410,6 @@
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-right">
-    <div class="nav-phone">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
-      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
-    </div>
     <a href="contact.html" class="btn-book">Book Fitting</a>
   </div>
 </nav>
@@ -383,6 +441,81 @@
     <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">All major tyre brands</span></div>
     <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Expert technicians</span></div>
     <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Mobile fitting service</span></div>
+  </div>
+</section>
+
+<!-- BEST SELLING TYRES -->
+<section class="best-sellers">
+  <div class="best-sellers-head">
+    <div class="best-sellers-copy">
+      <p class="section-label">Customer Favourites</p>
+      <h2 class="section-title">Best Selling Tyres</h2>
+      <p>Popular fitted choices for Norwich drivers, selected for grip, comfort, durability, and everyday value.</p>
+    </div>
+    <a href="tyres.html" class="btn-primary">View All Tyres</a>
+  </div>
+
+  <div class="best-seller-grid">
+    <article class="best-tyre-card featured">
+      <span class="best-badge">Best seller</span>
+      <div class="best-img"><img src="tyre1.png" alt="Michelin Pilot Sport 5"></div>
+      <div class="best-info">
+        <h3>Michelin <span>Pilot Sport 5</span></h3>
+        <span class="best-size">225/45 R17 94Y</span>
+        <div class="best-tags">
+          <span class="best-tag">Wet A</span>
+          <span class="best-tag">Fuel C</span>
+          <span class="best-tag">72dB</span>
+        </div>
+      </div>
+      <div class="best-price"><span>Fully fitted</span><strong>£104</strong></div>
+      <a href="tyre-detail.html?id=1" class="btn-card">Select Tyre</a>
+    </article>
+
+    <article class="best-tyre-card">
+      <div class="best-img"><img src="tyre2.png" alt="Continental PremiumContact 6"></div>
+      <div class="best-info">
+        <h3>Continental <span>PremiumContact 6</span></h3>
+        <span class="best-size">205/55 R16 91V</span>
+        <div class="best-tags">
+          <span class="best-tag">Wet A</span>
+          <span class="best-tag">Fuel B</span>
+          <span class="best-tag">71dB</span>
+        </div>
+      </div>
+      <div class="best-price"><span>Fully fitted</span><strong>£96</strong></div>
+      <a href="tyre-detail.html?id=2" class="btn-card">Select Tyre</a>
+    </article>
+
+    <article class="best-tyre-card">
+      <div class="best-img"><img src="tyre3.png" alt="Pirelli P Zero PZ4"></div>
+      <div class="best-info">
+        <h3>Pirelli <span>P Zero PZ4</span></h3>
+        <span class="best-size">225/45 R17 94Y</span>
+        <div class="best-tags">
+          <span class="best-tag">Wet A</span>
+          <span class="best-tag">Fuel C</span>
+          <span class="best-tag">70dB</span>
+        </div>
+      </div>
+      <div class="best-price"><span>Fully fitted</span><strong>£112</strong></div>
+      <a href="tyre-detail.html?id=3" class="btn-card">Select Tyre</a>
+    </article>
+
+    <article class="best-tyre-card">
+      <div class="best-img"><img src="tyre4.png" alt="Bridgestone Turanza T005"></div>
+      <div class="best-info">
+        <h3>Bridgestone <span>Turanza T005</span></h3>
+        <span class="best-size">205/55 R16 91V</span>
+        <div class="best-tags">
+          <span class="best-tag">Wet B</span>
+          <span class="best-tag">Fuel B</span>
+          <span class="best-tag">71dB</span>
+        </div>
+      </div>
+      <div class="best-price"><span>Fully fitted</span><strong>£92</strong></div>
+      <a href="tyre-detail.html?id=4" class="btn-card">Select Tyre</a>
+    </article>
   </div>
 </section>
 

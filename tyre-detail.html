@@ -27,15 +27,11 @@
   .logo-text { display: flex; flex-direction: column; gap: 2px; }
   .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
   .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
   .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
   .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
-  .nav-right { display: flex; align-items: center; gap: 28px; }
-  .nav-phone { display: flex; align-items: center; gap: 8px; }
-  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
-  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
-  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 0; margin-left: 28px; }
   .btn-book {
     background: #3d5a47; border-radius: 6px; padding: 12px 20px;
     font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
@@ -191,7 +187,7 @@
   }
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
-    .nav-links, .nav-phone { display: none; }
+    .nav-links { display: none; }
     .page-top, .product-main, .tabs-section, .alternatives { padding-left: 20px; padding-right: 20px; }
     .alt-grid { grid-template-columns: 1fr; }
     .tabs-nav { gap: 20px; overflow-x: auto; }
@@ -220,10 +216,6 @@
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-right">
-    <div class="nav-phone">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
-      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
-    </div>
     <a href="contact.html" class="btn-book">Book Fitting</a>
   </div>
 </nav>

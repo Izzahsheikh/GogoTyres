@@ -28,15 +28,11 @@
   .logo-text { display: flex; flex-direction: column; gap: 2px; }
   .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
   .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
   .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
   .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
-  .nav-right { display: flex; align-items: center; gap: 28px; }
-  .nav-phone { display: flex; align-items: center; gap: 8px; }
-  .nav-phone-text { display: flex; flex-direction: column; gap: 2px; }
-  .nav-phone-text small { font-weight: 600; font-size: 11px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.4px; }
-  .nav-phone-text strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16px; color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 0; margin-left: 28px; }
   .btn-book {
     background: #3d5a47; border-radius: 6px; padding: 12px 20px;
     font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
@@ -72,6 +68,8 @@
   /* MAIN LAYOUT */
   .booking-main { padding: 32px 96px 96px; display: flex; gap: 32px; align-items: flex-start; }
   .booking-left { flex: 1 1 620px; display: flex; flex-direction: column; gap: 24px; }
+  .booking-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+  .booking-row > .card { height: 100%; }
   .card { background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 32px; }
   .card h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px; color: #2a2d2e; margin-bottom: 4px; }
   .card > p.sub { font-size: 14px; color: #888880; margin-bottom: 24px; }
@@ -93,24 +91,72 @@
   .fit-option-addr { font-size: 13px; color: #888880; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
 
   /* DATE / TIME */
-  .dates-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 24px; }
+  .booking-slot-card {
+    background: #2a2d2e; border-color: #3d4142; color: #fff;
+    padding: 44px 32px; display: flex; flex-direction: column; align-items: center;
+  }
+  .booking-slot-card h2 {
+    color: #fff; font-size: 26px; margin-bottom: 8px; text-align: center;
+  }
+  .booking-slot-card > p.sub {
+    color: #d4cfc8; text-align: center; max-width: 560px; margin-bottom: 28px;
+  }
+  .dates-row {
+    width: 100%; max-width: 620px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px;
+  }
   .date-cell {
-    border: 1px solid #e1dbd2; border-radius: 8px; padding: 12px 4px; text-align: center; cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.82); border-radius: 8px;
+    padding: 24px 12px 26px; text-align: center; cursor: pointer;
+    color: #fff; background: transparent; min-height: 170px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
   }
+  .date-cell:not(.disabled):hover { transform: translateY(-2px); border-color: #3d5a47; }
   .date-cell.selected { background: #3d5a47; border-color: #3d5a47; }
-  .date-cell.selected .dow, .date-cell.selected .dom { color: #fff; }
-  .date-cell.disabled { opacity: 0.4; cursor: not-allowed; }
-  .date-cell .dow { font-size: 12px; color: #888880; display: block; }
-  .date-cell .dom { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; color: #2a2d2e; display: block; margin-top: 2px; }
-  .slots-label { font-weight: 700; font-size: 12px; color: #2a2d2e; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 12px; }
-  .slots-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .slot-cell {
-    border: 1px solid #e1dbd2; border-radius: 8px; padding: 14px; text-align: center;
-    font-weight: 700; font-size: 14px; color: #2a2d2e; cursor: pointer;
+  .date-cell.selected .dow, .date-cell.selected .dom, .date-cell.selected .mon { color: #fff; }
+  .date-cell.disabled { opacity: 0.34; cursor: not-allowed; }
+  .date-cell .dow { font-size: 15px; color: #fff; display: block; }
+  .date-cell .dom {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 48px;
+    line-height: 1; color: #fff; display: block; margin: 16px 0 12px;
   }
-  .slot-cell.selected { background: #3d5a47; border-color: #3d5a47; color: #fff; }
-  .slot-cell.disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
-  .cutoff-note { font-size: 12px; color: #888880; margin-top: 10px; }
+  .date-cell .mon { font-size: 15px; color: #d4cfc8; display: block; }
+  .date-nav { display: flex; justify-content: center; gap: 12px; margin: 0 0 26px; }
+  .date-nav-btn {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.24); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 28px; line-height: 1; transition: border-color 0.18s ease, background 0.18s ease;
+  }
+  .date-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.42); }
+  .date-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .time-picker { width: 100%; max-width: 620px; display: flex; flex-direction: column; gap: 8px; }
+  .slots-label {
+    font-weight: 800; font-size: 15px; color: #fff; margin-bottom: 0;
+  }
+  .slot-select-wrap { position: relative; }
+  .slot-select {
+    width: 100%; height: 56px; appearance: none;
+    background: transparent; border: 1px solid rgba(255,255,255,0.24);
+    border-radius: 8px; padding: 0 58px 0 20px; color: #fff;
+    font-size: 16px; outline: none;
+  }
+  .slot-select option { color: #2a2d2e; }
+  .slot-select:focus { border-color: #3d5a47; box-shadow: 0 0 0 3px rgba(61,90,71,0.22); }
+  .slot-select-icon {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #fff; pointer-events: none; font-size: 22px;
+  }
+  .slot-next-btn {
+    margin-top: 22px; min-width: 118px; align-self: center;
+    background: #fff; color: #2a2d2e; border-radius: 999px;
+    padding: 16px 30px; font-weight: 800; font-size: 15px;
+  }
+  .slot-next-btn:hover { background: #f0ede8; }
+  .cutoff-note { font-size: 12px; color: #d4cfc8; margin-top: 14px; text-align: center; max-width: 560px; }
 
   /* CONTACT FORM */
   .form-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -213,19 +259,22 @@
     .step-bar { margin-left: 32px; margin-right: 32px; }
     .booking-main { flex-direction: column; }
     .booking-right { position: static; width: 100%; }
-    .dates-row { grid-template-columns: repeat(4, 1fr); }
+    .booking-row { grid-template-columns: 1fr; }
+    .dates-row { grid-template-columns: repeat(3, 1fr); }
+    .booking-slot-card { padding: 40px 24px; }
     footer { padding: 60px 32px; }
   }
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
-    .nav-links, .nav-phone { display: none; }
+    .nav-links { display: none; }
     .page-top, .booking-main { padding-left: 20px; padding-right: 20px; }
     .step-bar { margin-left: 20px; margin-right: 20px; padding: 16px; gap: 8px; }
     .step-label { display: none; }
     .step-connector { width: 20px; }
     .card { padding: 20px; }
-    .dates-row { grid-template-columns: repeat(3, 1fr); }
-    .slots-grid { grid-template-columns: 1fr; }
+    .dates-row { grid-template-columns: 1fr; }
+    .date-cell { min-height: 132px; }
+    .booking-slot-card { padding: 32px 18px; }
     footer { padding: 48px 20px; }
     .footer-top { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; text-align: center; }
@@ -251,10 +300,6 @@
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-right">
-    <div class="nav-phone">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4cfc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
-      <div class="nav-phone-text"><small>Norwich Hotline</small><strong>01603 555888</strong></div>
-    </div>
     <a href="contact.html" class="btn-book">Book Fitting</a>
   </div>
 </nav>
@@ -288,45 +333,61 @@
 <div class="booking-main">
   <div class="booking-left">
 
-    <!-- 1. FITTING OPTION -->
-    <div class="card">
-      <h2>1. Choose Your Fitting Option</h2>
-      <p class="sub">Select whether you want to visit our Norwich branch or have our mobile unit drive to you.</p>
+    <div class="booking-row">
+      <!-- 1. FITTING OPTION -->
+      <div class="card">
+        <h2>1. Choose Your Fitting Option</h2>
+        <p class="sub">Select whether you want to visit our Norwich branch or have our mobile unit drive to you.</p>
 
-      <label class="fit-option selected" id="fitWorkshop">
-        <input type="radio" name="fitting" value="workshop" checked>
-        <div class="fit-option-body">
-          <div class="fit-option-head">
-            <strong>Central Norwich Workshop Fitting</strong>
-            <span class="price-tag free">FREE</span>
+        <label class="fit-option selected" id="fitWorkshop">
+          <input type="radio" name="fitting" value="workshop" checked>
+          <div class="fit-option-body">
+            <div class="fit-option-head">
+              <strong>Central Norwich Workshop Fitting</strong>
+              <span class="price-tag free">FREE</span>
+            </div>
+            <p>Visit our state-of-the-art diagnostics workshop in central Norwich. Premium high-speed Wi-Fi, warm refreshments, and fully completed high precision digital wheel balancing.</p>
+            <span class="fit-option-addr">📍 Unit 4, Mile Cross Industrial Estate, Norwich, NR6 6BY</span>
           </div>
-          <p>Visit our state-of-the-art diagnostics workshop in central Norwich. Premium high-speed Wi-Fi, warm refreshments, and fully completed high precision digital wheel balancing.</p>
-          <span class="fit-option-addr">📍 Unit 4, Mile Cross Industrial Estate, Norwich, NR6 6BY</span>
-        </div>
-      </label>
+        </label>
 
-      <label class="fit-option" id="fitMobile">
-        <input type="radio" name="fitting" value="mobile">
-        <div class="fit-option-body">
-          <div class="fit-option-head">
-            <strong>24/7 Norfolk Mobile Driveway Fitting</strong>
-            <span class="price-tag surcharge">+£15.00 surcharge</span>
+        <label class="fit-option" id="fitMobile">
+          <input type="radio" name="fitting" value="mobile">
+          <div class="fit-option-body">
+            <div class="fit-option-head">
+              <strong>24/7 Norfolk Mobile Driveway Fitting</strong>
+              <span class="price-tag surcharge">+£15.00 surcharge</span>
+            </div>
+            <p>We bring the full workshop to your driveway, office or roadside location anywhere in Norwich or Norfolk. No hours wasted in the garage workshop.</p>
           </div>
-          <p>We bring the full workshop to your driveway, office or roadside location anywhere in Norwich or Norfolk. No hours wasted in the garage workshop.</p>
+        </label>
+      </div>
+
+      <!-- 2. DATE & TIME -->
+      <div class="card booking-slot-card">
+        <h2>2. Select Date &amp; Time Slot</h2>
+        <p class="sub">Please choose a secure local time slot that fits your personal schedule. Fitting slots run until 5:00pm.</p>
+
+        <div class="dates-row" id="datesRow"></div>
+
+        <div class="date-nav">
+          <button type="button" class="date-nav-btn" id="prevDates" aria-label="Previous dates">‹</button>
+          <button type="button" class="date-nav-btn" id="nextDates" aria-label="Next dates">›</button>
         </div>
-      </label>
-    </div>
 
-    <!-- 2. DATE & TIME -->
-    <div class="card">
-      <h2>2. Select Date &amp; Time Slot</h2>
-      <p class="sub">Please choose a secure local time slot that fits your personal schedule. Fitting slots run until 5:00pm.</p>
+        <div class="time-picker">
+          <label class="slots-label" for="slotSelect">Choose a time</label>
+          <div class="slot-select-wrap">
+            <select class="slot-select" id="slotSelect" disabled>
+              <option value="">Select</option>
+            </select>
+            <span class="slot-select-icon">⌄</span>
+          </div>
+        </div>
 
-      <div class="dates-row" id="datesRow"></div>
-
-      <div class="slots-label">Available Fitting Slots</div>
-      <div class="slots-grid" id="slotsGrid"></div>
-      <p class="cutoff-note">Our last fitting slot of the day starts at 4:00pm and finishes by 5:00pm — no slots are available after 5:00pm.</p>
+        <button type="button" class="slot-next-btn" id="slotNextBtn">Next</button>
+        <p class="cutoff-note">Our last fitting slot of the day starts at 4:00pm and finishes by 5:00pm — no slots are available after 5:00pm.</p>
+      </div>
     </div>
 
     <!-- 3. CONTACT & VEHICLE -->
@@ -569,27 +630,22 @@
   fitWorkshop.addEventListener('click', () => selectFitting('workshop'));
   fitMobile.addEventListener('click', () => selectFitting('mobile'));
 
-  // ---- Date & time (next 7 days shown; Sat/Sun disabled to match reference availability) ----
-  const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // ---- Date & time (weekdays only) ----
+  const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const today = new Date();
   const dates = [];
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; dates.length < 7; i++) {
     const d = new Date(today);
     d.setDate(d.getDate() + i);
-    dates.push(d);
+    if (d.getDay() !== 0 && d.getDay() !== 6) dates.push(d);
   }
 
   const datesRow = document.getElementById('datesRow');
-  dates.forEach((d, idx) => {
-    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-    const cell = document.createElement('div');
-    cell.className = 'date-cell' + (isWeekend ? ' disabled' : '');
-    cell.innerHTML = `<span class="dow">${DOW[d.getDay()]}</span><span class="dom">${d.getDate()}</span>`;
-    if (!isWeekend) {
-      cell.addEventListener('click', () => selectDate(idx));
-    }
-    datesRow.appendChild(cell);
-  });
+  const prevDatesBtn = document.getElementById('prevDates');
+  const nextDatesBtn = document.getElementById('nextDates');
+  const slotSelect = document.getElementById('slotSelect');
+  const slotNextBtn = document.getElementById('slotNextBtn');
+  let dateWindowStart = 0;
 
   // Slots: all end by 5:00pm — no slot ever starts after 4:00pm.
   const ALL_SLOTS = [
@@ -600,36 +656,67 @@
     { label: '16:00 - 17:00', startHour: 16.0 } // last possible slot, still finishes at/by 5pm
   ];
 
-  const slotsGrid = document.getElementById('slotsGrid');
+  function renderDateWindow() {
+    datesRow.innerHTML = '';
+    dates.slice(dateWindowStart, dateWindowStart + 3).forEach((d, offset) => {
+      const idx = dateWindowStart + offset;
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'date-cell' + (selectedDateIdx === idx ? ' selected' : '');
+      cell.innerHTML = `<span class="dow">${DOW[d.getDay()]}</span><span class="dom">${d.getDate()}</span><span class="mon">${d.toLocaleDateString('en-GB', { month: 'short' })}</span>`;
+      cell.addEventListener('click', () => selectDate(idx));
+      datesRow.appendChild(cell);
+    });
+
+    prevDatesBtn.disabled = dateWindowStart === 0;
+    nextDatesBtn.disabled = dateWindowStart >= dates.length - 3;
+  }
 
   function selectDate(idx) {
     selectedDateIdx = idx;
     selectedSlot = null;
-    Array.from(datesRow.children).forEach((c, i) => c.classList.toggle('selected', i === idx));
+    renderDateWindow();
     renderSlots();
     updateConfirmBox();
   }
 
   function renderSlots() {
-    slotsGrid.innerHTML = '';
+    slotSelect.innerHTML = '<option value="">Select</option>';
+    slotSelect.disabled = selectedDateIdx === null;
     ALL_SLOTS.forEach((slot, i) => {
       // Hard rule: nothing after 5pm. Every slot above already ends by 17:00,
       // this filter is the enforcement point if ALL_SLOTS is ever extended.
       const endsByFive = slot.startHour + 2 <= 17 || slot.startHour === 16.0;
-      const cell = document.createElement('div');
-      cell.className = 'slot-cell' + (endsByFive ? '' : ' disabled');
-      cell.textContent = slot.label;
+      const option = document.createElement('option');
+      option.value = slot.label;
+      option.textContent = slot.label;
+      option.disabled = !endsByFive;
       if (endsByFive) {
-        cell.addEventListener('click', () => {
-          selectedSlot = slot.label;
-          Array.from(slotsGrid.children).forEach(c => c.classList.remove('selected'));
-          cell.classList.add('selected');
-          updateConfirmBox();
-        });
+        slotSelect.appendChild(option);
       }
-      slotsGrid.appendChild(cell);
     });
   }
+
+  prevDatesBtn.addEventListener('click', () => {
+    dateWindowStart = Math.max(0, dateWindowStart - 1);
+    renderDateWindow();
+  });
+  nextDatesBtn.addEventListener('click', () => {
+    dateWindowStart = Math.min(dates.length - 3, dateWindowStart + 1);
+    renderDateWindow();
+  });
+  slotSelect.addEventListener('change', () => {
+    selectedSlot = slotSelect.value || null;
+    updateConfirmBox();
+  });
+  slotNextBtn.addEventListener('click', () => {
+    if (selectedDateIdx === null || !selectedSlot) {
+      alert('Please select a date and time slot before continuing.');
+      return;
+    }
+    cards[2].scrollIntoView({ behavior: 'smooth' });
+  });
+  renderDateWindow();
   renderSlots();
 
   function updateConfirmBox() {
