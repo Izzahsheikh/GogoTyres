@@ -176,8 +176,8 @@
   .btn-clear:hover { text-decoration: underline; }
 
   .results-list {
-    flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 260px));
-    gap: 16px; align-items: stretch; justify-content: start;
+    flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+    gap: 22px; align-items: stretch; justify-content: start;
   }
   .results-toolbar {
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
@@ -191,9 +191,10 @@
 
   .compare-bar {
     display: none;
-    background: #2a2d2e; border-radius: 10px; padding: 14px 20px;
-    align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    background: #2a2d2e; border-radius: 12px; padding: 16px 18px;
+    align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
     grid-column: 1 / -1;
+    box-shadow: 0 18px 44px rgba(42,45,46,0.14);
   }
   .compare-bar.active { display: flex; }
   .compare-bar span { color: #fff; font-size: 14px; }
@@ -205,27 +206,33 @@
   .btn-compare:hover { background: #4a6e57; }
 
   .tyre-card {
-    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 18px;
-    display: flex; align-items: flex-start; gap: 18px; flex-direction: column;
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 20px;
+    display: flex; align-items: flex-start; gap: 16px; flex-direction: column;
     position: relative; min-height: 100%;
   }
   .tyre-card.hidden-by-filter { display: none; }
   .card-check {
-    position: absolute; top: 18px; right: 18px; z-index: 1;
-    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 32px; right: 32px; z-index: 2;
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    background: rgba(255,255,255,0.9); border: 1px solid rgba(225,219,210,0.86);
+    border-radius: 999px; padding: 7px 9px 7px 8px;
+    box-shadow: 0 10px 22px rgba(42,45,46,0.1);
   }
-  .card-check input { width: 18px; height: 18px; accent-color: #3d5a47; cursor: pointer; }
+  .card-check::after {
+    content: 'Compare'; font-size: 11px; font-weight: 800; color: #2a2d2e; text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .card-check input { width: 16px; height: 16px; accent-color: #3d5a47; cursor: pointer; }
   .card-img {
     flex: 0 0 auto; width: 100%; aspect-ratio: 1 / 1; background: #f5f2ed; border-radius: 8px;
     border: 1px solid transparent;
     display: flex; align-items: center; justify-content: center; overflow: hidden;
     cursor: pointer; position: relative;
-    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: background-color 220ms var(--ui-ease-out), border-color 220ms var(--ui-ease-out), box-shadow 220ms var(--ui-ease-out), transform 220ms var(--ui-ease-out);
   }
   .card-img img {
-    position: absolute; inset: 8%; width: 84%; height: 84%;
+    position: absolute; inset: 11%; width: 78%; height: 78%;
     max-width: 92%; max-height: 92%; object-fit: contain;
-    transition: opacity 0.26s ease, transform 0.28s ease, filter 0.28s ease;
+    transition: opacity 240ms var(--ui-ease-out), transform 240ms var(--ui-ease-out), filter 240ms var(--ui-ease-out);
   }
   .card-img .img-primary {
     opacity: 1;
@@ -233,39 +240,45 @@
   }
   .card-img .img-alt {
     opacity: 0;
-    transform: translateX(18%) scale(1.05) rotateY(180deg) rotate(-8deg);
+    transform: translateX(8%) scale(1.02) rotateY(180deg) rotate(-3deg);
   }
-  .tyre-card:hover .card-img {
+  .tyre-card:focus-within .card-img {
     background: #e8eee9; border-color: #3d5a47;
-    box-shadow: 0 12px 26px rgba(61,90,71,0.16);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(61,90,71,0.12);
   }
-  .tyre-card:hover .card-img .img-primary {
-    opacity: 0;
-    transform: translateX(-18%) scale(0.96) rotate(8deg);
+  @media (hover: hover) and (pointer: fine) {
+    .tyre-card:hover .card-img {
+      background: #e8eee9; border-color: #3d5a47;
+      box-shadow: 0 12px 26px rgba(61,90,71,0.16);
+      transform: translateY(-2px);
+    }
+    .tyre-card:hover .card-img .img-primary {
+      opacity: 0;
+      transform: translateX(-8%) scale(0.98) rotate(3deg);
+    }
+    .tyre-card:hover .card-img .img-alt {
+      opacity: 1;
+      transform: translateX(0) scale(1.05) rotateY(180deg) rotate(-2deg);
+      filter: drop-shadow(0 10px 14px rgba(42,45,46,0.16));
+    }
   }
-  .tyre-card:hover .card-img .img-alt {
-    opacity: 1;
-    transform: translateX(0) scale(1.1) rotateY(180deg) rotate(-5deg);
-    filter: drop-shadow(0 14px 18px rgba(42,45,46,0.22));
-  }
-  .card-body { flex: 1 1 auto; display: flex; flex-direction: column; gap: 4px; width: 100%; }
-  .card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 18px; color: #2a2d2e; }
-  .card-body h3 span { font-weight: 500; color: #888880; }
-  .card-size { font-size: 13px; color: #888880; }
-  .card-desc { font-size: 14px; color: #888880; margin-top: 6px; max-width: 480px; }
-  .card-tags { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  .card-tag { background: #f5f2ed; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: #2a2d2e; }
+  .card-body { flex: 1 1 auto; display: flex; flex-direction: column; gap: 7px; width: 100%; min-height: auto; }
+  .card-body h3 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 19px; line-height: 1.18; color: #2a2d2e; }
+  .card-body h3 span { display: block; font-weight: 600; color: #888880; margin-top: 2px; }
+  .card-size { font-size: 13px; color: #888880; font-weight: 700; }
+  .card-desc { font-size: 14px; color: #888880; line-height: 1.55; margin-top: 2px; max-width: 480px; }
+  .card-tags { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .card-tag { background: #f5f2ed; border: 1px solid rgba(225,219,210,0.76); border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 800; color: #2a2d2e; }
   .card-tag .letter { color: #3d5a47; }
   .card-price {
-    width: 100%; text-align: left; display: flex; flex-direction: column; gap: 10px;
-    align-items: flex-start; border-top: 1px solid #e1dbd2; padding-top: 16px; margin-top: auto;
+    width: 100%; text-align: left; display: grid; grid-template-columns: 1fr;
+    gap: 10px; align-items: flex-start; border-top: 1px solid #e1dbd2; padding-top: 16px; margin-top: auto;
   }
-  .card-price .label { font-size: 12px; color: #888880; }
-  .card-price .amount { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; color: #2a2d2e; }
+  .card-price .label { font-size: 12px; color: #888880; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+  .card-price .amount { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 26px; color: #2a2d2e; line-height: 1; }
   .btn-select { background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px; padding: 12px 22px; border-radius: 6px; display: inline-block; width: 100%; text-align: center; }
   .btn-select:hover { background: #4a6e57; }
-  .card-avail { font-size: 12px; color: #888880; }
+  .card-avail { font-size: 12px; color: #888880; line-height: 1.4; }
 
   .no-results {
     display: none; text-align: center; padding: 64px 24px; color: #888880;
@@ -314,12 +327,18 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 220ms var(--ui-ease-out), box-shadow 220ms var(--ui-ease-out);
     cursor: pointer;
   }
-  .marquee-logo:hover {
-    transform: scale(1.15) translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  @media (hover: hover) and (pointer: fine) {
+    .marquee-wrapper:hover .marquee-track,
+    .marquee-wrapper:focus-within .marquee-track {
+      animation-play-state: paused;
+    }
+    .marquee-logo:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
   }
   .marquee-track img {
     height: 65px; object-fit: contain;
@@ -405,6 +424,7 @@
     .footer-bottom { flex-direction: column; text-align: center; }
   }
 </style>
+<link rel="stylesheet" href="polish.css">
 </head>
 <body>
 
@@ -574,13 +594,13 @@
       </div>
 
       <div class="compare-bar" id="compareBar">
-        <span><strong id="compareCount">0</strong> of 2 tyres selected for comparison</span>
+        <span><strong id="compareCount">0</strong> of 3 tyres selected for comparison</span>
         <a href="#" class="btn-compare" id="compareBtn">Compare Selected</a>
       </div>
 
       <!-- Tyre 1: Michelin -->
       <div class="tyre-card" data-brand="Michelin" data-season="Summer" data-price="104" data-id="1">
-        <div class="card-check"><input type="checkbox" class="compare-check" value="1"></div>
+        <div class="card-check"><input type="checkbox" class="compare-check" value="1" aria-label="Compare Michelin Pilot Sport 5"></div>
         <div class="card-img">
           <img class="img-primary" src="tyre1.png" alt="Michelin Pilot Sport 5">
           <img class="img-alt" src="tyre1.png" alt="" aria-hidden="true">
@@ -605,7 +625,7 @@
 
       <!-- Tyre 2: Continental -->
       <div class="tyre-card" data-brand="Continental" data-season="Summer" data-price="96" data-id="2">
-        <div class="card-check"><input type="checkbox" class="compare-check" value="2"></div>
+        <div class="card-check"><input type="checkbox" class="compare-check" value="2" aria-label="Compare Continental PremiumContact 6"></div>
         <div class="card-img">
           <img class="img-primary" src="tyre2.png" alt="Continental PremiumContact 6">
           <img class="img-alt" src="tyre2.png" alt="" aria-hidden="true">
@@ -630,7 +650,7 @@
 
       <!-- Tyre 3: Pirelli -->
       <div class="tyre-card" data-brand="Pirelli" data-season="Summer" data-price="112" data-id="3">
-        <div class="card-check"><input type="checkbox" class="compare-check" value="3"></div>
+        <div class="card-check"><input type="checkbox" class="compare-check" value="3" aria-label="Compare Pirelli P Zero PZ4"></div>
         <div class="card-img">
           <img class="img-primary" src="tyre3.png" alt="Pirelli P Zero PZ4">
           <img class="img-alt" src="tyre3.png" alt="" aria-hidden="true">
@@ -655,7 +675,7 @@
 
       <!-- Tyre 4: Bridgestone -->
       <div class="tyre-card" data-brand="Bridgestone" data-season="Summer" data-price="92" data-id="4">
-        <div class="card-check"><input type="checkbox" class="compare-check" value="4"></div>
+        <div class="card-check"><input type="checkbox" class="compare-check" value="4" aria-label="Compare Bridgestone Turanza T005"></div>
         <div class="card-img">
           <img class="img-primary" src="tyre4.png" alt="Bridgestone Turanza T005">
           <img class="img-alt" src="tyre4.jpeg" alt="" aria-hidden="true">
@@ -824,6 +844,22 @@
 (function () {
   const searchModeButtons = Array.from(document.querySelectorAll('.search-mode-btn'));
   const searchPanels = Array.from(document.querySelectorAll('[data-search-panel]'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const easeOut = 'cubic-bezier(0.23, 1, 0.32, 1)';
+
+  function animateSearchPanel(panel) {
+    const keyframes = reduceMotion.matches
+      ? [{ opacity: 0 }, { opacity: 1 }]
+      : [
+          { opacity: 0, transform: 'translateY(6px) scale(0.98)' },
+          { opacity: 1, transform: 'translateY(0) scale(1)' }
+        ];
+
+    panel.animate(keyframes, {
+      duration: reduceMotion.matches ? 140 : 200,
+      easing: easeOut
+    });
+  }
 
   function setSearchMode(mode) {
     searchModeButtons.forEach(button => {
@@ -833,7 +869,10 @@
     });
 
     searchPanels.forEach(panel => {
-      panel.classList.toggle('active', panel.dataset.searchPanel === mode);
+      const active = panel.dataset.searchPanel === mode;
+      const wasActive = panel.classList.contains('active');
+      panel.classList.toggle('active', active);
+      if (active && !wasActive) animateSearchPanel(panel);
     });
   }
 
@@ -924,14 +963,18 @@
     compareCount.textContent = selected.length;
     compareBar.classList.toggle('active', selected.length > 0);
 
-    if (selected.length >= 2) {
+    if (selected.length >= 3) {
       compareChecks.forEach(c => { if (!c.checked) c.disabled = true; });
     } else {
       compareChecks.forEach(c => { c.disabled = false; });
     }
 
-    if (selected.length === 2) {
-      compareBtn.href = `tyre-compare.html?a=${selected[0].value}&b=${selected[1].value}`;
+    if (selected.length >= 2) {
+      const params = selected
+        .slice(0, 3)
+        .map((item, index) => `${['a', 'b', 'c'][index]}=${encodeURIComponent(item.value)}`)
+        .join('&');
+      compareBtn.href = `tyre-compare.html?${params}`;
       compareBtn.style.pointerEvents = 'auto';
       compareBtn.style.opacity = '1';
     } else {

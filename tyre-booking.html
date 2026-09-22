@@ -110,9 +110,18 @@
     padding: 24px 12px 26px; text-align: center; cursor: pointer;
     color: #fff; background: transparent; min-height: 170px;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    transition: background-color 180ms var(--ui-ease-out), border-color 180ms var(--ui-ease-out), transform 180ms var(--ui-ease-out), box-shadow 180ms var(--ui-ease-out);
   }
-  .date-cell:not(.disabled):hover { transform: translateY(-2px); border-color: #3d5a47; }
+  .date-cell:not(.disabled):focus-visible {
+    border-color: #3d5a47;
+    box-shadow: 0 0 0 3px rgba(61,90,71,0.28);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .date-cell:not(.disabled):hover {
+      transform: translateY(-2px);
+      border-color: #3d5a47;
+    }
+  }
   .date-cell.selected { background: #3d5a47; border-color: #3d5a47; }
   .date-cell.selected .dow, .date-cell.selected .dom, .date-cell.selected .mon { color: #fff; }
   .date-cell.disabled { opacity: 0.34; cursor: not-allowed; }
@@ -127,9 +136,11 @@
     width: 56px; height: 56px; border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.24); color: #fff;
     display: inline-flex; align-items: center; justify-content: center;
-    font-size: 28px; line-height: 1; transition: border-color 0.18s ease, background 0.18s ease;
+    font-size: 28px; line-height: 1; transition: border-color 180ms var(--ui-ease-out), background-color 180ms var(--ui-ease-out), transform 180ms var(--ui-ease-out);
   }
-  .date-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.42); }
+  @media (hover: hover) and (pointer: fine) {
+    .date-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.42); }
+  }
   .date-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
   .time-picker { width: 100%; max-width: 620px; display: flex; flex-direction: column; gap: 8px; }
   .slots-label {
@@ -280,6 +291,7 @@
     .footer-bottom { flex-direction: column; text-align: center; }
   }
 </style>
+<link rel="stylesheet" href="polish.css">
 </head>
 <body>
 
@@ -645,6 +657,8 @@
   const nextDatesBtn = document.getElementById('nextDates');
   const slotSelect = document.getElementById('slotSelect');
   const slotNextBtn = document.getElementById('slotNextBtn');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const easeOut = 'cubic-bezier(0.23, 1, 0.32, 1)';
   let dateWindowStart = 0;
 
   // Slots: all end by 5:00pm — no slot ever starts after 4:00pm.
@@ -656,7 +670,24 @@
     { label: '16:00 - 17:00', startHour: 16.0 } // last possible slot, still finishes at/by 5pm
   ];
 
-  function renderDateWindow() {
+  function animateDateWindow() {
+    Array.from(datesRow.children).forEach((cell, i) => {
+      const keyframes = reduceMotion.matches
+        ? [{ opacity: 0 }, { opacity: 1 }]
+        : [
+            { opacity: 0, transform: 'translateY(8px) scale(0.97)' },
+            { opacity: 1, transform: 'translateY(0) scale(1)' }
+          ];
+
+      cell.animate(keyframes, {
+        duration: reduceMotion.matches ? 140 : 220,
+        delay: reduceMotion.matches ? 0 : i * 35,
+        easing: easeOut
+      });
+    });
+  }
+
+  function renderDateWindow(animate = false) {
     datesRow.innerHTML = '';
     dates.slice(dateWindowStart, dateWindowStart + 3).forEach((d, offset) => {
       const idx = dateWindowStart + offset;
@@ -670,6 +701,7 @@
 
     prevDatesBtn.disabled = dateWindowStart === 0;
     nextDatesBtn.disabled = dateWindowStart >= dates.length - 3;
+    if (animate) animateDateWindow();
   }
 
   function selectDate(idx) {
@@ -699,11 +731,11 @@
 
   prevDatesBtn.addEventListener('click', () => {
     dateWindowStart = Math.max(0, dateWindowStart - 1);
-    renderDateWindow();
+    renderDateWindow(true);
   });
   nextDatesBtn.addEventListener('click', () => {
     dateWindowStart = Math.min(dates.length - 3, dateWindowStart + 1);
-    renderDateWindow();
+    renderDateWindow(true);
   });
   slotSelect.addEventListener('change', () => {
     selectedSlot = slotSelect.value || null;

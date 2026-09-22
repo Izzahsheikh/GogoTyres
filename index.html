@@ -8,13 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
+  body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; line-height: 1.5; }
   a { text-decoration: none; color: inherit; }
 
   /* NAV */
   nav {
     width: 100%; background: #2a2d2e; border-bottom: 1px solid #3d4142;
-    padding: 0 64px; height: 88px;
+    padding: 0 64px; height: 84px;
     display: flex; align-items: center; justify-content: space-between;
     position: sticky; top: 0; z-index: 100;
   }
@@ -26,27 +26,27 @@
   .logo-text { display: flex; flex-direction: column; gap: 2px; }
   .logo-text strong { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1; }
   .logo-text span { font-weight: 700; font-size: 9px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
-  .nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
-  .nav-links a { font-weight: 500; font-size: 15px; color: #d4cfc8; }
+  .nav-links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+  .nav-links a { font-weight: 500; font-size: 15px; line-height: 1; color: #d4cfc8; }
   .nav-links a.active { font-weight: 700; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .nav-links a.active::after { content: ''; width: 16px; height: 2px; border-radius: 1px; background: #3d5a47; }
   .nav-right { display: flex; align-items: center; gap: 0; margin-left: 28px; }
   .btn-book {
-    background: #3d5a47; border-radius: 6px; padding: 12px 20px;
+    background: #3d5a47; border-radius: 6px; padding: 0 20px; min-height: 44px;
     font-weight: 700; font-size: 14px; color: #fff; text-transform: uppercase;
-    white-space: nowrap;
+    white-space: nowrap; display: inline-flex; align-items: center; justify-content: center;
   }
   .btn-book:hover { background: #4a6e57; }
 
   /* HERO */
   .hero {
-    background: #2a2d2e; min-height: 480px;
+    background: #2a2d2e; min-height: 500px;
     display: flex; align-items: center; justify-content: center;
-    gap: 64px;
-    padding: 80px 96px;
+    gap: clamp(40px, 6vw, 72px);
+    padding: 76px 96px;
     position: relative; overflow: hidden;
   }
-  .hero-content { max-width: 620px; display: flex; flex-direction: column; gap: 28px; align-items: flex-start; text-align: left; }
+  .hero-content { max-width: 620px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; text-align: left; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
     background: #3d4142; border-radius: 200px; padding: 8px 16px;
@@ -55,35 +55,38 @@
   .hero-badge span { font-weight: 700; font-size: 12px; color: #d4cfc8; text-transform: uppercase; letter-spacing: 0.6px; }
   .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3d5a47; flex-shrink: 0; }
   .hero h1 {
-    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 56px;
-    line-height: 1.1; color: #fff;
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(40px, 5vw, 56px);
+    line-height: 1.04; color: #fff; max-width: 620px;
   }
-  .hero p { font-size: 18px; line-height: 1.6; color: #d4cfc8; max-width: 480px; }
+  .hero p { font-size: 18px; line-height: 1.6; color: #d4cfc8; max-width: 520px; }
   .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
   .btn-primary {
     background: #3d5a47; color: #fff; border-radius: 6px;
-    padding: 16px 28px; font-weight: 700; font-size: 15px;
+    min-height: 52px; padding: 0 28px; font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; justify-content: center;
   }
   .btn-primary:hover { background: #4a6e57; }
   .btn-outline {
     background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 6px; padding: 16px 28px; font-weight: 700; font-size: 15px;
+    border-radius: 6px; min-height: 52px; padding: 0 28px; font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; justify-content: center;
   }
   .btn-outline:hover { border-color: rgba(255,255,255,0.6); }
 
   /* HERO TYRE IMAGE */
   .hero-image {
-    width: 470px; height: 470px; border-radius: 50%;
+    width: 440px; height: 440px; border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0; position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 22px 58px rgba(0,0,0,0.34);
   }
   .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* ================= TYRE CAROUSEL v2 (3-visible, infinite loop) ================= */
   .tyre-carousel-section {
     background: #f5f2ed;
-    padding: 100px 40px 60px;
+    padding: 88px 40px 56px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -92,28 +95,31 @@
   }
 
   .tyre-section-heading {
-    font-size: 2rem;
-    font-weight: bold;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 800;
+    line-height: 1.15;
     text-align: center;
-    margin-bottom: 20px;
-    color: #1a1a1a;
+    margin-bottom: 16px;
+    color: #2a2d2e;
   }
 
   .tyre-pills {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    flex-wrap: nowrap;
-    margin-top: 30px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
   }
   .tyre-pill {
     display: flex;
     align-items: center;
     gap: 8px;
     background: #fff;
+    border: 1px solid #e1dbd2;
     border-radius: 50px;
     padding: 10px 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(42,45,46,0.04);
     white-space: nowrap;
   }
   .tyre-pill-check {
@@ -140,7 +146,7 @@
     width: 100%;
     max-width: 720px;
     margin: 0 auto;
-    height: 380px;
+    height: 360px;
     padding: 0 80px;
     overflow-x: auto;
     overflow-y: visible;
@@ -151,6 +157,47 @@
   .tyre-track-wrap::-webkit-scrollbar { display: none; }
   .tyre-track-wrap.dragging { cursor: grabbing; }
   .tyre-track-wrap.no-smooth { scroll-behavior: auto; }
+
+  .tyre-carousel-frame {
+    position: relative;
+    width: 100%;
+    max-width: 840px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tyre-carousel-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid #e1dbd2;
+    background: #fff;
+    color: #2a2d2e;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transform: translateY(-50%);
+    box-shadow: 0 12px 28px rgba(42,45,46,0.1);
+    transition: background-color 180ms var(--ui-ease-out), border-color 180ms var(--ui-ease-out), color 180ms var(--ui-ease-out), box-shadow 180ms var(--ui-ease-out), transform 180ms var(--ui-ease-out);
+  }
+  .tyre-carousel-btn svg { width: 20px; height: 20px; }
+  .tyre-carousel-btn.prev { left: 18px; }
+  .tyre-carousel-btn.next { right: 18px; }
+  .tyre-carousel-btn:hover {
+    background: #3d5a47;
+    border-color: #3d5a47;
+    color: #fff;
+    box-shadow: 0 18px 38px rgba(42,45,46,0.14);
+    transform: translateY(-50%) translateY(-1px);
+  }
+  .tyre-carousel-btn:active {
+    transform: translateY(-50%) scale(0.96);
+  }
 
   .tyre-track {
     display: flex;
@@ -206,18 +253,22 @@
   }
 
   @media (max-width: 700px) {
-    .tyre-track-wrap { height: 300px; max-width: 100%; }
+    .tyre-carousel-frame { max-width: 100%; }
+    .tyre-track-wrap { height: 300px; max-width: 100%; padding: 0 56px; }
     .tyre-item { flex-basis: 150px; width: 150px; height: 150px; margin: 0 -8px; }
+    .tyre-carousel-btn { width: 42px; height: 42px; }
+    .tyre-carousel-btn.prev { left: 4px; }
+    .tyre-carousel-btn.next { right: 4px; }
   }
   /* ================= END TYRE CAROUSEL ================= */
 
   /* BEST SELLERS */
   .best-sellers {
-    background: #fff; padding: 80px 96px;
+    background: #fff; padding: 76px 96px;
   }
   .best-sellers-head {
     display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 24px; margin-bottom: 36px;
+    gap: 24px; margin-bottom: 32px;
   }
   .best-sellers-copy { max-width: 560px; }
   .best-sellers-copy .section-label,
@@ -227,11 +278,11 @@
   }
   .best-seller-grid {
     display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
+    gap: 18px;
   }
   .best-tyre-card {
     background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 8px;
-    padding: 18px; display: flex; flex-direction: column; gap: 16px;
+    padding: 20px; display: flex; flex-direction: column; gap: 14px;
     min-height: 100%; position: relative; overflow: hidden;
   }
   .best-tyre-card.featured { border-color: rgba(61,90,71,0.45); box-shadow: 0 12px 28px rgba(42,45,46,0.08); }
@@ -243,14 +294,17 @@
   }
   .best-img {
     width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; background: #fff;
+    border: 1px solid rgba(225,219,210,0.72);
     display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   .best-img img {
     width: 86%; height: 86%; object-fit: contain;
     filter: drop-shadow(0 12px 18px rgba(42,45,46,0.15));
-    transition: transform 0.24s ease;
+    transition: transform 220ms var(--ui-ease-out);
   }
-  .best-tyre-card:hover .best-img img { transform: scale(1.08) rotate(-4deg); }
+  @media (hover: hover) and (pointer: fine) {
+    .best-tyre-card:hover .best-img img { transform: scale(1.04) rotate(-2deg); }
+  }
   .best-info { display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .best-info h3 {
     font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 17px; color: #2a2d2e;
@@ -268,25 +322,26 @@
   }
   .best-price span { font-size: 12px; color: #888880; }
   .best-price strong {
-    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 22px; color: #2a2d2e;
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 24px; color: #2a2d2e;
   }
   .btn-card {
     background: #3d5a47; color: #fff; border-radius: 6px;
-    padding: 12px 14px; font-weight: 800; font-size: 13px; text-align: center;
+    min-height: 44px; padding: 0 14px; font-weight: 800; font-size: 13px; text-align: center;
+    display: inline-flex; align-items: center; justify-content: center;
   }
   .btn-card:hover { background: #4a6e57; }
 
   /* SERVICES PREVIEW */
-  .services-preview { background: #fff; padding: 80px 96px; }
+  .services-preview { background: #fff; padding: 76px 96px; }
   .section-label { font-weight: 700; font-size: 12px; color: #3d5a47; text-transform: uppercase; letter-spacing: 0.6px; text-align: center; }
-  .section-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 36px; color: #2a2d2e; text-align: center; margin-top: 12px; }
-  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+  .section-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(28px, 3.5vw, 36px); line-height: 1.15; color: #2a2d2e; text-align: center; margin-top: 10px; }
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
   .service-card {
-    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 12px;
-    padding: 28px; display: flex; flex-direction: column; gap: 16px;
+    background: #f5f2ed; border: 1px solid #e1dbd2; border-radius: 8px;
+    padding: 24px; display: flex; flex-direction: column; gap: 14px;
   }
   .icon-box {
-    width: 48px; height: 48px; border-radius: 8px; background: #f5f2ed;
+    width: 48px; height: 48px; border-radius: 8px; background: #fff; border: 1px solid #e1dbd2;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .service-card h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #2a2d2e; }
@@ -295,29 +350,29 @@
   .section-cta { text-align: center; margin-top: 40px; }
 
   /* HOW IT WORKS */
-  .how { background: #2a2d2e; padding: 80px 96px; }
+  .how { background: #2a2d2e; padding: 76px 96px; }
   .how .section-label { color: #3d5a47; }
   .how .section-title { color: #fff; }
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 56px; position: relative; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 48px; position: relative; }
   .steps::before {
     content: ''; position: absolute; top: 28px; left: calc(12.5% + 16px); right: calc(12.5% + 16px);
     height: 1px; background: #3d4142;
   }
-  .step { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
   .step-num {
     width: 56px; height: 56px; border-radius: 50%; background: #3d5a47;
     display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
     font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
   }
   .step h3 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; color: #fff; }
-  .step p { font-size: 14px; line-height: 1.6; color: #d4cfc8; }
+  .step p { font-size: 14px; line-height: 1.6; color: #d4cfc8; max-width: 250px; }
 
   /* REVIEWS */
-  .reviews { background: #f5f2ed; padding: 80px 96px; }
-  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .reviews { background: #f5f2ed; padding: 76px 96px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
   .review-card {
-    background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 32px;
-    display: flex; flex-direction: column; gap: 16px;
+    background: #fff; border: 1px solid #e1dbd2; border-radius: 8px; padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
   }
   .stars { display: flex; gap: 2px; }
   .review-card p { font-size: 15px; line-height: 1.6; color: #2a2d2e; flex: 1; }
@@ -327,14 +382,15 @@
 
   /* CTA BANNER */
   .cta-banner {
-    background: #3d5a47; padding: 80px 96px;
+    background: #3d5a47; padding: 72px 96px;
     display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;
   }
-  .cta-banner h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 40px; color: #fff; }
+  .cta-banner h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; color: #fff; }
   .cta-banner p { font-size: 18px; color: rgba(255,255,255,0.85); max-width: 560px; line-height: 1.6; }
   .btn-white {
     background: #fff; color: #3d5a47; border-radius: 6px;
-    padding: 18px 40px; font-weight: 700; font-size: 16px; margin-top: 8px;
+    min-height: 54px; padding: 0 40px; font-weight: 700; font-size: 16px; margin-top: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
   }
   .btn-white:hover { background: #f0ede8; }
 
@@ -367,8 +423,7 @@
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
     .hero { padding: 60px 32px; flex-wrap: wrap; }
-    .hero h1 { font-size: 44px; }
-    .hero-image { width: 280px; height: 280px; }
+    .hero-image { width: 300px; height: 300px; }
     .best-sellers, .services-preview, .how, .reviews, .cta-banner, footer { padding: 60px 32px; }
     .best-seller-grid, .services-grid, .steps { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: repeat(2, 1fr); }
@@ -379,7 +434,9 @@
     .nav-links { display: none; }
     .hero { padding: 48px 20px; flex-direction: column; }
     .hero-content { align-items: flex-start; text-align: left; }
-    .hero h1 { font-size: 34px; }
+    .hero h1 { font-size: 34px; line-height: 1.08; }
+    .hero p { font-size: 16px; }
+    .hero-btns, .hero-btns a { width: 100%; }
     .hero-image { width: 220px; height: 220px; }
     .best-sellers, .services-preview, .how, .reviews, .cta-banner, footer { padding: 48px 20px; }
     .best-sellers-head { align-items: flex-start; flex-direction: column; }
@@ -390,6 +447,7 @@
     .cta-banner h2 { font-size: 28px; }
   }
 </style>
+<link rel="stylesheet" href="polish.css">
 </head>
 <body>
 
@@ -433,8 +491,16 @@
 <!-- TYRE CAROUSEL (v2 — 3 visible, infinite loop, larger center + gray bar) -->
 <section class="tyre-carousel-section">
   <h2 class="tyre-section-heading">Norwich's Most Trusted Tyre Specialists</h2>
-  <div class="tyre-track-wrap" id="tyreWrap">
-    <div class="tyre-track" id="tyreTrack"></div>
+  <div class="tyre-carousel-frame">
+    <button type="button" class="tyre-carousel-btn prev" id="tyrePrev" aria-label="Scroll tyres left">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="tyre-track-wrap" id="tyreWrap">
+      <div class="tyre-track" id="tyreTrack"></div>
+    </div>
+    <button type="button" class="tyre-carousel-btn next" id="tyreNext" aria-label="Scroll tyres right">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
   </div>
   <div class="tyre-pills">
     <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Same-day fitting available</span></div>
@@ -715,6 +781,8 @@
 
   const wrap = document.getElementById('tyreWrap');
   const track = document.getElementById('tyreTrack');
+  const prevBtn = document.getElementById('tyrePrev');
+  const nextBtn = document.getElementById('tyreNext');
   if (!wrap || !track) return;
 
   const allItems = [];
@@ -753,6 +821,7 @@
   let lastT = 0;
   let snapTimeout = null;
   let scrollEndTimer = null;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function updateScales() {
     const wrapRect = wrap.getBoundingClientRect();
@@ -845,6 +914,24 @@
 
   wrap.addEventListener('scroll', onScroll, { passive: true });
 
+  function scrollCarousel(direction) {
+    track.classList.add('settling');
+    window.clearTimeout(scrollEndTimer);
+    window.clearTimeout(snapTimeout);
+    wrap.scrollBy({
+      left: direction * ITEM_OUTER_WIDTH,
+      behavior: reduceMotion.matches ? 'auto' : 'smooth'
+    });
+    snapTimeout = window.setTimeout(() => {
+      snapToNearest();
+    }, reduceMotion.matches ? 40 : 220);
+  }
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => scrollCarousel(-1));
+    nextBtn.addEventListener('click', () => scrollCarousel(1));
+  }
+
   wrap.addEventListener('mousedown', (e) => {
     isDown = true;
     wrap.classList.add('dragging');
@@ -898,12 +985,6 @@
     isDown = false;
     window.setTimeout(snapToNearest, 100);
   });
-
-  wrap.addEventListener('wheel', (e) => {
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    wrap.scrollLeft += delta;
-    e.preventDefault();
-  }, { passive: false });
 
   function init() {
     requestAnimationFrame(() => {
