@@ -45,8 +45,13 @@
     gap: clamp(40px, 6vw, 72px);
     padding: 76px 96px;
     position: relative; overflow: hidden;
+    isolation: isolate;
   }
-  .hero-content { max-width: 620px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; text-align: left; }
+  .hero-content {
+    max-width: 620px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; text-align: left;
+    position: relative; z-index: 2;
+    will-change: transform, opacity;
+  }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
     background: #3d4142; border-radius: 200px; padding: 8px 16px;
@@ -73,13 +78,29 @@
   }
   .btn-outline:hover { border-color: rgba(255,255,255,0.6); }
 
+  .home-scroll-scene {
+    position: relative;
+    height: 620vh;
+    min-height: 3720px;
+    background: #2a2d2e;
+  }
+  .home-story-sticky {
+    position: sticky;
+    top: 84px;
+    height: calc(100vh - 84px);
+    min-height: 620px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
   /* HERO TYRE IMAGE */
   .hero-image {
     width: 440px; height: 440px; border-radius: 50%;
     overflow: hidden;
-    flex-shrink: 0; position: relative;
+    flex-shrink: 0; position: relative; z-index: 1;
     border: 1px solid rgba(255,255,255,0.08);
     box-shadow: 0 22px 58px rgba(0,0,0,0.34);
+    will-change: transform, opacity;
   }
   .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -93,6 +114,131 @@
     flex-direction: column;
     align-items: center;
   }
+  .home-story-sticky .hero,
+  .home-story-sticky .tyre-carousel-section,
+  .home-story-sticky .best-sellers,
+  .home-story-sticky .services-preview {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+    height: 100%;
+  }
+  .home-story-sticky .hero {
+    z-index: 1;
+  }
+  .home-story-sticky .tyre-carousel-section {
+    z-index: 2;
+    justify-content: center;
+    padding: 56px 40px;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 -24px 70px rgba(0,0,0,0.22);
+    transform: translateY(100%);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .home-story-sticky .best-sellers {
+    z-index: 3;
+    padding: 52px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 -26px 76px rgba(0,0,0,0.18);
+    transform: translateY(100%);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .home-story-sticky .services-preview {
+    z-index: 5;
+    padding: 56px 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 -28px 82px rgba(0,0,0,0.2);
+    transform: translateY(12%) scale(0.96);
+    opacity: 0;
+    clip-path: circle(8% at 50% 100%);
+    will-change: transform, opacity, clip-path;
+  }
+  .home-story-sticky .services-preview > .section-label,
+  .home-story-sticky .services-preview > .section-title,
+  .home-story-sticky .services-preview > .section-cta {
+    position: relative;
+    z-index: 3;
+  }
+  .home-story-sticky .services-preview > .section-label {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    right: 0;
+  }
+  .home-story-sticky .services-preview > .section-title {
+    position: absolute;
+    top: 84px;
+    left: 0;
+    right: 0;
+    width: min(560px, calc(100% - 48px));
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .home-story-sticky .services-preview .services-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: block;
+    margin: 0;
+    pointer-events: none;
+  }
+  .home-story-sticky .services-preview .service-card {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    width: min(300px, 24vw);
+    min-height: 204px;
+    padding: 22px;
+    opacity: 0;
+    box-shadow: 0 28px 70px rgba(42,45,46,0.14);
+    transform: translate(-50%, -50%) translate3d(0, 420px, 0) rotate(0deg);
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+  .home-story-sticky .services-preview .service-card:nth-child(4) {
+    min-height: 190px;
+  }
+  .home-story-sticky .services-preview .section-cta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 54px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .home-story-sticky .best-sellers-head {
+    margin-bottom: 24px;
+    flex-shrink: 0;
+  }
+  .home-story-sticky .best-seller-grid {
+    gap: 14px;
+  }
+  .home-story-sticky .best-tyre-card {
+    padding: 16px;
+  }
+  .home-story-sticky .best-img img {
+    width: 80%;
+    height: 80%;
+  }
+  .home-story-sticky .best-info h3 {
+    font-size: 16px;
+  }
+  .home-story-sticky .best-price strong {
+    font-size: 22px;
+  }
+  .story-reveal { will-change: transform, opacity; }
 
   .tyre-section-heading {
     font-family: 'Archivo', sans-serif;
@@ -166,6 +312,30 @@
     align-items: center;
     justify-content: center;
   }
+
+  .home-scroll-story .hero-content,
+  .home-scroll-story .hero-image,
+  .home-scroll-story .tyre-carousel-section,
+  .home-scroll-story .best-sellers,
+  .home-scroll-story .services-preview,
+  .home-scroll-story .story-reveal {
+    backface-visibility: hidden;
+  }
+  .home-scroll-story .story-reveal,
+  .home-story-fallback .story-reveal {
+    opacity: 0;
+    transform: translateY(42px) scale(0.94);
+  }
+  .home-story-fallback .story-reveal {
+    transition: opacity 260ms var(--ui-ease-out), transform 260ms var(--ui-ease-out);
+  }
+  .home-story-fallback .tyre-carousel-section.is-story-visible .story-reveal,
+  .home-scroll-story .tyre-carousel-section.is-story-visible .story-reveal {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .home-story-fallback .tyre-carousel-section.is-story-visible .tyre-carousel-frame { transition-delay: 60ms; }
+  .home-story-fallback .tyre-carousel-section.is-story-visible .tyre-pills { transition-delay: 120ms; }
 
   .tyre-carousel-btn {
     position: absolute;
@@ -422,6 +592,8 @@
 
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
+    .home-scroll-scene { min-height: 3520px; }
+    .home-story-sticky { min-height: 600px; }
     .hero { padding: 60px 32px; flex-wrap: wrap; }
     .hero-image { width: 300px; height: 300px; }
     .best-sellers, .services-preview, .how, .reviews, .cta-banner, footer { padding: 60px 32px; }
@@ -432,6 +604,55 @@
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
     .nav-links { display: none; }
+    .home-scroll-scene { height: 560vh; min-height: 3200px; }
+    .home-story-sticky { top: 72px; height: calc(100vh - 72px); min-height: 560px; }
+    .home-story-sticky .best-sellers { padding: 34px 20px; overflow-y: auto; }
+    .home-story-sticky .best-sellers-head { gap: 14px; margin-bottom: 16px; }
+    .home-story-sticky .best-seller-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .home-story-sticky .best-tyre-card { padding: 12px; gap: 8px; }
+    .home-story-sticky .best-info h3 { font-size: 14px; }
+    .home-story-sticky .best-price { padding-top: 8px; }
+    .home-story-sticky .best-price strong { font-size: 18px; }
+    .home-story-sticky .btn-card { min-height: 38px; font-size: 12px; }
+    .home-story-sticky .services-preview { padding: 34px 20px; overflow-y: auto; }
+    .home-story-sticky .services-preview .services-grid {
+      position: relative;
+      inset: auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      width: 100%;
+      margin-top: 20px;
+      pointer-events: auto;
+    }
+    .home-story-sticky .services-preview .service-card {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      min-height: 0;
+      padding: 14px;
+      gap: 9px;
+      box-shadow: none;
+    }
+    .home-story-sticky .services-preview .service-card h3 { font-size: 14px; }
+    .home-story-sticky .services-preview .service-card p { font-size: 12px; }
+    .home-story-sticky .services-preview .section-cta {
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      margin-top: 20px;
+    }
+    .home-story-sticky .services-preview > .section-label,
+    .home-story-sticky .services-preview > .section-title {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      width: auto;
+      transform: none;
+    }
     .hero { padding: 48px 20px; flex-direction: column; }
     .hero-content { align-items: flex-start; text-align: left; }
     .hero h1 { font-size: 34px; line-height: 1.08; }
@@ -445,6 +666,90 @@
     .footer-top { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
     .cta-banner h2 { font-size: 28px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-scroll-scene {
+      height: auto;
+      min-height: 0;
+    }
+    .home-story-sticky {
+      position: static;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+    }
+    .home-story-sticky .hero,
+    .home-story-sticky .tyre-carousel-section,
+    .home-story-sticky .best-sellers,
+    .home-story-sticky .services-preview {
+      position: relative;
+      inset: auto;
+      height: auto;
+      min-height: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .home-story-sticky .tyre-carousel-section {
+      opacity: 1;
+      transform: none;
+    }
+    .home-story-sticky .best-sellers {
+      opacity: 1;
+      transform: none;
+    }
+    .home-story-sticky .services-preview {
+      opacity: 1;
+      transform: none;
+      clip-path: none;
+    }
+    .home-story-sticky .services-preview .services-grid {
+      position: relative;
+      inset: auto;
+      display: grid;
+      pointer-events: auto;
+      width: 100%;
+      margin-top: 40px;
+    }
+    .home-story-sticky .services-preview .service-card {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      min-height: 0;
+      opacity: 1;
+      box-shadow: none;
+      transform: none;
+    }
+    .home-story-sticky .services-preview .section-cta {
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      margin-top: 40px;
+    }
+    .home-story-sticky .services-preview > .section-label,
+    .home-story-sticky .services-preview > .section-title {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      width: auto;
+      transform: none;
+    }
+    .hero-content,
+    .hero-image,
+    .story-reveal {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      transition: none;
+    }
+    .home-story-fallback .story-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 </style>
 <link rel="stylesheet" href="polish.css">
@@ -473,46 +778,48 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Premium Tyre Fitting in Norwich</h1>
-    <p>At our fully-equipped modern Norwich workshop or right at your home or workplace. Professional local mechanics delivering premium British automotive service.</p>
-    <div class="hero-btns">
-      <a href="services.html" class="btn-primary">Find Your Tyres</a>
-      <a href="mobile-fitting.html" class="btn-outline">Book Mobile Fitting</a>
-    </div>
-  </div>
+<div class="home-scroll-scene">
+  <div class="home-story-sticky">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Premium Tyre Fitting in Norwich</h1>
+        <p>At our fully-equipped modern Norwich workshop or right at your home or workplace. Professional local mechanics delivering premium British automotive service.</p>
+        <div class="hero-btns">
+          <a href="services.html" class="btn-primary">Find Your Tyres</a>
+          <a href="mobile-fitting.html" class="btn-outline">Book Mobile Fitting</a>
+        </div>
+      </div>
 
-  <div class="hero-image">
-    <img src="heroSection.jpeg" alt="Premium tyre">
-  </div>
-</section>
+      <div class="hero-image">
+        <img src="heroSection.jpeg" alt="Premium tyre">
+      </div>
+    </section>
 
-<!-- TYRE CAROUSEL (v2 — 3 visible, infinite loop, larger center + gray bar) -->
-<section class="tyre-carousel-section">
-  <h2 class="tyre-section-heading">Norwich's Most Trusted Tyre Specialists</h2>
-  <div class="tyre-carousel-frame">
-    <button type="button" class="tyre-carousel-btn prev" id="tyrePrev" aria-label="Scroll tyres left">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <div class="tyre-track-wrap" id="tyreWrap">
-      <div class="tyre-track" id="tyreTrack"></div>
-    </div>
-    <button type="button" class="tyre-carousel-btn next" id="tyreNext" aria-label="Scroll tyres right">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-  </div>
-  <div class="tyre-pills">
-    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Same-day fitting available</span></div>
-    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">All major tyre brands</span></div>
-    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Expert technicians</span></div>
-    <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Mobile fitting service</span></div>
-  </div>
-</section>
+    <!-- TYRE CAROUSEL (v2 — 3 visible, infinite loop, larger center + gray bar) -->
+    <section class="tyre-carousel-section">
+      <h2 class="tyre-section-heading story-reveal">Norwich's Most Trusted Tyre Specialists</h2>
+      <div class="tyre-carousel-frame story-reveal">
+        <button type="button" class="tyre-carousel-btn prev" id="tyrePrev" aria-label="Scroll tyres left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="tyre-track-wrap" id="tyreWrap">
+          <div class="tyre-track" id="tyreTrack"></div>
+        </div>
+        <button type="button" class="tyre-carousel-btn next" id="tyreNext" aria-label="Scroll tyres right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      <div class="tyre-pills story-reveal">
+        <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Same-day fitting available</span></div>
+        <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">All major tyre brands</span></div>
+        <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Expert technicians</span></div>
+        <div class="tyre-pill"><span class="tyre-pill-check">✓</span><span class="tyre-pill-label">Mobile fitting service</span></div>
+      </div>
+    </section>
 
 <!-- BEST SELLING TYRES -->
 <section class="best-sellers">
-  <div class="best-sellers-head">
+  <div class="best-sellers-head story-reveal">
     <div class="best-sellers-copy">
       <p class="section-label">Customer Favourites</p>
       <h2 class="section-title">Best Selling Tyres</h2>
@@ -522,7 +829,7 @@
   </div>
 
   <div class="best-seller-grid">
-    <article class="best-tyre-card featured">
+    <article class="best-tyre-card featured story-reveal">
       <span class="best-badge">Best seller</span>
       <div class="best-img"><img src="tyre1.png" alt="Michelin Pilot Sport 5"></div>
       <div class="best-info">
@@ -538,7 +845,7 @@
       <a href="tyre-detail.html?id=1" class="btn-card">Select Tyre</a>
     </article>
 
-    <article class="best-tyre-card">
+    <article class="best-tyre-card story-reveal">
       <div class="best-img"><img src="tyre2.png" alt="Continental PremiumContact 6"></div>
       <div class="best-info">
         <h3>Continental <span>PremiumContact 6</span></h3>
@@ -553,7 +860,7 @@
       <a href="tyre-detail.html?id=2" class="btn-card">Select Tyre</a>
     </article>
 
-    <article class="best-tyre-card">
+    <article class="best-tyre-card story-reveal">
       <div class="best-img"><img src="tyre3.png" alt="Pirelli P Zero PZ4"></div>
       <div class="best-info">
         <h3>Pirelli <span>P Zero PZ4</span></h3>
@@ -568,7 +875,7 @@
       <a href="tyre-detail.html?id=3" class="btn-card">Select Tyre</a>
     </article>
 
-    <article class="best-tyre-card">
+    <article class="best-tyre-card story-reveal">
       <div class="best-img"><img src="tyre4.png" alt="Bridgestone Turanza T005"></div>
       <div class="best-info">
         <h3>Bridgestone <span>Turanza T005</span></h3>
@@ -587,10 +894,10 @@
 
 <!-- SERVICES PREVIEW -->
 <section class="services-preview">
-  <p class="section-label">What We Offer</p>
-  <h2 class="section-title">Our Professional Services</h2>
+  <p class="section-label story-reveal">What We Offer</p>
+  <h2 class="section-title story-reveal">Our Professional Services</h2>
   <div class="services-grid">
-    <div class="service-card">
+    <div class="service-card story-reveal">
       <div class="icon-box">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
       </div>
@@ -598,7 +905,7 @@
       <p>Precision fitting on any car, van or 4x4, while you wait.</p>
       <span class="price">From £15 per tyre</span>
     </div>
-    <div class="service-card">
+    <div class="service-card story-reveal">
       <div class="icon-box">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/></svg>
       </div>
@@ -606,7 +913,7 @@
       <p>Digital balancing to eliminate vibration at speed.</p>
       <span class="price">From £10 per wheel</span>
     </div>
-    <div class="service-card">
+    <div class="service-card story-reveal">
       <div class="icon-box">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg>
       </div>
@@ -614,7 +921,7 @@
       <p>Hunter laser alignment to stop uneven tyre wear.</p>
       <span class="price">From £45</span>
     </div>
-    <div class="service-card">
+    <div class="service-card story-reveal">
       <div class="icon-box">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d5a47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
       </div>
@@ -623,10 +930,12 @@
       <span class="price">From £20</span>
     </div>
   </div>
-  <div class="section-cta">
+  <div class="section-cta story-reveal">
     <a href="services.html" class="btn-primary">View All Services</a>
   </div>
 </section>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="how">
@@ -764,6 +1073,156 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  const root = document.documentElement;
+  const scene = document.querySelector('.home-scroll-scene');
+  const sticky = document.querySelector('.home-story-sticky');
+  const hero = document.querySelector('.hero');
+  const heroContent = document.querySelector('.hero-content');
+  const heroImage = document.querySelector('.hero-image');
+  const section = document.querySelector('.tyre-carousel-section');
+  const heading = document.querySelector('.tyre-section-heading');
+  const frame = document.querySelector('.tyre-carousel-frame');
+  const pills = document.querySelector('.tyre-pills');
+  const bestSellers = document.querySelector('.best-sellers');
+  const bestHead = document.querySelector('.best-sellers-head');
+  const bestCards = Array.from(document.querySelectorAll('.best-tyre-card'));
+  const servicesPreview = document.querySelector('.services-preview');
+  const servicesLabel = servicesPreview ? servicesPreview.querySelector('.section-label') : null;
+  const servicesTitle = servicesPreview ? servicesPreview.querySelector('.section-title') : null;
+  const servicesCards = servicesPreview ? Array.from(servicesPreview.querySelectorAll('.service-card')) : [];
+  const servicesCta = servicesPreview ? servicesPreview.querySelector('.section-cta') : null;
+  if (!scene || !sticky || !hero || !heroContent || !heroImage || !section || !heading || !frame || !pills || !bestSellers || !bestHead || !bestCards.length || !servicesPreview || !servicesLabel || !servicesTitle || !servicesCards.length || !servicesCta) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduceMotion.matches) {
+    section.classList.add('is-story-visible');
+    bestSellers.classList.add('is-story-visible');
+    servicesPreview.classList.add('is-story-visible');
+    return;
+  }
+
+  root.classList.add('home-scroll-story');
+
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const mix = (from, to, progress) => from + (to - from) * progress;
+  const easeOut = (progress) => 1 - Math.pow(1 - progress, 3);
+  const range = (start, end, progress) => clamp((progress - start) / (end - start), 0, 1);
+  const serviceCardPaths = [
+    { fromX: -72, fromY: 520, midX: -28, midY: 190, toX: -408, toY: -74, fromR: 0, toR: -8 },
+    { fromX: 22, fromY: 548, midX: 54, midY: 214, toX: -132, toY: 86, fromR: 0, toR: 5 },
+    { fromX: 72, fromY: 532, midX: 34, midY: 178, toX: 132, toY: 62, fromR: 0, toR: -3 },
+    { fromX: -20, fromY: 570, midX: -44, midY: 240, toX: 404, toY: -44, fromR: 0, toR: 7 }
+  ];
+
+  let ticking = false;
+
+  function setReveal(element, progress, offset, duration = 0.08) {
+    const eased = easeOut(range(offset, offset + duration, progress));
+    element.style.opacity = String(mix(0, 1, eased));
+    element.style.transform = `translateY(${mix(58, 0, eased)}px) scale(${mix(0.9, 1, eased)})`;
+  }
+
+  function setServiceStoryCard(card, index, progress, viewport) {
+    const isCompact = window.matchMedia('(max-width: 700px)').matches;
+    if (isCompact) {
+      setReveal(card, progress, 0.835 + index * 0.015, 0.08);
+      return;
+    }
+
+    const path = serviceCardPaths[index] || serviceCardPaths[serviceCardPaths.length - 1];
+    const scale = clamp(viewport / 1280, 0.68, 1);
+    const reveal = easeOut(range(0.805 + index * 0.018, 0.91 + index * 0.018, progress));
+    const rise = easeOut(range(0.8, 0.91, progress));
+    const fan = easeOut(range(0.89, 0.99, progress));
+    const floatLift = Math.sin(fan * Math.PI) * 14;
+    const x = mix(mix(path.fromX, path.midX, rise), path.toX, fan) * scale;
+    const y = mix(mix(path.fromY, path.midY, rise), path.toY, fan) * scale - floatLift;
+    const rotate = mix(path.fromR, path.toR, fan);
+
+    card.style.opacity = String(mix(0, 0.94, reveal));
+    card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg)`;
+  }
+
+  function updateHomeStory() {
+    ticking = false;
+
+    const viewport = window.innerHeight || 1;
+    const viewportWidth = window.innerWidth || 1;
+    const sceneBox = scene.getBoundingClientRect();
+    const scrollDistance = Math.max(scene.offsetHeight - sticky.offsetHeight, viewport * 0.8);
+    const progress = clamp(-sceneBox.top / scrollDistance, 0, 1);
+    const heroEase = easeOut(range(0.08, 0.24, progress));
+    const carouselIn = easeOut(range(0.2, 0.42, progress));
+    const carouselOut = easeOut(range(0.54, 0.66, progress));
+    const bestIn = easeOut(range(0.58, 0.76, progress));
+    const bestOut = easeOut(range(0.98, 1, progress));
+    const servicesPresence = easeOut(range(0.78, 0.8, progress));
+    const servicesCircle = easeOut(range(0.8, 0.98, progress));
+
+    hero.style.opacity = String(mix(1, 0.24, heroEase));
+    heroContent.style.opacity = String(mix(1, 0, heroEase));
+    heroContent.style.transform = `translateY(${mix(0, -92, heroEase)}px)`;
+
+    heroImage.style.opacity = String(mix(1, 0.34, heroEase));
+    heroImage.style.transform = `translateY(${mix(0, -42, heroEase)}px) scale(${mix(1, 0.68, heroEase)}) rotate(${mix(0, 16, heroEase)}deg)`;
+
+    section.style.opacity = String(mix(mix(0, 1, carouselIn), 0.22, carouselOut));
+    section.style.transform = `translateY(${mix(100, 0, carouselIn) + mix(0, -10, carouselOut)}%) scale(${mix(0.94, 0.96, carouselOut)})`;
+
+    bestSellers.style.opacity = String(mix(mix(0, 1, bestIn), 0.2, bestOut));
+    bestSellers.style.transform = `translateY(${mix(100, 0, bestIn) + mix(0, -8, bestOut)}%) scale(${mix(0.94, 0.98, bestOut)})`;
+
+    servicesPreview.style.opacity = String(mix(0, 1, servicesPresence));
+    servicesPreview.style.transform = `translateY(${mix(8, 0, servicesCircle)}%) scale(${mix(0.96, 1, servicesCircle)})`;
+    servicesPreview.style.clipPath = `circle(${mix(8, 170, servicesCircle)}% at 50% 100%)`;
+
+    setReveal(heading, progress, 0.25, 0.1);
+    setReveal(frame, progress, 0.3, 0.1);
+    setReveal(pills, progress, 0.35, 0.1);
+    setReveal(bestHead, progress, 0.62, 0.1);
+    bestCards.forEach((card, index) => {
+      setReveal(card, progress, 0.66 + index * 0.018, 0.1);
+    });
+    setReveal(servicesLabel, progress, 0.81, 0.08);
+    setReveal(servicesTitle, progress, 0.82, 0.08);
+    servicesCards.forEach((card, index) => {
+      setServiceStoryCard(card, index, progress, viewportWidth);
+    });
+    setReveal(servicesCta, progress, 0.9, 0.08);
+
+    if (progress > 0.28) {
+      section.classList.add('is-story-visible');
+    }
+    if (progress > 0.6) {
+      bestSellers.classList.add('is-story-visible');
+    }
+    if (progress > 0.78) {
+      servicesPreview.classList.add('is-story-visible');
+    }
+  }
+
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateHomeStory);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) requestUpdate();
+    });
+  }, { threshold: 0, rootMargin: '120px 0px 120px 0px' });
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  window.addEventListener('load', requestUpdate);
+  observer.observe(scene);
+  requestUpdate();
+})();
+</script>
 
 <!-- TYRE CAROUSEL SCRIPT v2 (no HTMX — infinite loop via repeated sequence + silent scroll reset) -->
 <script>

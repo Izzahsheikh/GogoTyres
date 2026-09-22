@@ -87,19 +87,46 @@
     transition: opacity 280ms var(--ui-ease-out), transform 280ms var(--ui-ease-out), border-color 220ms var(--ui-ease-out), background-color 220ms var(--ui-ease-out);
   }
   .service-card.is-visible { opacity: 1; transform: translateY(0); }
-  .service-card:nth-child(even) .service-card-photo { order: 2; }
-  .service-card-photo {
-    width: min(82%, 520px); height: min(58vh, 440px); min-height: 300px; object-fit: cover; display: block;
+  .service-card:nth-child(even) .service-visual { order: 2; }
+  .service-visual {
+    position: relative;
+    width: min(82%, 520px);
+    height: min(58vh, 440px);
+    min-height: 300px;
     justify-self: center;
     align-self: center;
     border-radius: 12px;
+    overflow: hidden;
     box-shadow: 0 18px 44px rgba(42,45,46,0.12);
     opacity: 0;
-    transform: scale(0.97);
+    transform: translateY(10%) scale(0.96);
     transition: opacity 280ms var(--ui-ease-out), transform 280ms var(--ui-ease-out), filter 260ms var(--ui-ease-out), box-shadow 260ms var(--ui-ease-out);
   }
-  .service-card.is-visible .service-card-photo {
+  .service-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: #2a2d2e;
+    transform: translateY(0);
+    transition: transform 280ms var(--ui-ease-out) 120ms;
+  }
+  .service-card.is-visible .service-visual {
     opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .service-card.is-visible .service-visual::before {
+    transform: translateY(-100%);
+  }
+  .service-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.04);
+    transition: transform 280ms var(--ui-ease-out), filter 260ms var(--ui-ease-out);
+  }
+  .service-card.is-visible .service-card-photo {
     transform: scale(1);
   }
   .service-card-body {
@@ -182,6 +209,22 @@
   .service-card.is-visible .story-step:nth-child(3) { transition-delay: 185ms; }
   .service-card.is-visible .service-meta { transition-delay: 205ms; }
   .service-card.is-visible .btn-service { transition-delay: 225ms; }
+  [data-word-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  [data-word-reveal].is-word-ready .word-reveal-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.45em);
+    transition: opacity 240ms var(--ui-ease-out), transform 240ms var(--ui-ease-out);
+    transition-delay: var(--word-delay, 0ms);
+  }
+  [data-word-reveal].is-word-visible .word-reveal-word {
+    opacity: 1;
+    transform: translateY(0);
+  }
   .btn-service {
     margin-top: 12px; background: #3d5a47; color: #fff; font-weight: 700; font-size: 14px;
     padding: 12px 20px; border-radius: 6px; align-self: flex-start; display: inline-block;
@@ -203,6 +246,48 @@
     }
     .service-card:hover .story-step:hover {
       transform: translateY(-2px);
+    }
+  }
+
+  @keyframes service-room-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(14%) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes service-cover-lift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+  }
+
+  @keyframes service-image-settle {
+    from { transform: scale(1.06); }
+    to { transform: scale(1); }
+  }
+
+  @supports (animation-timeline: view()) {
+    .service-visual {
+      animation: service-room-arrive both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 38%;
+      transition: box-shadow 260ms var(--ui-ease-out), filter 260ms var(--ui-ease-out);
+    }
+    .service-visual::before {
+      animation: service-cover-lift both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 46%;
+      transition: none;
+    }
+    .service-card-photo {
+      animation: service-image-settle both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 46%;
+      transition: filter 260ms var(--ui-ease-out);
     }
   }
 
@@ -245,7 +330,7 @@
     .services-preview { padding: 0; }
     .services-head { padding: 70px 32px 52px; }
     .service-card { grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1fr); }
-    .service-card-photo { width: min(86%, 460px); height: 380px; min-height: 280px; }
+    .service-visual { width: min(86%, 460px); height: 380px; min-height: 280px; }
     .service-card-body { padding: 44px; }
     .service-card-body h3 { font-size: 34px; }
     .story-steps { grid-template-columns: 1fr; }
@@ -261,8 +346,8 @@
     .section-title { font-size: 30px; }
     .services-grid { grid-template-columns: 1fr; }
     .service-card { grid-template-columns: 1fr; min-height: 0; }
-    .service-card:nth-child(even) .service-card-photo { order: 0; }
-    .service-card-photo { width: calc(100% - 40px); min-height: 220px; height: 220px; margin-top: 24px; }
+    .service-card:nth-child(even) .service-visual { order: 0; }
+    .service-visual { width: calc(100% - 40px); min-height: 220px; height: 220px; margin-top: 24px; }
     .service-card-body { padding: 32px 20px 44px; }
     .service-card-body h3 { font-size: 30px; }
     .footer-top { flex-direction: column; gap: 32px; }
@@ -276,9 +361,16 @@
       transform: none;
       transition: border-color 160ms var(--ui-ease-out), background-color 160ms var(--ui-ease-out);
     }
+    .service-visual,
     .service-card-photo {
       opacity: 1;
       transform: none;
+      animation: none;
+      transition: none;
+    }
+    .service-visual::before {
+      transform: translateY(-100%);
+      animation: none;
       transition: none;
     }
     .service-step,
@@ -287,6 +379,11 @@
     .story-step,
     .service-meta,
     .btn-service {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    [data-word-reveal].is-word-ready .word-reveal-word {
       opacity: 1;
       transform: none;
       transition: none;
@@ -329,17 +426,19 @@
 <section class="services-preview">
   <div class="services-head">
     <p class="section-label">What We Offer</p>
-    <h2 class="section-title">Our Professional Services</h2>
-    <p class="section-sub">Select the service you need — every job backed by our best price guarantee.</p>
+    <h2 class="section-title" data-word-reveal>Our Professional Services</h2>
+    <p class="section-sub" data-word-reveal>Select the service you need — every job backed by our best price guarantee.</p>
   </div>
 
   <div class="services-grid">
     <div class="service-card service-reveal">
-      <img src="workshop.png" alt="Norwich Workshop Fitting" class="service-card-photo">
+      <div class="service-visual">
+        <img src="workshop.png" alt="Norwich Workshop Fitting" class="service-card-photo">
+      </div>
       <div class="service-card-body">
         <span class="service-step">Step 01 / Workshop visit</span>
-        <h3>Norwich Workshop Fitting</h3>
-        <p>Visit our state-of-the-art diagnostic workshop in central Norwich. Enjoy warm refreshments, premium high-speed Wi-Fi, and precise digital wheel balancing.</p>
+        <h3 data-word-reveal>Norwich Workshop Fitting</h3>
+        <p data-word-reveal>Visit our state-of-the-art diagnostic workshop in central Norwich. Enjoy warm refreshments, premium high-speed Wi-Fi, and precise digital wheel balancing.</p>
         <div class="story-steps" aria-label="Workshop fitting process">
           <div class="story-step"><span>1</span><strong>Choose your tyre and slot</strong></div>
           <div class="story-step"><span>2</span><strong>Arrive for fitting and balancing</strong></div>
@@ -350,11 +449,13 @@
       </div>
     </div>
     <div class="service-card service-reveal">
-      <img src="mobileFitting.png" alt="24/7 Mobile Fitting Service" class="service-card-photo">
+      <div class="service-visual">
+        <img src="mobileFitting.png" alt="24/7 Mobile Fitting Service" class="service-card-photo">
+      </div>
       <div class="service-card-body">
         <span class="service-step">Step 02 / Mobile fitting</span>
-        <h3>24/7 Mobile Fitting Service</h3>
-        <p>We bring the garage to you. Serving driveways, offices, and roadside emergencies across Norwich and Norfolk. Never sacrifice your valuable time.</p>
+        <h3 data-word-reveal>24/7 Mobile Fitting Service</h3>
+        <p data-word-reveal>We bring the garage to you. Serving driveways, offices, and roadside emergencies across Norwich and Norfolk. Never sacrifice your valuable time.</p>
         <div class="story-steps" aria-label="Mobile fitting process">
           <div class="story-step"><span>1</span><strong>Pick your location and time</strong></div>
           <div class="story-step"><span>2</span><strong>Our mobile unit comes to you</strong></div>
@@ -431,11 +532,35 @@
 <script>
 (function () {
   const cards = Array.from(document.querySelectorAll('.service-reveal'));
+  const wordTargets = Array.from(document.querySelectorAll('[data-word-reveal]'));
+
+  function prepareWordReveal(target) {
+    const text = target.textContent.trim();
+    if (!text) return;
+
+    target.textContent = '';
+    text.split(/\s+/).forEach((word, index, words) => {
+      const span = document.createElement('span');
+      span.className = 'word-reveal-word';
+      span.textContent = word;
+      span.style.setProperty('--word-delay', `${Math.min(index * 30, 240)}ms`);
+      target.appendChild(span);
+
+      if (index < words.length - 1) {
+        target.appendChild(document.createTextNode(' '));
+      }
+    });
+    target.classList.add('is-word-ready');
+  }
+
+  wordTargets.forEach(prepareWordReveal);
+
   if (!cards.length) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reduceMotion.matches || !('IntersectionObserver' in window)) {
     cards.forEach(card => card.classList.add('is-visible'));
+    wordTargets.forEach(target => target.classList.add('is-word-visible'));
     return;
   }
 
@@ -449,6 +574,18 @@
 
   cards.forEach((card) => {
     observer.observe(card);
+  });
+
+  const wordObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-word-visible');
+      wordObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.45, rootMargin: '0px 0px -70px 0px' });
+
+  wordTargets.forEach((target) => {
+    wordObserver.observe(target);
   });
 })();
 </script>
