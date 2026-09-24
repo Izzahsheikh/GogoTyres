@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GoGo Tyre Norwich — Premium Tyre Fitting</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; line-height: 1.5; }
@@ -80,8 +80,8 @@
 
   .home-scroll-scene {
     position: relative;
-    height: 620vh;
-    min-height: 3720px;
+    height: 760vh;
+    min-height: 4560px;
     background: #2a2d2e;
   }
   .home-story-sticky {
@@ -143,6 +143,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+    perspective: 1400px;
     border-radius: 28px 28px 0 0;
     box-shadow: 0 -26px 76px rgba(0,0,0,0.18);
     transform: translateY(100%);
@@ -219,24 +220,54 @@
     text-align: center;
   }
   .home-story-sticky .best-sellers-head {
-    margin-bottom: 24px;
+    align-items: center;
+    flex-direction: column;
     flex-shrink: 0;
+    gap: 12px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .home-story-sticky .best-sellers-copy {
+    max-width: 620px;
+  }
+  .home-story-sticky .best-sellers-copy .section-label,
+  .home-story-sticky .best-sellers-copy .section-title {
+    text-align: center;
   }
   .home-story-sticky .best-seller-grid {
     gap: 14px;
+    perspective: 1400px;
+    transform-style: preserve-3d;
   }
   .home-story-sticky .best-tyre-card {
-    padding: 16px;
+    padding: 14px;
+    gap: 10px;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+  .home-story-sticky .best-img {
+    aspect-ratio: 1 / 0.72;
   }
   .home-story-sticky .best-img img {
-    width: 80%;
-    height: 80%;
+    width: 72%;
+    height: 72%;
   }
   .home-story-sticky .best-info h3 {
-    font-size: 16px;
+    font-size: 15px;
+  }
+  .home-story-sticky .best-info {
+    gap: 6px;
+  }
+  .home-story-sticky .best-price {
+    padding-top: 10px;
   }
   .home-story-sticky .best-price strong {
-    font-size: 22px;
+    font-size: 20px;
+  }
+  .home-story-sticky .btn-card {
+    min-height: 40px;
   }
   .story-reveal { will-change: transform, opacity; }
 
@@ -592,7 +623,7 @@
 
   @media (max-width: 1100px) {
     nav { padding: 0 32px; }
-    .home-scroll-scene { min-height: 3520px; }
+    .home-scroll-scene { min-height: 4300px; }
     .home-story-sticky { min-height: 600px; }
     .hero { padding: 60px 32px; flex-wrap: wrap; }
     .hero-image { width: 300px; height: 300px; }
@@ -604,7 +635,7 @@
   @media (max-width: 700px) {
     nav { padding: 0 20px; height: 72px; }
     .nav-links { display: none; }
-    .home-scroll-scene { height: 560vh; min-height: 3200px; }
+    .home-scroll-scene { height: 660vh; min-height: 3800px; }
     .home-story-sticky { top: 72px; height: calc(100vh - 72px); min-height: 560px; }
     .home-story-sticky .best-sellers { padding: 34px 20px; overflow-y: auto; }
     .home-story-sticky .best-sellers-head { gap: 14px; margin-bottom: 16px; }
@@ -1116,6 +1147,7 @@
     { fromX: 72, fromY: 532, midX: 34, midY: 178, toX: 132, toY: 62, fromR: 0, toR: -3 },
     { fromX: -20, fromY: 570, midX: -44, midY: 240, toX: 404, toY: -44, fromR: 0, toR: 7 }
   ];
+  const middleBestPath = { fromX: 18, fromY: -116, fromR: 7, fromRy: 52, z: 72 };
 
   let ticking = false;
 
@@ -1123,6 +1155,27 @@
     const eased = easeOut(range(offset, offset + duration, progress));
     element.style.opacity = String(mix(0, 1, eased));
     element.style.transform = `translateY(${mix(58, 0, eased)}px) scale(${mix(0.9, 1, eased)})`;
+  }
+
+  function setBestStoryCard(card, index, progress) {
+    const isCompact = window.matchMedia('(max-width: 700px)').matches;
+    if (isCompact || index !== 1) {
+      setReveal(card, progress, 0.67 + index * 0.022, 0.1);
+      return;
+    }
+
+    const path = middleBestPath;
+    const enter = easeOut(range(0.645, 0.735, progress));
+    const descend = easeOut(range(0.65, 0.795, progress));
+    const settle = easeOut(range(0.795, 0.855, progress));
+    const x = mix(mix(path.fromX, path.fromX * 0.22, descend), 0, settle);
+    const y = mix(mix(path.fromY, path.fromY * 0.12, descend), 0, settle);
+    const rotate = mix(mix(path.fromR, path.fromR * 0.14, descend), 0, settle);
+    const rotateY = mix(mix(path.fromRy, path.fromRy * 0.28, descend), 0, settle);
+    const z = mix(mix(path.z, path.z * 0.32, descend), 0, settle);
+
+    card.style.opacity = String(mix(0, 1, enter));
+    card.style.transform = `translate3d(${x}%, ${y}%, ${z}px) rotate(${rotate}deg) rotateY(${rotateY}deg)`;
   }
 
   function setServiceStoryCard(card, index, progress, viewport) {
@@ -1134,9 +1187,9 @@
 
     const path = serviceCardPaths[index] || serviceCardPaths[serviceCardPaths.length - 1];
     const scale = clamp(viewport / 1280, 0.68, 1);
-    const reveal = easeOut(range(0.805 + index * 0.018, 0.91 + index * 0.018, progress));
-    const rise = easeOut(range(0.8, 0.91, progress));
-    const fan = easeOut(range(0.89, 0.99, progress));
+    const reveal = easeOut(range(0.855 + index * 0.018, 0.945 + index * 0.018, progress));
+    const rise = easeOut(range(0.85, 0.94, progress));
+    const fan = easeOut(range(0.925, 0.995, progress));
     const floatLift = Math.sin(fan * Math.PI) * 14;
     const x = mix(mix(path.fromX, path.midX, rise), path.toX, fan) * scale;
     const y = mix(mix(path.fromY, path.midY, rise), path.toY, fan) * scale - floatLift;
@@ -1159,8 +1212,8 @@
     const carouselOut = easeOut(range(0.54, 0.66, progress));
     const bestIn = easeOut(range(0.58, 0.76, progress));
     const bestOut = easeOut(range(0.98, 1, progress));
-    const servicesPresence = easeOut(range(0.78, 0.8, progress));
-    const servicesCircle = easeOut(range(0.8, 0.98, progress));
+    const servicesPresence = easeOut(range(0.9, 0.915, progress));
+    const servicesCircle = easeOut(range(0.91, 0.995, progress));
 
     hero.style.opacity = String(mix(1, 0.24, heroEase));
     heroContent.style.opacity = String(mix(1, 0, heroEase));
@@ -1184,14 +1237,14 @@
     setReveal(pills, progress, 0.35, 0.1);
     setReveal(bestHead, progress, 0.62, 0.1);
     bestCards.forEach((card, index) => {
-      setReveal(card, progress, 0.66 + index * 0.018, 0.1);
+      setBestStoryCard(card, index, progress);
     });
-    setReveal(servicesLabel, progress, 0.81, 0.08);
-    setReveal(servicesTitle, progress, 0.82, 0.08);
+    setReveal(servicesLabel, progress, 0.915, 0.06);
+    setReveal(servicesTitle, progress, 0.925, 0.06);
     servicesCards.forEach((card, index) => {
       setServiceStoryCard(card, index, progress, viewportWidth);
     });
-    setReveal(servicesCta, progress, 0.9, 0.08);
+    setReveal(servicesCta, progress, 0.965, 0.05);
 
     if (progress > 0.28) {
       section.classList.add('is-story-visible');
@@ -1199,7 +1252,7 @@
     if (progress > 0.6) {
       bestSellers.classList.add('is-story-visible');
     }
-    if (progress > 0.78) {
+    if (progress > 0.9) {
       servicesPreview.classList.add('is-story-visible');
     }
   }

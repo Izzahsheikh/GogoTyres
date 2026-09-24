@@ -15,6 +15,9 @@
   --ui-muted: #888880;
   --ui-green: #3d5a47;
   --ui-green-hover: #4a6e57;
+  --font-heading: 'Archivo', sans-serif;
+  --font-body: 'Figtree', sans-serif;
+  --font-tech: 'IBM Plex Mono', monospace;
 }
 
 html {
@@ -22,8 +25,29 @@ html {
 }
 
 body {
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.logo-text strong,
+.section-title,
+.tyre-section-heading {
+  font-family: var(--font-heading);
+  text-wrap: balance;
+}
+
+p,
+li,
+.hero p,
+.hero-copy,
+.section-sub,
+.card-desc,
+.review-card p {
+  text-wrap: pretty;
 }
 
 nav {
@@ -194,6 +218,20 @@ textarea:focus-visible,
   transition-property: background-color, border-color, color, box-shadow, transform, opacity;
   transition-duration: var(--ui-duration-fast);
   transition-timing-function: var(--ui-ease-out);
+}
+
+.btn-book,
+.btn-primary,
+.btn-card,
+.btn-service,
+.btn-select,
+.btn-search,
+.btn-find-manual,
+.btn-compare,
+.btn-basket,
+.btn-continue,
+.btn-submit {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .btn-book:active,
@@ -425,6 +463,7 @@ input[type="radio"]:active {
 }
 
 .filters {
+  flex-basis: 280px !important;
   padding: 24px !important;
 }
 
@@ -436,6 +475,8 @@ input[type="radio"]:active {
 
 .tyre-card {
   overflow: hidden;
+  padding: 24px !important;
+  gap: 18px !important;
 }
 
 .tyre-card::before,
@@ -461,24 +502,75 @@ input[type="radio"]:active {
     radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.9), rgba(245, 242, 237, 0.68) 52%, rgba(232, 226, 217, 0.7)) !important;
 }
 
+#resultsSection .results-main {
+  gap: 40px !important;
+}
+
+#resultsSection .results-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+}
+
 .tyre-card .card-body {
   min-height: 150px;
 }
 
-.results-list .tyre-card {
+#resultsSection .results-list .tyre-card {
   border-radius: 10px;
 }
 
-.results-list .tyre-card .card-body {
+#resultsSection .results-list .tyre-card .card-body {
   min-height: auto;
+  gap: 9px;
 }
 
-.results-list .tyre-card .card-img {
+#resultsSection .results-list .tyre-card .card-img {
   border-radius: 8px;
 }
 
-.results-list .tyre-card .card-tags {
-  min-height: 30px;
+#resultsSection .results-list .tyre-card .card-tags {
+  min-height: 34px;
+  gap: 7px;
+}
+
+.best-size,
+.best-tag,
+.card-size,
+.card-tag,
+.card-price .label,
+.card-avail,
+.service-meta,
+.price,
+.price-tag,
+.price-inputs,
+.size-line,
+.eu-tag,
+.spec-row span:last-child,
+.product-head span.price,
+.row-label,
+.step-label,
+.badge,
+.payment-badges .badge {
+  font-family: var(--font-tech);
+  letter-spacing: 0.01em;
+}
+
+.best-size,
+.card-size {
+  color: #5f625c !important;
+  font-size: 12px !important;
+  font-weight: 700;
+}
+
+.best-tag,
+.card-tag {
+  font-size: 10px !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.card-price {
+  padding-top: 18px !important;
 }
 
 .card-price .amount,
@@ -700,6 +792,12 @@ input[type="radio"]:active {
 
   .contact-form {
     padding: 40px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #resultsSection .results-list {
+    grid-template-columns: 1fr !important;
   }
 }
 

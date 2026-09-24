@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Book Fitting | GoGo Tyre Norwich</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
@@ -67,7 +67,7 @@
 
   /* MAIN LAYOUT */
   .booking-main { padding: 32px 96px 96px; display: flex; gap: 32px; align-items: flex-start; }
-  .booking-left { flex: 1 1 620px; display: flex; flex-direction: column; gap: 24px; }
+  .booking-left { flex: 1 1 620px; max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
   .booking-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
   .booking-row > .card { height: 100%; }
   .card { background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 32px; }
@@ -213,34 +213,22 @@
   }
   .pay-method-sub { font-size: 13px; color: #888880; margin-top: 6px; margin-left: 28px; }
 
-  /* ORDER SUMMARY */
-  .booking-right { flex: 0 0 340px; position: sticky; top: 108px; }
-  .summary-card { background: #fff; border: 1px solid #e1dbd2; border-radius: 12px; padding: 28px; }
-  .summary-card h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 18px; color: #2a2d2e; margin-bottom: 20px; }
-  .summary-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .summary-item strong { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15px; color: #2a2d2e; }
-  .summary-item .amt { font-weight: 700; font-size: 15px; color: #2a2d2e; }
-  .summary-sub { font-size: 13px; color: #888880; margin-bottom: 16px; }
-  .summary-divider { height: 1px; background: #e1dbd2; margin: 16px 0; }
-  .summary-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; }
-  .summary-row span:first-child { color: #888880; }
-  .summary-row span:last-child { font-weight: 700; color: #2a2d2e; }
-  .summary-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; }
-  .summary-total strong { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 15px; color: #2a2d2e; }
-  .summary-total .total-amt { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 26px; color: #2a2d2e; }
-  .btn-continue {
-    width: 100%; background: #3d5a47; color: #fff; font-weight: 700; font-size: 15px;
-    padding: 14px; border-radius: 8px; text-align: center; margin-top: 20px;
+  .checkout-step-card[hidden] {
+    display: none;
   }
-  .btn-continue:hover { background: #4a6e57; }
-  .btn-continue:disabled { background: #b7c2ba; cursor: not-allowed; }
-
-  .confirm-box {
-    display: none; background: #f5faf6; border: 1px solid #cfe3d5; border-radius: 10px; padding: 20px; margin-bottom: 20px;
+  .checkout-step-card {
+    animation: checkoutStepIn 260ms cubic-bezier(0.23, 1, 0.32, 1) both;
   }
-  .confirm-box.active { display: block; }
-  .confirm-box .row { display: flex; gap: 8px; font-size: 13px; color: #2a2d2e; margin-bottom: 6px; }
-  .confirm-box .row strong { min-width: 70px; }
+  @keyframes checkoutStepIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 
   /* FOOTER */
   footer { background: #2a2d2e; padding: 80px 96px 40px; margin-top: 48px; }
@@ -269,7 +257,6 @@
     .page-top, .booking-main { padding-left: 32px; padding-right: 32px; }
     .step-bar { margin-left: 32px; margin-right: 32px; }
     .booking-main { flex-direction: column; }
-    .booking-right { position: static; width: 100%; }
     .booking-row { grid-template-columns: 1fr; }
     .dates-row { grid-template-columns: repeat(3, 1fr); }
     .booking-slot-card { padding: 40px 24px; }
@@ -290,10 +277,15 @@
     .footer-top { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; text-align: center; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .checkout-step-card {
+      animation: none;
+    }
+  }
 </style>
 <link rel="stylesheet" href="polish.css">
 </head>
-<body>
+<body data-booking-stage="slot">
 
 <!-- NAV -->
 <nav>
@@ -397,13 +389,13 @@
           </div>
         </div>
 
-        <button type="button" class="slot-next-btn" id="slotNextBtn">Next</button>
+        <button type="button" class="slot-next-btn" id="slotNextBtn">Select Slot</button>
         <p class="cutoff-note">Our last fitting slot of the day starts at 4:00pm and finishes by 5:00pm — no slots are available after 5:00pm.</p>
       </div>
     </div>
 
     <!-- 3. CONTACT & VEHICLE -->
-    <div class="card">
+    <div class="card checkout-step-card" hidden>
       <h2>3. Contact &amp; Vehicle Details</h2>
       <p class="sub">Provide your contact information so we can confirm your premium local fitting appointment.</p>
 
@@ -437,7 +429,7 @@
     </div>
 
     <!-- 4. PAYMENT -->
-    <div class="card">
+    <div class="card checkout-step-card" hidden>
       <h2>Select Payment Method</h2>
       <p class="sub">All online payments are fully secured and encrypted. Your local warranty is active immediately.</p>
 
@@ -487,41 +479,6 @@
 
   </div>
 
-  <!-- ORDER SUMMARY -->
-  <div class="booking-right">
-    <div class="summary-card">
-      <h2>Order Summary</h2>
-      <div class="summary-item">
-        <strong id="sumBrand">—</strong>
-        <span class="amt" id="sumSubtotal">£0.00</span>
-      </div>
-      <div class="summary-sub" id="sumModelSize">—</div>
-
-      <div class="summary-row"><span>Quantity</span><span id="sumQty">—</span></div>
-      <div class="summary-row"><span>Fitting Service</span><span id="sumFitting">Garage Fitting</span></div>
-      <div class="summary-row"><span>Location</span><span id="sumLocation">Norwich HQ Workshop</span></div>
-
-      <div class="summary-divider"></div>
-
-      <div class="summary-row"><span>Tyres Subtotal</span><span id="sumTyresSubtotal">£0.00</span></div>
-      <div class="summary-row"><span>Fitting &amp; Balancing</span><span id="sumFittingCost">FREE</span></div>
-
-      <div class="summary-divider"></div>
-
-      <div class="confirm-box" id="confirmBox">
-        <div class="row"><strong>Date:</strong><span id="confirmDate">—</span></div>
-        <div class="row"><strong>Time:</strong><span id="confirmTime">—</span></div>
-        <div class="row"><strong>Location:</strong><span id="confirmLocation">—</span></div>
-      </div>
-
-      <div class="summary-total">
-        <strong>Total Price</strong>
-        <span class="total-amt" id="sumTotal">£0.00</span>
-      </div>
-
-      <button class="btn-continue" id="continueBtn">Continue</button>
-    </div>
-  </div>
 </div>
 
 <!-- FOOTER -->
@@ -609,24 +566,69 @@
   let selectedDateIdx = null;
   let selectedSlot = null;
   let currentStep = 1;
+  const checkoutCards = Array.from(document.querySelectorAll('.checkout-step-card'));
 
   function subtotal() { return tyre.price * qty; }
   function fittingCost() { return fittingType === 'mobile' ? MOBILE_SURCHARGE : 0; }
   function total() { return subtotal() + fittingCost(); }
   function money(n) { return `£${n.toFixed(2)}`; }
-
-  function renderSummary() {
-    document.getElementById('sumBrand').textContent = `${tyre.brand} ${tyre.model}`;
-    document.getElementById('sumModelSize').textContent = tyre.size;
-    document.getElementById('sumSubtotal').textContent = money(subtotal());
-    document.getElementById('sumQty').textContent = `${qty}x (${money(tyre.price)} each)`;
-    document.getElementById('sumFitting').textContent = fittingType === 'mobile' ? 'Mobile Fitting' : 'Garage Fitting';
-    document.getElementById('sumLocation').textContent = fittingType === 'mobile' ? 'Your Location (Norfolk)' : 'Norwich HQ Workshop';
-    document.getElementById('sumTyresSubtotal').textContent = money(subtotal());
-    document.getElementById('sumFittingCost').textContent = fittingType === 'mobile' ? `+${money(MOBILE_SURCHARGE)}` : 'FREE';
-    document.getElementById('sumTotal').textContent = money(total());
+  function scrollToPanel(element) {
+    if (!element) return;
+    const top = element.getBoundingClientRect().top + window.pageYOffset - 112;
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: reduceMotion.matches ? 'auto' : 'smooth'
+    });
   }
-  renderSummary();
+  function showPaymentStage() {
+    goToPaymentPage();
+  }
+  function hidePaymentStage() {
+    document.body.dataset.bookingStage = 'slot';
+    checkoutCards.forEach(card => {
+      card.hidden = true;
+    });
+    setStep(2);
+  }
+
+  function selectedDateDisplay() {
+    if (selectedDateIdx === null) return '';
+    const d = dates[selectedDateIdx];
+    return `${DOW[d.getDay()]}, ${d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+  }
+
+  function selectedDateIso() {
+    if (selectedDateIdx === null) return '';
+    return dates[selectedDateIdx].toISOString();
+  }
+
+  function saveBookingDraft() {
+    const draft = {
+      tyreId,
+      qty,
+      tyre,
+      fittingType,
+      fittingLabel: fittingType === 'mobile' ? 'Mobile Fitting' : 'Garage Fitting',
+      location: fittingType === 'mobile' ? 'Your Location (Norfolk)' : 'Norwich Central Workshop',
+      selectedDateIso: selectedDateIso(),
+      selectedDateLabel: selectedDateDisplay(),
+      selectedSlot,
+      subtotal: subtotal(),
+      fittingCost: fittingCost(),
+      total: total()
+    };
+    sessionStorage.setItem('gogoBookingDraft', JSON.stringify(draft));
+    return draft;
+  }
+
+  function goToPaymentPage() {
+    if (selectedDateIdx === null || !selectedSlot) {
+      alert('Please select a date and time slot before continuing.');
+      return;
+    }
+    saveBookingDraft();
+    window.location.href = `tyre-payment.html?tyre=${tyreId}&qty=${qty}`;
+  }
 
   // ---- Fitting option selection ----
   const fitWorkshop = document.getElementById('fitWorkshop');
@@ -637,9 +639,8 @@
     fitMobile.classList.toggle('selected', type === 'mobile');
     fitWorkshop.querySelector('input').checked = type === 'workshop';
     fitMobile.querySelector('input').checked = type === 'mobile';
-    renderSummary();
-  }
-  fitWorkshop.addEventListener('click', () => selectFitting('workshop'));
+lsfgjhxc  }
+  fitWkshop.addEventListener('click', () => selectFitting('workshop'));
   fitMobile.addEventListener('click', () => selectFitting('mobile'));
 
   // ---- Date & time (weekdays only) ----
@@ -709,7 +710,7 @@
     selectedSlot = null;
     renderDateWindow();
     renderSlots();
-    updateConfirmBox();
+    hidePaymentStage();
   }
 
   function renderSlots() {
@@ -739,30 +740,16 @@
   });
   slotSelect.addEventListener('change', () => {
     selectedSlot = slotSelect.value || null;
-    updateConfirmBox();
   });
   slotNextBtn.addEventListener('click', () => {
     if (selectedDateIdx === null || !selectedSlot) {
       alert('Please select a date and time slot before continuing.');
       return;
     }
-    cards[2].scrollIntoView({ behavior: 'smooth' });
+    showPaymentStage();
   });
   renderDateWindow();
   renderSlots();
-
-  function updateConfirmBox() {
-    const box = document.getElementById('confirmBox');
-    if (selectedDateIdx !== null && selectedSlot) {
-      const d = dates[selectedDateIdx];
-      document.getElementById('confirmDate').textContent = `${DOW[d.getDay()]}, ${d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`;
-      document.getElementById('confirmTime').textContent = selectedSlot;
-      document.getElementById('confirmLocation').textContent = fittingType === 'mobile' ? 'Your Location (Norfolk)' : 'Norwich Central Workshop';
-      box.classList.add('active');
-    } else {
-      box.classList.remove('active');
-    }
-  }
 
   // ---- Payment method toggle ----
   const payOnline = document.getElementById('payOnline');
@@ -800,30 +787,6 @@
   }, { threshold: 0.4 });
   cards.forEach(c => observer.observe(c));
 
-  // ---- Continue button: validates required fields before allowing "payment" ----
-  document.getElementById('continueBtn').addEventListener('click', () => {
-    if (selectedDateIdx === null || !selectedSlot) {
-      alert('Please select a date and time slot before continuing.');
-      cards[1].scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-    const fullName = document.getElementById('fullName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const reg = document.getElementById('vehicleReg').value.trim();
-    if (!fullName || !email || !phone || !reg) {
-      alert('Please complete your contact and vehicle details.');
-      cards[2].scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-    if (!document.getElementById('agreeTerms').checked) {
-      alert('Please agree to the booking terms and conditions to continue.');
-      cards[2].scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-    // Payment is UI-only in this build — no real charge is made.
-    alert('This is a UI demo — no payment has been taken. In production this would submit to Stripe.');
-  });
 })();
 </script>
 

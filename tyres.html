@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Find Tyres | GoGo Tyre Norwich</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Figtree', sans-serif; background: #f5f2ed; color: #2a2d2e; }
@@ -880,13 +880,25 @@
     button.addEventListener('click', () => setSearchMode(button.dataset.searchMode));
   });
 
-  // Hero search actions now scroll to the in-page results instead of navigating away
+  function scrollToResults() {
+    const results = document.getElementById('resultsSection');
+    const nav = document.querySelector('nav');
+    if (!results) return;
+
+    const top = results.getBoundingClientRect().top + window.pageYOffset - ((nav && nav.offsetHeight) || 0) - 12;
+    window.scrollTo({
+      top,
+      behavior: reduceMotion.matches ? 'auto' : 'smooth'
+    });
+  }
+
+  // Hero search actions now move to the in-page results instead of navigating away
   document.getElementById('regForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    scrollToResults();
   });
   document.getElementById('findManualBtn').addEventListener('click', () => {
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    scrollToResults();
   });
 
   // ===== Filters + compare (same logic as the former tyre-results.html) =====
